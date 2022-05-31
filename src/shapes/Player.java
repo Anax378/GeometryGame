@@ -147,7 +147,6 @@ public class Player implements Serializable {
 
         if(toReturn[0]){
             if(lppy > p1[1] & lppy < p2[1]){toReturn[1] = true;}
-            System.out.println(toReturn[1]);
         }
 
 

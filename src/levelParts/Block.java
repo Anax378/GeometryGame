@@ -23,7 +23,7 @@ public class Block {
 
     public BufferedImage renderOnImage (BufferedImage image){
 
-        if(p1 != null & p2 != null & p3 != null & p3 != null) {exists = false;}
+        if(p1 == null | p2 == null | p3 == null | p3 == null) {exists = false;}else{exists = true;}
         if(exists) {
             Graphics2D g2d = image.createGraphics();
             g2d.setPaint(renderColor);

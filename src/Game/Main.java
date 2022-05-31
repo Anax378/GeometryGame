@@ -55,6 +55,8 @@ public class Main {
         lineXLineSegmentCrossections.add(new LineXLineSegmentCrossection(player.position, points.get(2).position,points.get(0).position,points.get(2).position, Color.GREEN, 10));
         lineSegmentXLineSegmentCrossections.add(new LineSegmentXLineSegmentCrossection(points.get(3).position, points.get(4).position, player.position, points.get(2).position, Color.BLACK, 10));
 
+        blocks.add(new Block(new Integer[]{100, 100}, new Integer[]{30, 82}, new Integer[]{60, 25}, new Integer[]{200, 300}, Color.BLACK));
+
         Level level1 = new Level(
                 points,
                 lineSegments,

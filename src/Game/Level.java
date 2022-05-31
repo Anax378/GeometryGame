@@ -1,5 +1,6 @@
 package Game;
 
+import levelParts.Block;
 import shapes.*;
 import shapes.Point;
 
@@ -19,6 +20,8 @@ public class Level implements Serializable {
     public List<LineXLineCrossection> lineXLineCrossections;
     public List<LineXLineSegmentCrossection> lineXLineSegmentCrossections;
     public List<LineSegmentXLineSegmentCrossection> lineSegmentXLineSegmentCrossections;
+    public List<Block> blocks;
+
     public Player player;
 
     public Level(List<Point> points,
@@ -30,6 +33,7 @@ public class Level implements Serializable {
                  List<LineXLineCrossection> lineXLineCrossections,
                  List<LineXLineSegmentCrossection> lineXLineSegmentCrossections,
                  List<LineSegmentXLineSegmentCrossection> lineSegmentXLineSegmentCrossections,
+                 List<Block> blocks,
                  Player player
                  ){
 
@@ -43,6 +47,7 @@ public class Level implements Serializable {
         this.lineXLineSegmentCrossections = lineXLineSegmentCrossections;
         this.lineSegmentXLineSegmentCrossections = lineSegmentXLineSegmentCrossections;
         this.player = player;
+        this.blocks = blocks;
 
 
 
@@ -58,7 +63,7 @@ public class Level implements Serializable {
         g.fillRect(0, 0, Main.w.width, Main.w.height);
 
         int objectsFailedtorender = 0;
-
+        for(int i = 0;i < blocks.size(); i++){frame = blocks.get(i).renderOnImage(frame);if(!blocks.get(i).exists){objectsFailedtorender++;}}
         for(int i = 0;i < circles.size(); i++){frame = circles.get(i).renderOnImage(frame);if(!circles.get(i).exists){objectsFailedtorender++;}}
         for(int i = 0;i < diameterCircles.size(); i++){frame = diameterCircles.get(i).renderOnImage(frame);if(!diameterCircles.get(i).exists){objectsFailedtorender++;}}
         for(int i = 0;i < lines.size(); i++){frame = lines.get(i).renderOnImage(frame);if(!lines.get(i).exists){objectsFailedtorender++;}}

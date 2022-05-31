@@ -1,5 +1,6 @@
 package Game;
 
+import levelParts.Block;
 import shapes.*;
 import shapes.Point;
 
@@ -26,6 +27,8 @@ public class Main {
     public static List<LineXLineSegmentCrossection> lineXLineSegmentCrossections = new ArrayList<>();
     public static List<LineSegmentXLineSegmentCrossection> lineSegmentXLineSegmentCrossections = new ArrayList<>();
     public static List<Level> levels = new ArrayList<>();
+    public static List<Block> blocks = new ArrayList<>();
+    public static Player player;
 
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
@@ -33,7 +36,7 @@ public class Main {
 
         w = new Window();
 
-        Player player = new Player(new Integer[]{200, 500}, new Color(49, 157, 235), 10);
+        player = new Player(new Integer[]{200, 500}, new Color(49, 157, 235), 10);
 
         points.add(new Point(new Integer[]{150, 100}, Color.YELLOW, 10)); //new Integer[]{150, 100}     //0
         points.add(new Point(new Integer[]{300, 200}, Color.ORANGE, 10));//new Integer[]{300, 200}      //1
@@ -62,6 +65,7 @@ public class Main {
                 libeXLineCrossections,
                 lineXLineSegmentCrossections,
                 lineSegmentXLineSegmentCrossections,
+                blocks,
                 player);
 
         levels.add(level1);

@@ -107,7 +107,6 @@ public class Player implements Serializable {
             Ellipse2D.Double circle = new Ellipse2D.Double(position[0] - (diameter / 2), position[1] - (diameter / 2), diameter, diameter);
             g2d.fill(circle);
         }
-
         return image;
 
     }

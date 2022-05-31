@@ -18,6 +18,8 @@ public class Player implements Serializable {
 
     public Color renderColor;
     public Integer[] position;
+    public Float[] lastPhysicalPosition;
+
     public int diameter;
     public int horizontalInput = 0;
     public boolean mouseInHitbox = false;
@@ -31,6 +33,7 @@ public class Player implements Serializable {
         this.renderColor = renderColor;
         this.diameter = diameter;
         this.velocity = new Float[]{0f, 0f};
+        this.lastPhysicalPosition = new Float[]{position[0].floatValue(), position[1].floatValue()};
 
     }
 
@@ -53,14 +56,25 @@ public class Player implements Serializable {
         velocity[0] = velocity[0] + acceleration[0]*t;
         velocity[1] = velocity[1] + acceleration[1]*t;
 
-        if(physicsPosition[0] < (float) diameter/2f){physicsPosition[0] = (float) diameter/2f; velocity[0] = 0f;}
+        if(physicsPosition[0] < (float) diameter/2f) {physicsPosition[0] = (float) diameter/2f; velocity[0] = 0f;}
         if(physicsPosition[0] > (float) Main.w.width - (float) diameter/2f){physicsPosition[0] = (float) Main.w.width - diameter/2f;velocity[0] = 0f;}
         if(physicsPosition[1] < (float) diameter/2f){physicsPosition[1] = (float) diameter/2f;velocity[1] = 0f;}
         if(physicsPosition[1] > (float) Main.w.height - (float) diameter/2f){physicsPosition[1] = (float) Main.w.height - diameter/2f;velocity[1] = 0f;}
 
+        velocity[0] = velocity[0] - 500f * -horizontalInput;
+
+        for(int i = 0; i < Main.currentLevel.blocks.size(); i++){
+            boolean[] result = isInRectangle(new float[] {physicsPosition[0], physicsPosition[1]}, new float[]{Main.currentLevel.blocks.get(i).p1[0], Main.currentLevel.blocks.get(i).p1[1]}, new float[]{Main.currentLevel.blocks.get(i).p2[0], Main.currentLevel.blocks.get(i).p2[1]}, lastPhysicalPosition[1]);
+            if(result[0]){
+                physicsPosition = new Float[]{lastPhysicalPosition[0], lastPhysicalPosition[1]};
+
+                if(result[1]){velocity[0] = 0f;}else{velocity[1] = 0f;}
+            }
+        }
+
         if(Main.w.mouseDown & lastClickedCount != Main.w.clickCount){velocity[1] = velocity[1] - 1000f;Main.w.isSpaceDown = false;}
 
-        velocity[0] = velocity[0] - 500f * -horizontalInput;
+
 
         float speedLimit = 500f;
 
@@ -74,6 +88,7 @@ public class Player implements Serializable {
         position[1] = Math.round(physicsPosition[1]);
 
         lastClickedCount = Main.w.clickCount;
+        lastPhysicalPosition = new Float[]{physicsPosition[0], physicsPosition[1]};
 
 
 /*
@@ -97,6 +112,8 @@ public class Player implements Serializable {
             }
         }
 */
+
+
     }
 
     public BufferedImage renderOnImage(BufferedImage image){
@@ -111,20 +128,30 @@ public class Player implements Serializable {
 
     }
 
-    public boolean isInRectangle(int[] p, int[] p1, int[] p2){
-        int cornerXPlus;
-        int cornerXMinus;
+    public boolean[] isInRectangle(float[] p, float[] p1, float[] p2, float lppy){
 
-        int cornerYPlus;
-        int cornerYMinus;
+        boolean[] toReturn = new boolean[]{false, false};
+        float cornerXPlus;
+        float cornerXMinus;
 
-        int x = p[0];
-        int y = p[1];
+        float cornerYPlus;
+        float cornerYMinus;
+
+        float x = p[0];
+        float y = p[1];
 
         if(p1[0] < p2[0]){cornerXPlus = p2[0];cornerXMinus = p1[0];}else{cornerXPlus = p1[0];cornerXMinus = p2[0];}
         if(p1[1] < p2[1]){cornerYPlus = p2[1];cornerYMinus = p1[1];}else{cornerYPlus = p1[1];cornerYMinus = p2[1];}
 
-        return cornerXMinus <= x & x <= cornerXPlus & cornerYMinus <= y & y <= cornerYPlus;
+        toReturn[0] = cornerXMinus <= x & x <= cornerXPlus & cornerYMinus <= y & y <= cornerYPlus;
+
+        if(toReturn[0]){
+            if(lppy > p1[1] & lppy < p2[1]){toReturn[1] = true;}
+            System.out.println(toReturn[1]);
+        }
+
+
+        return toReturn;
 
 
     }

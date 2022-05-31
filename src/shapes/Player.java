@@ -111,5 +111,23 @@ public class Player implements Serializable {
 
     }
 
+    public boolean isInRectangle(int[] p, int[] p1, int[] p2){
+        int cornerXPlus;
+        int cornerXMinus;
+
+        int cornerYPlus;
+        int cornerYMinus;
+
+        int x = p[0];
+        int y = p[1];
+
+        if(p1[0] < p2[0]){cornerXPlus = p2[0];cornerXMinus = p1[0];}else{cornerXPlus = p1[0];cornerXMinus = p2[0];}
+        if(p1[1] < p2[1]){cornerYPlus = p2[1];cornerYMinus = p1[1];}else{cornerYPlus = p1[1];cornerYMinus = p2[1];}
+
+        return cornerXMinus <= x & x <= cornerXPlus & cornerYMinus <= y & y <= cornerYPlus;
+
+
+    }
+
 }
 

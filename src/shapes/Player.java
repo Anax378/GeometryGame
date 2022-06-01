@@ -62,6 +62,12 @@ public class Player implements Serializable {
         if(physicsPosition[1] > (float) Main.w.height - (float) diameter/2f){physicsPosition[1] = (float) Main.w.height - diameter/2f;velocity[1] = 0f;}
 
         velocity[0] = velocity[0] - 500f * -horizontalInput;
+        if(Main.w.mouseDown & lastClickedCount != Main.w.clickCount){velocity[1] = velocity[1] - 1000f;Main.w.isSpaceDown = false;}
+
+        float speedLimit = 500f;
+
+        if(velocity[0] > speedLimit){velocity[0] = speedLimit;}
+        if(velocity[0] < -speedLimit){velocity[0] = -speedLimit;}
 
         for(int i = 0; i < Main.currentLevel.blocks.size(); i++){
             boolean[] result = isInRectangle(new float[] {physicsPosition[0], physicsPosition[1]}, new float[]{Main.currentLevel.blocks.get(i).p1[0], Main.currentLevel.blocks.get(i).p1[1]}, new float[]{Main.currentLevel.blocks.get(i).p2[0], Main.currentLevel.blocks.get(i).p2[1]}, lastPhysicalPosition[1]);
@@ -72,14 +78,10 @@ public class Player implements Serializable {
             }
         }
 
-        if(Main.w.mouseDown & lastClickedCount != Main.w.clickCount){velocity[1] = velocity[1] - 1000f;Main.w.isSpaceDown = false;}
 
 
 
-        float speedLimit = 500f;
 
-        if(velocity[0] > speedLimit){velocity[0] = speedLimit;}
-        if(velocity[0] < -speedLimit){velocity[0] = -speedLimit;}
 
 
 
@@ -146,7 +148,7 @@ public class Player implements Serializable {
         toReturn[0] = cornerXMinus <= x & x <= cornerXPlus & cornerYMinus <= y & y <= cornerYPlus;
 
         if(toReturn[0]){
-            if(lppy > p1[1] & lppy < p2[1]){toReturn[1] = true;}
+            if(lppy >= p1[1] & lppy <= p2[1]){toReturn[1] = true;}
         }
 
 

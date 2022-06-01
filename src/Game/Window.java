@@ -41,7 +41,7 @@ public class Window {
 
         frame.add(panel);
         frame.setSize(width + 12, height + 42);
-        frame.setResizable(false);
+        frame.setResizable(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
 

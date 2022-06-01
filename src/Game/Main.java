@@ -29,9 +29,11 @@ public class Main {
     public static List<Level> levels = new ArrayList<>();
     public static List<Block> blocks = new ArrayList<>();
     public static Player player;
+    public static int ticksPerSecond = tps;
+    public static int ticksPerSecondC = 0;
 
 
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
+    public static void main(String[] args){
 
 
         w = new Window();
@@ -40,7 +42,7 @@ public class Main {
 
         points.add(new Point(new Integer[]{150, 100}, Color.YELLOW, 10)); //new Integer[]{150, 100}     //0
         points.add(new Point(new Integer[]{300, 200}, Color.ORANGE, 10));//new Integer[]{300, 200}      //1
-        points.add(new Point(new Integer[]{200, 200}, Color.MAGENTA, 10));//new Integer[]{300, 200}     //2
+        points.add(new Point(new Integer[]{250, 200}, Color.MAGENTA, 10));//new Integer[]{300, 200}     //2
         points.add(new Point(new Integer[]{100, 400}, Color.BLACK, 10));                                //3
         points.add(new Point(new Integer[]{400, 400}, Color.GRAY, 10));                                 //4
         points.add(new Point(new Integer[]{0, 0}, Color.GRAY, 10));                                 //5
@@ -122,6 +124,7 @@ public class Main {
                     currentLevel = levels.get(currentLevelID);
                 }
                 if(System.currentTimeMillis() - startTime >= 1000/tps){
+                    ticksPerSecondC++;
                     player.update();
                     startTime = System.currentTimeMillis();
                 }
@@ -141,7 +144,10 @@ public class Main {
             }
             if(System.currentTimeMillis() - start > 1000){
                 start = System.currentTimeMillis();
-                System.out.println("#".repeat(fps/100) + " ".repeat(35 - (fps/100)) + "|" + fps + " fps");
+                System.out.println("#".repeat(fps/100) + " ".repeat(35 - (fps/100)) + "|" + fps + " fps \t |  " + ticksPerSecondC + " tps");
+                ticksPerSecond = ticksPerSecondC;
+                ticksPerSecondC = 0;
+
                 fps = 0;
             }
         }
@@ -160,7 +166,7 @@ public class Main {
     public static Object serializeDataIn(String fileName) throws IOException, ClassNotFoundException {
         FileInputStream fin = new FileInputStream(fileName);
         ObjectInputStream ois = new ObjectInputStream(fin);
-        Object iHandler= (Object) ois.readObject();
+        Object iHandler = ois.readObject();
         ois.close();
         return iHandler;
     }

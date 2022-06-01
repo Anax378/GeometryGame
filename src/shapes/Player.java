@@ -42,7 +42,7 @@ public class Player implements Serializable {
 
         if(Main.w.isDDown){horizontalInput++;}
         if(Main.w.isADown){horizontalInput--;}
-        float t = 1f/Game.Main.tps;
+        float t = 1f/ Main.tps;
 
 
 

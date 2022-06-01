@@ -23,7 +23,7 @@ public class Main {
     public static List<Circle> circles = new ArrayList<>();
     public static List<DiameterCircle> diameterCircles = new ArrayList<>();
     public static List<Line> lines = new ArrayList<>();
-    public static List<LineXLineCrossection> libeXLineCrossections = new ArrayList<>();
+    public static List<LineXLineCrossection> lineXLineCrossections = new ArrayList<>();
     public static List<LineXLineSegmentCrossection> lineXLineSegmentCrossections = new ArrayList<>();
     public static List<LineSegmentXLineSegmentCrossection> lineSegmentXLineSegmentCrossections = new ArrayList<>();
     public static List<Level> levels = new ArrayList<>();
@@ -66,7 +66,7 @@ public class Main {
                 circles,
                 diameterCircles,
                 lines,
-                libeXLineCrossections,
+                lineXLineCrossections,
                 lineXLineSegmentCrossections,
                 lineSegmentXLineSegmentCrossections,
                 blocks,
@@ -98,7 +98,6 @@ public class Main {
 
         while(true) {       //  frame loop
             fps++;
-            java.awt.Point mousePosition = w.frame.getMousePosition();
 
             if(w.isEscDown){isInMenu = true;}
 

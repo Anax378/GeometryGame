@@ -25,6 +25,7 @@ public class Player implements Serializable {
     public boolean mouseInHitbox = false;
     public boolean exists;
     public int inputImpact = 1;
+    public boolean canJump = false;
 
 
     public Player(Integer[] position, Color renderColor, int diameter){
@@ -74,7 +75,8 @@ public class Player implements Serializable {
             if(result[0]){
                 physicsPosition = new Float[]{lastPhysicalPosition[0], lastPhysicalPosition[1]};
 
-                if(result[1]){velocity[0] = 0f;}else{velocity[1] = 0f;}
+                if(result[1]){velocity[0] = 0f;}
+                if(!result[1]){velocity[1] = 0f;}
             }
         }
 
@@ -157,5 +159,38 @@ public class Player implements Serializable {
 
     }
 
+    public Float[] lineXLineSegmentIntersection(float[] p1, float[] p2, float[] p3, float[] p4){
+        float x1 = p1[0];
+        float x2 = p2[0];
+        float x3 = p3[0];
+        float x4 = p4[0];
+
+        float y1 = p1[1];
+        float y2 = p2[1];
+        float y3 = p3[1];
+        float y4 = p4[1];
+
+
+
+        float d = (x1 - x2) * (y3 - y4 )- (y1 - y2)*(x3 - x4);
+        if(d == 0){return new Float[]{null, null};}
+
+        float x = ((x1 * y2 - y1 * x2) * (x3 - x4) - (x1 - x2) * (x3 * y4 - y3)) / d;
+        float y = ((x1 * y2 - y1 * x2) * (y3 - y4) - (y1 - y2) * (x3 * y4 - y3 * x4)) / d;
+
+        float cornerXPlus;
+        float cornerXMinus;
+
+        float cornerYPlus;
+        float cornerYMinus;
+
+        if(p3[0] < p4[0]){cornerXPlus = p4[0];cornerXMinus = p3[0];}else{cornerXPlus = p3[0];cornerXMinus = p4[0];}
+        if(p3[1] < p4[1]){cornerYPlus = p4[1];cornerYMinus = p3[1];}else{cornerYPlus = p3[1];cornerYMinus = p4[1];}
+
+        if(cornerXMinus <= x & x <= cornerXPlus & cornerYMinus <= y & y <= cornerYPlus ){return new Float[]{x, y};}else{return new Float[]{null, null};}
+
+    }
+
 }
+
 

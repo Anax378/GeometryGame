@@ -62,6 +62,18 @@ public class Player implements Serializable {
         if(physicsPosition[1] < (float) diameter/2f){physicsPosition[1] = (float) diameter/2f;velocity[1] = 0f;}
         if(physicsPosition[1] > (float) Main.w.height - (float) diameter/2f){physicsPosition[1] = (float) Main.w.height - diameter/2f;velocity[1] = 0f;}
 
+
+
+        for(int i = 0; i < Main.currentLevel.blocks.size(); i++){
+            boolean[] result = isInRectangle(new float[] {physicsPosition[0], physicsPosition[1]}, new float[]{Main.currentLevel.blocks.get(i).p1[0], Main.currentLevel.blocks.get(i).p1[1]}, new float[]{Main.currentLevel.blocks.get(i).p2[0], Main.currentLevel.blocks.get(i).p2[1]}, lastPhysicalPosition[1]);
+            if(result[0]){
+                //physicsPosition = new Float[]{lastPhysicalPosition[0], lastPhysicalPosition[1]};
+
+                if(result[1]){velocity[0] = 0f;physicsPosition = new Float[]{lastPhysicalPosition[0], physicsPosition[1]};}
+                if(!result[1]){velocity[1] = 0f;physicsPosition = new Float[]{physicsPosition[0], lastPhysicalPosition[1]};}
+            }
+        }
+
         velocity[0] = velocity[0] - 500f * -horizontalInput;
         if(Main.w.mouseDown & lastClickedCount != Main.w.clickCount){velocity[1] = velocity[1] - 1000f;Main.w.isSpaceDown = false;}
 
@@ -69,16 +81,6 @@ public class Player implements Serializable {
 
         if(velocity[0] > speedLimit){velocity[0] = speedLimit;}
         if(velocity[0] < -speedLimit){velocity[0] = -speedLimit;}
-
-        for(int i = 0; i < Main.currentLevel.blocks.size(); i++){
-            boolean[] result = isInRectangle(new float[] {physicsPosition[0], physicsPosition[1]}, new float[]{Main.currentLevel.blocks.get(i).p1[0], Main.currentLevel.blocks.get(i).p1[1]}, new float[]{Main.currentLevel.blocks.get(i).p2[0], Main.currentLevel.blocks.get(i).p2[1]}, lastPhysicalPosition[1]);
-            if(result[0]){
-                physicsPosition = new Float[]{lastPhysicalPosition[0], lastPhysicalPosition[1]};
-
-                if(result[1]){velocity[0] = 0f;}
-                if(!result[1]){velocity[1] = 0f;}
-            }
-        }
 
 
 
@@ -147,7 +149,7 @@ public class Player implements Serializable {
         if(p1[0] < p2[0]){cornerXPlus = p2[0];cornerXMinus = p1[0];}else{cornerXPlus = p1[0];cornerXMinus = p2[0];}
         if(p1[1] < p2[1]){cornerYPlus = p2[1];cornerYMinus = p1[1];}else{cornerYPlus = p1[1];cornerYMinus = p2[1];}
 
-        toReturn[0] = cornerXMinus <= x & x <= cornerXPlus & cornerYMinus <= y & y <= cornerYPlus;
+        toReturn[0] = cornerXMinus < x & x < cornerXPlus & cornerYMinus < y & y < cornerYPlus;
 
         if(toReturn[0]){
             if(lppy >= p1[1] & lppy <= p2[1]){toReturn[1] = true;}

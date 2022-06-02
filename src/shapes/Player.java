@@ -73,7 +73,7 @@ public class Player implements Serializable {
         }
 
         velocity[0] = velocity[0] - 500f * -horizontalInput;
-        if(Main.w.mouseDown & lastClickedCount != Main.w.clickCount & canJump){velocity[1] = velocity[1] - 1000f;Main.w.isSpaceDown = false;}
+        if(Main.w.isSpaceDown & canJump){velocity[1] = velocity[1] - 500f;Main.w.isSpaceDown = false;}
 
         float speedLimit = 500f;
 

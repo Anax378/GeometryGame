@@ -24,7 +24,6 @@ public class Player implements Serializable {
     public int horizontalInput = 0;
     public boolean mouseInHitbox = false;
     public boolean exists;
-    public int inputImpact = 1;
     public boolean canJump = false;
 
 
@@ -40,27 +39,26 @@ public class Player implements Serializable {
 
     public void update(){
         horizontalInput = 0;
+        canJump = false;
 
         if(Main.w.isDDown){horizontalInput++;}
         if(Main.w.isADown){horizontalInput--;}
+
         float t = 1f/ Main.tps;
-
-
 
         velocity[0] = velocity[0] * 0.9f;
         velocity[1] = velocity[1] * 0.988f;
 
-        physicsPosition[0] = physicsPosition[0]+velocity[0]*t;
-        physicsPosition[1] = physicsPosition[1]+velocity[1]*t;
-
-
         velocity[0] = velocity[0] + acceleration[0]*t;
         velocity[1] = velocity[1] + acceleration[1]*t;
 
+        physicsPosition[0] = physicsPosition[0]+velocity[0]*t;
+        physicsPosition[1] = physicsPosition[1]+velocity[1]*t;
+
         if(physicsPosition[0] < (float) diameter/2f) {physicsPosition[0] = (float) diameter/2f; velocity[0] = 0f;}
         if(physicsPosition[0] > (float) Main.w.width - (float) diameter/2f){physicsPosition[0] = (float) Main.w.width - diameter/2f;velocity[0] = 0f;}
-        if(physicsPosition[1] < (float) diameter/2f){physicsPosition[1] = (float) diameter/2f;velocity[1] = 0f;}
-        if(physicsPosition[1] > (float) Main.w.height - (float) diameter/2f){physicsPosition[1] = (float) Main.w.height - diameter/2f;velocity[1] = 0f;}
+        if(physicsPosition[1] < (float) diameter/2f){physicsPosition[1] = (float) diameter/2f;velocity[1] = 0f;canJump = true;}
+        if(physicsPosition[1] > (float) Main.w.height - (float) diameter/2f){physicsPosition[1] = (float) Main.w.height - diameter/2f;velocity[1] = 0f;canJump = true;}
 
 
 
@@ -70,12 +68,12 @@ public class Player implements Serializable {
                 //physicsPosition = new Float[]{lastPhysicalPosition[0], lastPhysicalPosition[1]};
 
                 if(result[1]){velocity[0] = 0f;physicsPosition = new Float[]{lastPhysicalPosition[0], physicsPosition[1]};}
-                if(!result[1]){velocity[1] = 0f;physicsPosition = new Float[]{physicsPosition[0], lastPhysicalPosition[1]};}
+                if(!result[1]){velocity[1] = 0f;physicsPosition = new Float[]{physicsPosition[0], lastPhysicalPosition[1]};canJump = true;}
             }
         }
 
         velocity[0] = velocity[0] - 500f * -horizontalInput;
-        if(Main.w.mouseDown & lastClickedCount != Main.w.clickCount){velocity[1] = velocity[1] - 1000f;Main.w.isSpaceDown = false;}
+        if(Main.w.mouseDown & lastClickedCount != Main.w.clickCount & canJump){velocity[1] = velocity[1] - 1000f;Main.w.isSpaceDown = false;}
 
         float speedLimit = 500f;
 

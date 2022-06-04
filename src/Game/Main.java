@@ -59,6 +59,7 @@ public class Main {
 
         blocks.add(new Block(new Integer[]{0, 590}, new Integer[]{100, 600}, new Color(200, 200, 200)));
         blocks.add(new Block(new Integer[]{182, 545}, new Integer[]{322, 574}, new Color(200, 200, 200)));
+        blocks.add(new Block(new Integer[]{310, 500}, new Integer[]{350, 574}, new Color(200, 200, 200)));
 
         points.add(new Point(blocks.get(1).p1, new Color(200, 200, 200), 10));
         points.add(new Point(blocks.get(1).p2, new Color(100, 100, 100), 10));

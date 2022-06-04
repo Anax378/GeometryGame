@@ -66,9 +66,14 @@ public class Player implements Serializable {
             boolean[] result = isInRectangle(new float[] {physicsPosition[0], physicsPosition[1]}, new float[]{Main.currentLevel.blocks.get(i).p1[0], Main.currentLevel.blocks.get(i).p1[1]}, new float[]{Main.currentLevel.blocks.get(i).p2[0], Main.currentLevel.blocks.get(i).p2[1]}, lastPhysicalPosition[1]);
             if(result[0]){
                 //physicsPosition = new Float[]{lastPhysicalPosition[0], lastPhysicalPosition[1]};
+                if(!result[1] && !result[2]){physicsPosition = new Float[]{physicsPosition[0], Main.currentLevel.blocks.get(i).p2[1].floatValue()};}
+                if(!result[1] && result[2]){physicsPosition = new Float[]{physicsPosition[0], Main.currentLevel.blocks.get(i).p1[1].floatValue()};canJump = true;}
+                if(result[1] && !result[2]){physicsPosition = new Float[]{Main.currentLevel.blocks.get(i).p2[0].floatValue(), physicsPosition[1]};}
+                if(result[1] && result[2]){physicsPosition = new Float[]{Main.currentLevel.blocks.get(i).p1[0].floatValue(), physicsPosition[1]};}
 
-                if(result[1]){velocity[0] = 0f;physicsPosition = new Float[]{lastPhysicalPosition[0], physicsPosition[1]};}
-                if(!result[1]){velocity[1] = 0f;physicsPosition = new Float[]{physicsPosition[0], lastPhysicalPosition[1]};canJump = true;}
+                if(result[1]){velocity[0] = 0f;}
+                if(!result[1]){velocity[1] = 0f;}
+
             }
         }
 
@@ -134,7 +139,7 @@ public class Player implements Serializable {
 
     public boolean[] isInRectangle(float[] p, float[] p1, float[] p2, float lppy){
 
-        boolean[] toReturn = new boolean[]{false, false};
+        boolean[] toReturn = new boolean[]{false, false, false};
         float cornerXPlus;
         float cornerXMinus;
 
@@ -150,8 +155,15 @@ public class Player implements Serializable {
         toReturn[0] = cornerXMinus < x & x < cornerXPlus & cornerYMinus < y & y < cornerYPlus;
 
         if(toReturn[0]){
-            if(lppy >= p1[1] & lppy <= p2[1]){toReturn[1] = true;}
+            if(lppy > p1[1] & lppy < p2[1]){toReturn[1] = true;}
+        float blockCornersDistanceX = Math.abs(p1[0] - p2[0]);
+        float blockCornersDistanceY = Math.abs(p1[1] - p2[1]);
+
+        if(toReturn[1]){if(Math.abs(p1[0] - p[0]) < (blockCornersDistanceX/2)){toReturn[2] = true;}}
+
+        else{if(Math.abs(p1[1] - p[1]) < (blockCornersDistanceY/2)){toReturn[2] = true;}}
         }
+
 
 
         return toReturn;

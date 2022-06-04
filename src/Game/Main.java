@@ -63,6 +63,8 @@ public class Main {
         points.add(new Point(blocks.get(1).p1, new Color(200, 200, 200), 10));
         points.add(new Point(blocks.get(1).p2, new Color(100, 100, 100), 10));
 
+        diameterCircles.add(new DiameterCircle(points.get(6).position, 40, Color.GREEN));
+
         Level level1 = new Level(
                 points,
                 lineSegments,
@@ -74,7 +76,15 @@ public class Main {
                 lineXLineSegmentCrossections,
                 lineSegmentXLineSegmentCrossections,
                 blocks,
-                player);
+                player){
+            @Override
+            public boolean reachedObjective() {
+                if(diameterCircles.get(1).exists) {
+                    return isInCircle(new float[]{player.position[0], player.position[1]}, new float[]{diameterCircles.get(1).center[0], diameterCircles.get(1).center[1]}, diameterCircles.get(1).diameter);
+                }
+                return false;
+            }
+        };
 
         levels.add(level1);
 
@@ -94,7 +104,7 @@ public class Main {
 
         int fps = 0;
         long start = System.currentTimeMillis();
-
+        boolean won = false;
         boolean isInMenu = true;
         Menu menu = new Menu(levels.size());
 
@@ -126,12 +136,6 @@ public class Main {
                     //levels.set(currentLevelID, (Level)serializeDataIn("level" + currentLevelID));
                     currentLevel = levels.get(currentLevelID);
                 }
-                if(System.currentTimeMillis() - startTime >= 1000/tps){
-                    ticksPerSecondC++;
-                    player.update();
-                    startTime = System.currentTimeMillis();
-                }
-
 
                 for (int i = 0; i < currentLevel.midPoints.size(); i++) {currentLevel.midPoints.get(i).update();}
                 for (int i = 0; i < currentLevel.circles.size(); i++) {currentLevel.circles.get(i).update();}
@@ -141,9 +145,24 @@ public class Main {
                 for (int i = 0; i < currentLevel.lineSegmentXLineSegmentCrossections.size(); i++) {currentLevel.lineSegmentXLineSegmentCrossections.get(i).update();}
 
                 w.setImage(currentLevel.getFrame());
-                if(currentLevel.reachedObjective()){
-                    if(currentLevelID + 1 < levels.size()){currentLevel = levels.get(currentLevelID + 1); currentLevelID++;}
+
+
+                if(System.currentTimeMillis() - startTime >= 1000/tps){
+                    ticksPerSecondC++;
+                    player.update();
+                    startTime = System.currentTimeMillis();
                 }
+
+                if(currentLevel.reachedObjective()){
+                    if(currentLevelID + 1 < levels.size()){currentLevel = levels.get(currentLevelID + 1); currentLevelID++;
+                    }else{
+                        //isInMenu = true;
+                    }
+                    //levels.set(currentLevelID, (Level)serializeDataIn("level" + currentLevelID));
+                }
+
+
+
             }
             if(System.currentTimeMillis() - start > 1000){
                 start = System.currentTimeMillis();

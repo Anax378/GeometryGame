@@ -87,4 +87,11 @@ public class Level implements Serializable {
 
     }
 
+    public static boolean isInCircle(float[] position,float[] center, float diameter){
+        float a = Math.abs(position[0] - center[0]);
+        float b = Math.abs(position[1] - center[1]);
+        double distance = Math.sqrt(a*a + b*b);
+        return distance < diameter;
+    }
+
 }

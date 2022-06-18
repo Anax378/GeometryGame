@@ -86,13 +86,6 @@ public class Player implements Serializable {
         if(velocity[0] < -speedLimit){velocity[0] = -speedLimit;}
 
 
-
-
-
-
-
-
-
         position[0] = Math.round(physicsPosition[0]);
         position[1] = Math.round(physicsPosition[1]);
 

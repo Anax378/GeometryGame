@@ -5,15 +5,15 @@ import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 
 public class CircleXLineCrossection {
-    public Integer[] position1 = new Integer[2];
-    public Integer[] position2 = new Integer[2];
+    public Float[] position1 = new Float[]{null, null};
+    public Float[] position2 = new Float[]{null, null};
 
-    public Integer[] p1;
-    public Integer[] p2;
-    public Integer[] centre;
-    public Integer circleDiameter;
+    public Float[] p1;
+    public Float[] p2;
+    public Float[] centre;
+    public Float circleDiameter;
 
-    public int diameter;
+    public float diameter;
 
     public Color renderColor;
 
@@ -21,7 +21,7 @@ public class CircleXLineCrossection {
     public boolean exists2;
     public boolean exists;
 
-    public CircleXLineCrossection (Integer[] p1, Integer[] p2, Integer[] centre, Integer circleDiameter,int diameter, Color renderColor){
+    public CircleXLineCrossection (Float[] p1, Float[] p2, Float[] centre, Float circleDiameter,float diameter, Color renderColor){
         this.p1 = p1;
         this.p2 = p2;
         this.centre = centre;
@@ -44,22 +44,26 @@ public class CircleXLineCrossection {
 
 
 
-            float discriminant = ((circleDiameter.floatValue()/2f)*(circleDiameter.floatValue()/2f) * (dr*dr)) - (d*d);
+            float discriminant = ((circleDiameter/2f)*(circleDiameter/2f) * (dr*dr)) - (d*d);
 
             System.out.println(String.valueOf(discriminant));
 
             if(discriminant < 0f){exists = false; exists1 = false; exists2 = false; position1[0] = null; position1[1] = null; position2[0] = null; position2[1] = null;}
             if(discriminant == 0f){
-                position1[0] = (int) Math.round((d*dy+ sgn(dy)*dx*Math.sqrt(discriminant))/(dr*dr)) + centre[0];
-                position1[1] = (int) Math.round((-d*dx+Math.abs(dy)*Math.sqrt(discriminant))/(dr*dr)) + centre[1];
-                exists2 = false;
+                position1[0] = (float) (d*dy+ sgn(dy)*dx*Math.sqrt(discriminant))/(dr*dr) + centre[0];
+                position1[1] = (float) (-d*dx+Math.abs(dy)*Math.sqrt(discriminant))/(dr*dr) + centre[1];
+
+                position2[0] = (float) (d*dy+ sgn(dy)*dx*Math.sqrt(discriminant))/(dr*dr) + centre[0];
+                position2[1] = (float) (-d*dx+Math.abs(dy)*Math.sqrt(discriminant))/(dr*dr) + centre[1];
+
+                exists2 = true;
                 exists1 = true;
             }
             if (discriminant > 0f){
-                position1[0] = (int) Math.round((d*dy+ sgn(dy)*dx*Math.sqrt(discriminant))/(dr*dr)) + centre[0];
-                position1[1] = (int) Math.round((-d*dx+Math.abs(dy)*Math.sqrt(discriminant))/(dr*dr)) + centre[1];
-                position2[0] = (int) Math.round((d*dy- sgn(dy)*dx*Math.sqrt(discriminant))/(dr*dr)) + centre[0];
-                position2[1] = (int) Math.round((-d*dx-Math.abs(dy)*Math.sqrt(discriminant))/(dr*dr)) + centre[1];
+                position1[0] = (float) (d*dy+ sgn(dy)*dx*Math.sqrt(discriminant))/(dr*dr) + centre[0];
+                position1[1] = (float) (-d*dx+Math.abs(dy)*Math.sqrt(discriminant))/(dr*dr) + centre[1];
+                position2[0] = (float) (d*dy- sgn(dy)*dx*Math.sqrt(discriminant)/(dr*dr)) + centre[0];
+                position2[1] = (float) (-d*dx-Math.abs(dy)*Math.sqrt(discriminant))/(dr*dr) + centre[1];
                 exists1 = true;
                 exists2 = true;
 

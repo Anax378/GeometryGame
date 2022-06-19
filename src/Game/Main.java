@@ -40,14 +40,14 @@ public class Main {
 
         w = new Window();
 
-        player = new Player(new Integer[]{200, 500}, new Color(49, 157, 235), 10);
+        player = new Player(new Float[]{200f, 500f}, new Color(49, 157, 235), 10);
 
-        points.add(new Point(new Integer[]{150, 100}, Color.YELLOW, 10)); //new Integer[]{150, 100}     //0
-        points.add(new Point(new Integer[]{300, 200}, Color.ORANGE, 10));//new Integer[]{300, 200}      //1
-        points.add(new Point(new Integer[]{250, 200}, Color.MAGENTA, 10));//new Integer[]{300, 200}     //2
-        points.add(new Point(new Integer[]{100, 400}, Color.BLACK, 10));                                //3
-        points.add(new Point(new Integer[]{400, 400}, Color.GRAY, 10));                                 //4
-        points.add(new Point(new Integer[]{0, 0}, Color.GRAY, 10));                                 //5
+        points.add(new Point(new Float[]{150f, 100f}, Color.YELLOW, 10)); //new Integer[]{150, 100}     //0
+        points.add(new Point(new Float[]{300f, 200f}, Color.ORANGE, 10));//new Integer[]{300, 200}      //1
+        points.add(new Point(new Float[]{250f, 200f}, Color.MAGENTA, 10));//new Integer[]{300, 200}     //2
+        points.add(new Point(new Float[]{100f, 400f}, Color.BLACK, 10));                                //3
+        points.add(new Point(new Float[]{400f, 400f}, Color.GRAY, 10));                                 //4
+        points.add(new Point(new Float[]{0f, 0f}, Color.GRAY, 10));                                 //5
         lineSegments.add(new LineSegment(player.position, points.get(0).position, Color.BLACK));
         lineSegments.add(new LineSegment(points.get(3).position, points.get(4).position, Color.BLACK));
         midPoints.add(new MidPoint(player.position, points.get(0).position, Color.RED, 10));
@@ -60,10 +60,10 @@ public class Main {
         lineSegmentXLineSegmentCrossections.add(new LineSegmentXLineSegmentCrossection(points.get(3).position, points.get(4).position, player.position, points.get(2).position, Color.BLACK, 10));
 
 
-        blocks.add(new Block(new Integer[]{0, 590}, new Integer[]{100, 600}, new Color(200, 200, 200)));
-        blocks.add(new Block(new Integer[]{182, 545}, new Integer[]{322, 574}, new Color(200, 200, 200)));
-        blocks.add(new Block(new Integer[]{310, 500}, new Integer[]{350, 574}, new Color(200, 200, 200)));
-        blocks.add(new Block(new Integer[]{379, 489}, new Integer[]{461, 510}, new Color(200, 200, 200)));
+        blocks.add(new Block(new Float[]{0f, 590f}, new Float[]{100f, 600f}, new Color(200, 200, 200)));
+        blocks.add(new Block(new Float[]{182f, 545f}, new Float[]{322f, 574f}, new Color(200, 200, 200)));
+        blocks.add(new Block(new Float[]{310f, 500f}, new Float[]{350f, 574f}, new Color(200, 200, 200)));
+        blocks.add(new Block(new Float[]{379f, 489f}, new Float[]{461f, 510f}, new Color(200, 200, 200)));
 
         points.add(new Point(blocks.get(1).p1, new Color(200, 200, 200), 10));
         points.add(new Point(blocks.get(1).p2, new Color(100, 100, 100), 10));

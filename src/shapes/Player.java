@@ -17,7 +17,7 @@ public class Player implements Serializable {
     int lastClickedCount;
 
     public Color renderColor;
-    public Integer[] position;
+    public Float[] position;
     public Float[] lastPhysicalPosition;
 
     public int diameter;
@@ -27,13 +27,13 @@ public class Player implements Serializable {
     public boolean canJump = false;
 
 
-    public Player(Integer[] position, Color renderColor, int diameter){
+    public Player(Float[] position, Color renderColor, int diameter){
         this.position = position;
-        this.physicsPosition = new Float[]{position[0].floatValue(), position[1].floatValue()};
+        this.physicsPosition = new Float[]{position[0], position[1]};
         this.renderColor = renderColor;
         this.diameter = diameter;
         this.velocity = new Float[]{0f, 0f};
-        this.lastPhysicalPosition = new Float[]{position[0].floatValue(), position[1].floatValue()};
+        this.lastPhysicalPosition = new Float[]{position[0], position[1]};
 
     }
 
@@ -86,8 +86,8 @@ public class Player implements Serializable {
         if(velocity[0] < -speedLimit){velocity[0] = -speedLimit;}
 
 
-        position[0] = Math.round(physicsPosition[0]);
-        position[1] = Math.round(physicsPosition[1]);
+        position[0] = physicsPosition[0];
+        position[1] = physicsPosition[1];
 
         lastClickedCount = Main.w.clickCount;
         lastPhysicalPosition = new Float[]{physicsPosition[0], physicsPosition[1]};
@@ -123,7 +123,7 @@ public class Player implements Serializable {
         if(exists) {
             Graphics2D g2d = image.createGraphics();
             g2d.setPaint(renderColor);
-            Ellipse2D.Double circle = new Ellipse2D.Double(position[0] - (diameter / 2), position[1] - (diameter / 2), diameter, diameter);
+            Ellipse2D.Double circle = new Ellipse2D.Double(position[0] - (diameter / 2f), position[1] - (diameter / 2f), diameter, diameter);
             g2d.fill(circle);
         }
         return image;

@@ -7,19 +7,19 @@ import java.io.Serializable;
 
 public class MidPoint implements Serializable {
 
-    public Integer[] p1;
-    public Integer[] p2;
+    public Float[] p1;
+    public Float[] p2;
     public int diameter;
     public Color renderColor;
-    public Integer[] position;
+    public Float[] position;
     public boolean exists;
 
-    public MidPoint(Integer[] p1, Integer[] p2, Color renderColor, int diameter){
+    public MidPoint(Float[] p1, Float[] p2, Color renderColor, int diameter){
         this.p1 = p1;
         this.p2 = p2;
         this.diameter = diameter;
         this.renderColor = renderColor;
-        this.position = new Integer[]{null, null};
+        this.position = new Float[]{null, null};
     }
 
     public void update(){
@@ -36,7 +36,7 @@ public class MidPoint implements Serializable {
             Graphics2D g2d = image.createGraphics();
             g2d.setPaint(renderColor);
 
-            Ellipse2D.Double circle = new Ellipse2D.Double(position[0] - (diameter / 2), position[1] - (diameter / 2), diameter, diameter);
+            Ellipse2D.Double circle = new Ellipse2D.Double(position[0] - (diameter / 2f), position[1] - (diameter / 2f), diameter, diameter);
             g2d.fill(circle);
         }
         return image;

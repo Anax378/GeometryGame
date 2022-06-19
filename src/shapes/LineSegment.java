@@ -6,12 +6,12 @@ import java.io.Serializable;
 
 public class LineSegment implements Serializable {
 
-    public Integer[] p1;
-    public Integer[] p2;
+    public Float[] p1;
+    public Float[] p2;
     public Color renderColor;
     public boolean exists;
 
-    public LineSegment(Integer[] p1, Integer[] p2, Color renderColor) {
+    public LineSegment(Float[] p1, Float[] p2, Color renderColor) {
         this.p1 = p1;
         this.p2 = p2;
         this.renderColor = renderColor;
@@ -24,7 +24,7 @@ public class LineSegment implements Serializable {
         if(exists) {
             Graphics2D g2d = image.createGraphics();
             g2d.setPaint(renderColor);
-            g2d.drawLine(p1[0], p1[1], p2[0], p2[1]);
+            g2d.drawLine(Math.round(p1[0]), Math.round(p1[1]), Math.round(p2[0]), Math.round(p2[1]));
             g2d.dispose();
         }
 

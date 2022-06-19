@@ -8,12 +8,12 @@ import java.io.Serializable;
 
 public class Point implements Serializable {
 
-    public Integer[] position;
+    public Float[] position;
     public Color renderColor;
     public int diameter;
     public boolean exists;
 
-    public Point(Integer[] position, Color renderColor, int diameter){
+    public Point(Float[] position, Color renderColor, int diameter){
         this.position = position;
         this.renderColor = renderColor;
         this.diameter = diameter;
@@ -24,7 +24,7 @@ public class Point implements Serializable {
         if(exists) {
             Graphics2D g2d = image.createGraphics();
             g2d.setPaint(renderColor);
-            Ellipse2D.Double circle = new Ellipse2D.Double(position[0] - (diameter / 2), position[1] - (diameter / 2), diameter, diameter);
+            Ellipse2D.Double circle = new Ellipse2D.Double(position[0] - (diameter / 2f), position[1] - (diameter / 2f), diameter, diameter);
             g2d.fill(circle);
         }
 

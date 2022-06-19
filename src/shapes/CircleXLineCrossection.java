@@ -46,8 +46,6 @@ public class CircleXLineCrossection {
 
             float discriminant = ((circleDiameter/2f)*(circleDiameter/2f) * (dr*dr)) - (d*d);
 
-            System.out.println(String.valueOf(discriminant) + " discriminant");
-
             if(discriminant < 0f){exists = false; exists1 = false; exists2 = false; position1[0] = null; position1[1] = null; position2[0] = null; position2[1] = null;}
             if (discriminant >= 0f){
 
@@ -69,13 +67,11 @@ public class CircleXLineCrossection {
         if(exists1 & exists) {
             Graphics2D g2d = image.createGraphics();
             g2d.setPaint(renderColor);
-            System.out.println(position1[0] + " " + position1[1]);
             Ellipse2D.Double circle1 = new Ellipse2D.Double(position1[0] - (renderDiameter / 2f), position1[1] - (renderDiameter / 2f), renderDiameter, renderDiameter);
             g2d.fill(circle1);
             g2d.dispose();
         }
         if(exists2 & exists){
-            System.out.println(position2[0] + " " + position2[1]);
             Graphics2D g2d = image.createGraphics();
             g2d.setPaint(renderColor);
             Ellipse2D.Double circle2 = new Ellipse2D.Double(position2[0] - (renderDiameter / 2f), position2[1] - (renderDiameter / 2f), renderDiameter, renderDiameter);

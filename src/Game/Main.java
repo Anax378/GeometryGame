@@ -174,7 +174,7 @@ public class Main {
             }
             if(System.currentTimeMillis() - start > 1000){
                 start = System.currentTimeMillis();
-                //System.out.println("#".repeat(fps/100) + " ".repeat(35 - (fps/100)) + "|" + fps + " fps \t |  " + ticksPerSecondC + " tps");
+                System.out.println("#".repeat(fps/100) + " ".repeat(35 - (fps/100)) + "|" + fps + " fps \t |  " + ticksPerSecondC + " tps");
                 ticksPerSecond = ticksPerSecondC;
                 ticksPerSecondC = 0;
 

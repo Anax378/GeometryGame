@@ -12,7 +12,7 @@ public class Player implements Serializable {
 
     public Float[] physicsPosition;
     public Float[] velocity;
-    public Float[] acceleration = new Float[]{0f, 100f};
+    public Float[] acceleration = new Float[]{0f, 2000f};
 
     int lastClickedCount;
 
@@ -66,10 +66,10 @@ public class Player implements Serializable {
             boolean[] result = isInRectangle(new float[] {physicsPosition[0], physicsPosition[1]}, new float[]{Main.currentLevel.blocks.get(i).p1[0], Main.currentLevel.blocks.get(i).p1[1]}, new float[]{Main.currentLevel.blocks.get(i).p2[0], Main.currentLevel.blocks.get(i).p2[1]}, lastPhysicalPosition[1]);
             if(result[0]){
                 //physicsPosition = new Float[]{lastPhysicalPosition[0], lastPhysicalPosition[1]};
-                if(!result[1] && !result[2]){physicsPosition = new Float[]{physicsPosition[0], Main.currentLevel.blocks.get(i).p2[1].floatValue()};}
-                if(!result[1] && result[2]){physicsPosition = new Float[]{physicsPosition[0], Main.currentLevel.blocks.get(i).p1[1].floatValue()};canJump = true;}
-                if(result[1] && !result[2]){physicsPosition = new Float[]{Main.currentLevel.blocks.get(i).p2[0].floatValue(), physicsPosition[1]};}
-                if(result[1] && result[2]){physicsPosition = new Float[]{Main.currentLevel.blocks.get(i).p1[0].floatValue(), physicsPosition[1]};}
+                if(!result[1] && !result[2]){physicsPosition = new Float[]{physicsPosition[0], Main.currentLevel.blocks.get(i).p2[1]};}
+                if(!result[1] && result[2]){physicsPosition = new Float[]{physicsPosition[0], Main.currentLevel.blocks.get(i).p1[1]};canJump = true;}
+                if(result[1] && !result[2]){physicsPosition = new Float[]{Main.currentLevel.blocks.get(i).p2[0], physicsPosition[1]};}
+                if(result[1] && result[2]){physicsPosition = new Float[]{Main.currentLevel.blocks.get(i).p1[0], physicsPosition[1]};}
 
                 if(result[1]){velocity[0] = 0f;}
                 if(!result[1]){velocity[1] = 0f;}

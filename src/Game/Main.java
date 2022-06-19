@@ -122,6 +122,8 @@ public class Main {
 
         while(true) {       //  frame loop
 
+            //while(w.mouseDown){;}
+
             fps++;
 
             if(w.isEscDown){isInMenu = true;}

@@ -51,11 +51,11 @@ public class CircleXLineCrossection {
             if(discriminant < 0f){exists = false; exists1 = false; exists2 = false; position1[0] = null; position1[1] = null; position2[0] = null; position2[1] = null;}
             if (discriminant >= 0f){
 
-                position1[0] = (float) (d*dy + sgn(dy)*dx*Math.sqrt(discriminant))/(dr*dr) + centre[0];
-                position1[1] = (float) (-d*dx + Math.abs(dy)*Math.sqrt(discriminant))/(dr*dr) + centre[1];
+                position1[0] = (float)( (d*dy + sgn(dy)*dx*Math.sqrt(discriminant))/(dr*dr) + centre[0]);
+                position1[1] = (float)( (-d*dx + Math.abs(dy)*Math.sqrt(discriminant))/(dr*dr) + centre[1]);
 
-                position2[0] = (float) (d*dy - sgn(dy)*dx*Math.sqrt(discriminant))/(dr*dr) + centre[0];
-                position2[1] = (float) (-d*dx - Math.abs(dy)*Math.sqrt(discriminant))/(dr*dr) + centre[1];
+                position2[0] = (float)( (d*dy - sgn(dy)*dx*Math.sqrt(discriminant))/(dr*dr) + centre[0]);
+                position2[1] = (float)( (-d*dx - Math.abs(dy)*Math.sqrt(discriminant))/(dr*dr) + centre[1]);
 
                 exists1 = true;
                 exists2 = true;

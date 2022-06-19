@@ -56,7 +56,7 @@ public class LineXLineSegmentCrossection {
                 if(p3[0] < p4[0]){cornerXPlus = p4[0];cornerXMinus = p3[0];}else{cornerXPlus = p3[0];cornerXMinus = p4[0];}
                 if(p3[1] < p4[1]){cornerYPlus = p4[1];cornerYMinus = p3[1];}else{cornerYPlus = p3[1];cornerYMinus = p4[1];}
 
-                if(cornerXMinus <= x & x <= cornerXPlus & cornerYMinus <= y & y <= cornerYPlus ){position[0] = x; position[1] = y;}else{position[0] = null; position[1] = null;}
+                if(cornerXMinus-0.1f <= x & x <= cornerXPlus+0.1f & cornerYMinus-0.1f <= y & y <= cornerYPlus+0.1f ){position[0] = x; position[1] = y;}else{position[0] = null; position[1] = null;}
 
 
 

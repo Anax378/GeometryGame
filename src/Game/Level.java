@@ -23,6 +23,9 @@ public class Level implements Serializable {
     public List<Block> blocks;
     public List<CircleXLineCrossection> circleXLineCrossections;
 
+    public int width;
+    public int height;
+
     public Player player;
 
     public Level(List<Point> points,
@@ -52,6 +55,9 @@ public class Level implements Serializable {
         this.player = player;
         this.blocks = blocks;
 
+        width = Main.w.width;
+        height = Main.w.height;
+
 
 
     }
@@ -61,9 +67,12 @@ public class Level implements Serializable {
     public BufferedImage getFrame(){
         BufferedImage frame = new BufferedImage(Main.w.width, Main.w.height, BufferedImage.TYPE_INT_RGB);
 
+        width = Main.w.width;
+        height = Main.w.height;
+
         Graphics2D g = frame.createGraphics();
         g.setPaint(new Color(255, 255, 255));
-        g.fillRect(0, 0, Main.w.width, Main.w.height);
+        g.fillRect(0, 0, width, height);
 
         int objectsFailedtorender = 0;
         for(int i = 0;i < blocks.size(); i++){frame = blocks.get(i).renderOnImage(frame);if(!blocks.get(i).exists){objectsFailedtorender++;}}

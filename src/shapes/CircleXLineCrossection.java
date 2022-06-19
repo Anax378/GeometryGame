@@ -46,24 +46,17 @@ public class CircleXLineCrossection {
 
             float discriminant = ((circleDiameter/2f)*(circleDiameter/2f) * (dr*dr)) - (d*d);
 
-            System.out.println(String.valueOf(discriminant));
+            System.out.println(String.valueOf(discriminant) + " discriminant");
 
             if(discriminant < 0f){exists = false; exists1 = false; exists2 = false; position1[0] = null; position1[1] = null; position2[0] = null; position2[1] = null;}
-            if(discriminant == 0f){
-                position1[0] = (float) (d*dy+ sgn(dy)*dx*Math.sqrt(discriminant))/(dr*dr) + centre[0];
-                position1[1] = (float) (-d*dx+Math.abs(dy)*Math.sqrt(discriminant))/(dr*dr) + centre[1];
+            if (discriminant >= 0f){
 
-                position2[0] = (float) (d*dy+ sgn(dy)*dx*Math.sqrt(discriminant))/(dr*dr) + centre[0];
-                position2[1] = (float) (-d*dx+Math.abs(dy)*Math.sqrt(discriminant))/(dr*dr) + centre[1];
+                position1[0] = (float) (d*dy + sgn(dy)*dx*Math.sqrt(discriminant))/(dr*dr) + centre[0];
+                position1[1] = (float) (-d*dx + Math.abs(dy)*Math.sqrt(discriminant))/(dr*dr) + centre[1];
 
-                exists2 = true;
-                exists1 = true;
-            }
-            if (discriminant > 0f){
-                position1[0] = (float) (d*dy+ sgn(dy)*dx*Math.sqrt(discriminant))/(dr*dr) + centre[0];
-                position1[1] = (float) (-d*dx+Math.abs(dy)*Math.sqrt(discriminant))/(dr*dr) + centre[1];
-                position2[0] = (float) (d*dy- sgn(dy)*dx*Math.sqrt(discriminant)/(dr*dr)) + centre[0];
-                position2[1] = (float) (-d*dx-Math.abs(dy)*Math.sqrt(discriminant))/(dr*dr) + centre[1];
+                position2[0] = (float) (d*dy - sgn(dy)*dx*Math.sqrt(discriminant))/(dr*dr) + centre[0];
+                position2[1] = (float) (-d*dx - Math.abs(dy)*Math.sqrt(discriminant))/(dr*dr) + centre[1];
+
                 exists1 = true;
                 exists2 = true;
 
@@ -72,19 +65,22 @@ public class CircleXLineCrossection {
     }
 
     public BufferedImage renderOnImage(BufferedImage image){
-        if (p1[0] == null | p1[1] == null | p2[0] == null | p2[1] == null){exists1 = false;}else{exists = true;}
+        if (p1[0] == null | p1[1] == null | p2[0] == null | p2[1] == null){exists = false;}
         if(exists1 & exists) {
-            System.out.println(position1[0] + " " + position1[1]);
             Graphics2D g2d = image.createGraphics();
             g2d.setPaint(renderColor);
+            System.out.println(position1[0] + " " + position1[1]);
             Ellipse2D.Double circle1 = new Ellipse2D.Double(position1[0] - (diameter / 2f), position1[1] - (diameter / 2f), diameter, diameter);
             g2d.fill(circle1);
+            g2d.dispose();
         }
         if(exists2 & exists){
+            System.out.println(position2[0] + " " + position2[1]);
             Graphics2D g2d = image.createGraphics();
             g2d.setPaint(renderColor);
             Ellipse2D.Double circle2 = new Ellipse2D.Double(position2[0] - (diameter / 2f), position2[1] - (diameter / 2f), diameter, diameter);
             g2d.fill(circle2);
+            g2d.dispose();
 
         }
 

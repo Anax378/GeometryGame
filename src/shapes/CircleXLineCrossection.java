@@ -32,10 +32,10 @@ public class CircleXLineCrossection {
     public void update(){
         if(p1[0] == null | p1[1] == null | p2[0] == null | p2[1] == null | circleDiameter == null | centre[0] == null | centre[1] == null){exists = false;}else{exists = true;}
         if (exists){
-            float x1 = p1[0];
-            float x2 = p2[0];
-            float y1 = p1[1];
-            float y2 = p2[1];
+            float x1 = p1[0] - centre[0];
+            float x2 = p2[0] - centre[0];
+            float y1 = p1[1] - centre[1];
+            float y2 = p2[1] - centre[1];
 
             float dx = x2 - x1;
             float dy = y2 - y1;
@@ -51,11 +51,11 @@ public class CircleXLineCrossection {
             if(discriminant < 0f){exists = false; exists1 = false; exists2 = false; position1[0] = null; position1[1] = null; position2[0] = null; position2[1] = null;}
             if (discriminant >= 0f){
 
-                position1[0] = (float)( (d*dy + sgn(dy)*dx*Math.sqrt(discriminant))/(dr*dr) + centre[0]);
-                position1[1] = (float)( (-d*dx + Math.abs(dy)*Math.sqrt(discriminant))/(dr*dr) + centre[1]);
+                position1[0] = centre[0] + (float)( (d*dy + sgn(dy)*dx*Math.sqrt(discriminant))/(dr*dr));
+                position1[1] = centre[1] +  (float)( (-d*dx + Math.abs(dy)*Math.sqrt(discriminant))/(dr*dr));
 
-                position2[0] = (float)( (d*dy - sgn(dy)*dx*Math.sqrt(discriminant))/(dr*dr) + centre[0]);
-                position2[1] = (float)( (-d*dx - Math.abs(dy)*Math.sqrt(discriminant))/(dr*dr) + centre[1]);
+                position2[0] = centre[0] + (float)( (d*dy - sgn(dy)*dx*Math.sqrt(discriminant))/(dr*dr));
+                position2[1] = centre[1] +  (float)( (-d*dx - Math.abs(dy)*Math.sqrt(discriminant))/(dr*dr));
 
                 exists1 = true;
                 exists2 = true;

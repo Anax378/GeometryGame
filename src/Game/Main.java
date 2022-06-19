@@ -70,7 +70,7 @@ public class Main {
 
         diameterCircles.add(new DiameterCircle(points.get(6).position, 40, Color.GREEN));
 
-        circleXLineCrossections.add(new CircleXLineCrossection(player.position, midPoints.get(0).position, player.position, diameterCircles.get(0).diameter,10, Color.GREEN));
+        circleXLineCrossections.add(new CircleXLineCrossection(midPoints.get(0).position, player.position , player.position, diameterCircles.get(0).diameter,10, Color.GREEN));
 
         lines.add(new Line(circleXLineCrossections.get(0).position1, circleXLineCrossections.get(0).position2, Color.MAGENTA, new int[]{w.width, w.height}));
 

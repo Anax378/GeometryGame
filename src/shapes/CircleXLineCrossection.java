@@ -13,7 +13,7 @@ public class CircleXLineCrossection {
     public Float[] centre;
     public Float circleDiameter;
 
-    public float diameter;
+    public float renderDiameter;
 
     public Color renderColor;
 
@@ -21,13 +21,13 @@ public class CircleXLineCrossection {
     public boolean exists2;
     public boolean exists;
 
-    public CircleXLineCrossection (Float[] p1, Float[] p2, Float[] centre, Float circleDiameter,float diameter, Color renderColor){
+    public CircleXLineCrossection (Float[] p1, Float[] p2, Float[] centre, Float circleDiameter, float renderDiameter, Color renderColor){
         this.p1 = p1;
         this.p2 = p2;
         this.centre = centre;
         this.circleDiameter = circleDiameter;
         this.renderColor = renderColor;
-        this.diameter = diameter;
+        this.renderDiameter = renderDiameter;
     }
     public void update(){
         if(p1[0] == null | p1[1] == null | p2[0] == null | p2[1] == null | circleDiameter == null | centre[0] == null | centre[1] == null){exists = false;}else{exists = true;}
@@ -70,7 +70,7 @@ public class CircleXLineCrossection {
             Graphics2D g2d = image.createGraphics();
             g2d.setPaint(renderColor);
             System.out.println(position1[0] + " " + position1[1]);
-            Ellipse2D.Double circle1 = new Ellipse2D.Double(position1[0] - (diameter / 2f), position1[1] - (diameter / 2f), diameter, diameter);
+            Ellipse2D.Double circle1 = new Ellipse2D.Double(position1[0] - (renderDiameter / 2f), position1[1] - (renderDiameter / 2f), renderDiameter, renderDiameter);
             g2d.fill(circle1);
             g2d.dispose();
         }
@@ -78,7 +78,7 @@ public class CircleXLineCrossection {
             System.out.println(position2[0] + " " + position2[1]);
             Graphics2D g2d = image.createGraphics();
             g2d.setPaint(renderColor);
-            Ellipse2D.Double circle2 = new Ellipse2D.Double(position2[0] - (diameter / 2f), position2[1] - (diameter / 2f), diameter, diameter);
+            Ellipse2D.Double circle2 = new Ellipse2D.Double(position2[0] - (renderDiameter / 2f), position2[1] - (renderDiameter / 2f), renderDiameter, renderDiameter);
             g2d.fill(circle2);
             g2d.dispose();
 

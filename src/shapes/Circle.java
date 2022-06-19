@@ -26,7 +26,7 @@ public class Circle implements Serializable {
             int a = Math.abs(diameterPoint[1] - center[1]);
             int b = Math.abs(diameterPoint[0] - center[0]);
             diameter = (int) Math.round(Math.sqrt(a * a + b * b)) * 2;
-        }else diameter = null;
+        }else {diameter = null;}
     }
 
     public BufferedImage renderOnImage(BufferedImage image){

@@ -28,6 +28,8 @@ public class Main {
     public static List<LineSegmentXLineSegmentCrossection> lineSegmentXLineSegmentCrossections = new ArrayList<>();
     public static List<Level> levels = new ArrayList<>();
     public static List<Block> blocks = new ArrayList<>();
+    public static List<CircleXLineCrossection> circleXLineCrossections= new ArrayList<>();
+
     public static Player player;
     public static int ticksPerSecond = tps;
     public static int ticksPerSecondC = 0;
@@ -49,13 +51,14 @@ public class Main {
         lineSegments.add(new LineSegment(player.position, points.get(0).position, Color.BLACK));
         lineSegments.add(new LineSegment(points.get(3).position, points.get(4).position, Color.BLACK));
         midPoints.add(new MidPoint(player.position, points.get(0).position, Color.RED, 10));
-        circles.add(new Circle(midPoints.get(0).position, points.get(1).position, Color.BLACK));
+        circles.add(new Circle(midPoints.get(0).position, points.get(1).position, Color.RED));
         diameterCircles.add(new DiameterCircle(player.position, 50, Color.BLACK));
         lines.add(new Line(player.position, points.get(2).position, Color.BLACK, new int []{w.width, w.height}));
         lines.add(new Line(points.get(0).position, points.get(1).position, Color.BLACK, new int []{w.width, w.height}));
         lines.add(new Line(midPoints.get(0).position, points.get(1).position, Color.BLACK, new int []{w.width, w.height}));
         lineXLineSegmentCrossections.add(new LineXLineSegmentCrossection(player.position, points.get(2).position,points.get(0).position,points.get(2).position, Color.GREEN, 10));
         lineSegmentXLineSegmentCrossections.add(new LineSegmentXLineSegmentCrossection(points.get(3).position, points.get(4).position, player.position, points.get(2).position, Color.BLACK, 10));
+
 
         blocks.add(new Block(new Integer[]{0, 590}, new Integer[]{100, 600}, new Color(200, 200, 200)));
         blocks.add(new Block(new Integer[]{182, 545}, new Integer[]{322, 574}, new Color(200, 200, 200)));
@@ -66,6 +69,10 @@ public class Main {
         points.add(new Point(blocks.get(1).p2, new Color(100, 100, 100), 10));
 
         diameterCircles.add(new DiameterCircle(points.get(6).position, 40, Color.GREEN));
+
+        circleXLineCrossections.add(new CircleXLineCrossection(player.position, midPoints.get(0).position, player.position, diameterCircles.get(0).diameter,10, Color.GREEN));
+
+        lines.add(new Line(circleXLineCrossections.get(0).position1, circleXLineCrossections.get(0).position2, Color.MAGENTA, new int[]{w.width, w.height}));
 
         Level level1 = new Level(
                 points,
@@ -78,6 +85,7 @@ public class Main {
                 lineXLineSegmentCrossections,
                 lineSegmentXLineSegmentCrossections,
                 blocks,
+                circleXLineCrossections,
                 player){
             @Override
             public boolean reachedObjective() {
@@ -140,12 +148,7 @@ public class Main {
                     currentLevel = levels.get(currentLevelID);
                 }
 
-                for (int i = 0; i < currentLevel.midPoints.size(); i++) {currentLevel.midPoints.get(i).update();}
-                for (int i = 0; i < currentLevel.circles.size(); i++) {currentLevel.circles.get(i).update();}
-                for (int i = 0; i < currentLevel.lines.size(); i++) {currentLevel.lines.get(i).update();}
-                for (int i = 0; i < currentLevel.lineXLineCrossections.size(); i++) {currentLevel.lineXLineCrossections.get(i).update();}
-                for (int i = 0; i < currentLevel.lineXLineSegmentCrossections.size(); i++) {currentLevel.lineXLineSegmentCrossections.get(i).update();}
-                for (int i = 0; i < currentLevel.lineSegmentXLineSegmentCrossections.size(); i++) {currentLevel.lineSegmentXLineSegmentCrossections.get(i).update();}
+                currentLevel.update();
 
                 w.setImage(currentLevel.getFrame());
 

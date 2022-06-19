@@ -12,7 +12,7 @@ public class Player implements Serializable {
 
     public Float[] physicsPosition;
     public Float[] velocity;
-    public Float[] acceleration = new Float[]{0f, 2000f};
+    public Float[] acceleration = new Float[]{0f, 100f};
 
     int lastClickedCount;
 

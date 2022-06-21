@@ -3,9 +3,9 @@ package shapes;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
-import java.io.Serializable;
 
-public class CircleXLineCrossection implements Serializable {
+public class CircleXLineSegmentCrossection {
+
     public Float[] position1 = new Float[]{null, null};
     public Float[] position2 = new Float[]{null, null};
 
@@ -22,7 +22,7 @@ public class CircleXLineCrossection implements Serializable {
     public boolean exists2;
     public boolean exists;
 
-    public CircleXLineCrossection (Float[] p1, Float[] p2, Float[] centre, Float circleDiameter, float renderDiameter, Color renderColor){
+    public CircleXLineSegmentCrossection (Float[] p1, Float[] p2, Float[] centre, Float circleDiameter, float renderDiameter, Color renderColor){
         this.p1 = p1;
         this.p2 = p2;
         this.centre = centre;
@@ -50,14 +50,17 @@ public class CircleXLineCrossection implements Serializable {
             if(discriminant < 0f){exists = false; exists1 = false; exists2 = false; position1[0] = null; position1[1] = null; position2[0] = null; position2[1] = null;}
             if (discriminant >= 0f){
 
-                position1[0] = centre[0] + (float)( (d*dy + sgn(dy)*dx*Math.sqrt(discriminant))/(dr*dr));
-                position1[1] = centre[1] +  (float)( (-d*dx + Math.abs(dy)*Math.sqrt(discriminant))/(dr*dr));
+                float cornerXPlus;
+                float cornerXMinus;
 
-                position2[0] = centre[0] + (float)( (d*dy - sgn(dy)*dx*Math.sqrt(discriminant))/(dr*dr));
-                position2[1] = centre[1] +  (float)( (-d*dx - Math.abs(dy)*Math.sqrt(discriminant))/(dr*dr));
+                float cornerYPlus;
+                float cornerYMinus;
 
-                exists1 = true;
-                exists2 = true;
+                if(p1[0] < p2[0]){cornerXPlus = p2[0];cornerXMinus = p1[0];}else{cornerXPlus = p1[0];cornerXMinus = p2[0];}
+                if(p1[1] < p2[1]){cornerYPlus = p2[1];cornerYMinus = p1[1];}else{cornerYPlus = p1[1];cornerYMinus = p2[1];}
+
+                if(cornerXMinus-0.1f <= position1[0] & position1[0] <= cornerXPlus+0.1f & cornerYMinus-0.1f <= position1[1] & position1[1] <= cornerYPlus+0.1f ){position1[1] = centre[1] +  (float)( (-d*dx + Math.abs(dy)*Math.sqrt(discriminant))/(dr*dr));position1[0] = centre[0] + (float)( (d*dy + sgn(dy)*dx*Math.sqrt(discriminant))/(dr*dr));exists1 = true;}else{position1[0] = null; position1[1] = null;exists1 = false;}
+                if(cornerXMinus-0.1f <= position2[0] & position2[0] <= cornerXPlus+0.1f & cornerYMinus-0.1f <= position2[1] & position2[1] <= cornerYPlus+0.1f ){position2[0] = centre[0] + (float)( (d*dy - sgn(dy)*dx*Math.sqrt(discriminant))/(dr*dr));position2[1] = centre[1] +  (float)( (-d*dx - Math.abs(dy)*Math.sqrt(discriminant))/(dr*dr));exists2 = true;}else{position2[0] = null; position2[1] = null;exists2 = false;}
 
             }
         }

@@ -72,6 +72,8 @@ public class Main {
 
         circleXLineCrossections.add(new CircleXLineCrossection(midPoints.get(0).position, player.position , player.position, diameterCircles.get(0).diameter,10, Color.GREEN));
 
+
+
         Level level1 = new Level(
                 points,
                 lineSegments,

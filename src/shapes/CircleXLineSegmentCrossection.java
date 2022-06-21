@@ -1,10 +1,13 @@
 package shapes;
 
+import Game.Main;
+
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
-public class CircleXLineSegmentCrossection {
+public class CircleXLineSegmentCrossection implements Serializable {
 
     public Float[] position1 = new Float[]{null, null};
     public Float[] position2 = new Float[]{null, null};
@@ -13,6 +16,7 @@ public class CircleXLineSegmentCrossection {
     public Float[] p2;
     public Float[] centre;
     public Float circleDiameter;
+    public Float[] circleDiameterPointer;
 
     public float renderDiameter;
 
@@ -22,15 +26,19 @@ public class CircleXLineSegmentCrossection {
     public boolean exists2;
     public boolean exists;
 
-    public CircleXLineSegmentCrossection (Float[] p1, Float[] p2, Float[] centre, Float circleDiameter, float renderDiameter, Color renderColor){
+    public CircleXLineSegmentCrossection (Float[] p1, Float[] p2, Float[] centre, Float[] circleDiameter, float renderDiameter, Color renderColor){
         this.p1 = p1;
         this.p2 = p2;
         this.centre = centre;
-        this.circleDiameter = circleDiameter;
+        this.circleDiameter = circleDiameter[0];
+        this.circleDiameterPointer = circleDiameter;
+
         this.renderColor = renderColor;
         this.renderDiameter = renderDiameter;
     }
     public void update(){
+        circleDiameter = circleDiameterPointer[0];
+
         if(p1[0] == null | p1[1] == null | p2[0] == null | p2[1] == null | circleDiameter == null | centre[0] == null | centre[1] == null){exists = false;}else{exists = true;}
         if (exists){
             float x1 = p1[0] - centre[0];
@@ -59,8 +67,18 @@ public class CircleXLineSegmentCrossection {
                 if(p1[0] < p2[0]){cornerXPlus = p2[0];cornerXMinus = p1[0];}else{cornerXPlus = p1[0];cornerXMinus = p2[0];}
                 if(p1[1] < p2[1]){cornerYPlus = p2[1];cornerYMinus = p1[1];}else{cornerYPlus = p1[1];cornerYMinus = p2[1];}
 
-                if(cornerXMinus-0.1f <= position1[0] & position1[0] <= cornerXPlus+0.1f & cornerYMinus-0.1f <= position1[1] & position1[1] <= cornerYPlus+0.1f ){position1[1] = centre[1] +  (float)( (-d*dx + Math.abs(dy)*Math.sqrt(discriminant))/(dr*dr));position1[0] = centre[0] + (float)( (d*dy + sgn(dy)*dx*Math.sqrt(discriminant))/(dr*dr));exists1 = true;}else{position1[0] = null; position1[1] = null;exists1 = false;}
-                if(cornerXMinus-0.1f <= position2[0] & position2[0] <= cornerXPlus+0.1f & cornerYMinus-0.1f <= position2[1] & position2[1] <= cornerYPlus+0.1f ){position2[0] = centre[0] + (float)( (d*dy - sgn(dy)*dx*Math.sqrt(discriminant))/(dr*dr));position2[1] = centre[1] +  (float)( (-d*dx - Math.abs(dy)*Math.sqrt(discriminant))/(dr*dr));exists2 = true;}else{position2[0] = null; position2[1] = null;exists2 = false;}
+                Float[] virtualPosition1 = new Float[] {null, null};
+                Float[] virtualPosition2 = new Float[] {null, null};
+
+                virtualPosition1[0] = centre[0] + (float)((d*dy + sgn(dy)*dx*Math.sqrt(discriminant))/(dr*dr));
+                virtualPosition1[1] = centre[1] + (float)((-d*dx + Math.abs(dy)*Math.sqrt(discriminant))/(dr*dr));
+
+                virtualPosition2[0] = centre[0] + (float)( (d*dy - sgn(dy)*dx*Math.sqrt(discriminant))/(dr*dr));
+                virtualPosition2[1] = centre[1] + (float)( (-d*dx - Math.abs(dy)*Math.sqrt(discriminant))/(dr*dr));
+
+                if(cornerXMinus-0.1f <= virtualPosition1[0] & virtualPosition1[0] <= cornerXPlus+0.1f & cornerYMinus-0.1f <= virtualPosition1[1] & virtualPosition1[1] <= cornerYPlus+0.1f ){position1[0] = virtualPosition1[0];position1[1] = virtualPosition1[1];exists1 = true;}else{position1[0] = null; position1[1] = null;exists1 = false;}
+                if(cornerXMinus-0.1f <= virtualPosition2[0] & virtualPosition2[0] <= cornerXPlus+0.1f & cornerYMinus-0.1f <= virtualPosition2[1] & virtualPosition2[1] <= cornerYPlus+0.1f ){position2[0] = virtualPosition2[0];position2[1] = virtualPosition2[1];exists2 = true;}else{position2[0] = null; position2[1] = null;exists2 = false;}
+
 
             }
         }
@@ -69,6 +87,7 @@ public class CircleXLineSegmentCrossection {
     public BufferedImage renderOnImage(BufferedImage image){
         if (p1[0] == null | p1[1] == null | p2[0] == null | p2[1] == null){exists = false;}
         if(exists1 & exists) {
+
             Graphics2D g2d = image.createGraphics();
             g2d.setPaint(renderColor);
             Ellipse2D.Double circle1 = new Ellipse2D.Double(position1[0] - (renderDiameter / 2f), position1[1] - (renderDiameter / 2f), renderDiameter, renderDiameter);
@@ -76,6 +95,7 @@ public class CircleXLineSegmentCrossection {
             g2d.dispose();
         }
         if(exists2 & exists){
+
             Graphics2D g2d = image.createGraphics();
             g2d.setPaint(renderColor);
             Ellipse2D.Double circle2 = new Ellipse2D.Double(position2[0] - (renderDiameter / 2f), position2[1] - (renderDiameter / 2f), renderDiameter, renderDiameter);
@@ -89,3 +109,5 @@ public class CircleXLineSegmentCrossection {
     }
     public float sgn (float x){if (x<0){return -1f;}else{return 1f;}}
 }
+
+

@@ -29,6 +29,7 @@ public class Main {
     public static List<Level> levels = new ArrayList<>();
     public static List<Block> blocks = new ArrayList<>();
     public static List<CircleXLineCrossection> circleXLineCrossections= new ArrayList<>();
+    public static  List<CircleXLineSegmentCrossection> circleXLineSegmentCrossections = new ArrayList<>();
 
     public static Player player;
     public static int ticksPerSecond = tps;
@@ -72,7 +73,7 @@ public class Main {
 
         circleXLineCrossections.add(new CircleXLineCrossection(midPoints.get(0).position, player.position , player.position, diameterCircles.get(0).diameter,10, Color.GREEN));
 
-
+        circleXLineSegmentCrossections.add(new CircleXLineSegmentCrossection(points.get(3).position, points.get(4).position, midPoints.get(0).position, circles.get(0).diameter, 10, Color.CYAN));
 
         Level level1 = new Level(
                 points,
@@ -86,6 +87,7 @@ public class Main {
                 lineSegmentXLineSegmentCrossections,
                 blocks,
                 circleXLineCrossections,
+                circleXLineSegmentCrossections,
                 player){
             @Override
             public boolean reachedObjective() {

@@ -7,7 +7,7 @@ import java.io.Serializable;
 public class Circle implements Serializable {
     public Float[] center;
     public Float[] diameterPoint;
-    public Float diameter;
+    public Float[] diameter = new Float[]{null};
     public Color renderColor;
 
     public boolean exists;
@@ -25,20 +25,21 @@ public class Circle implements Serializable {
         if (exists) {
             float a = Math.abs(diameterPoint[1] - center[1]);
             float b = Math.abs(diameterPoint[0] - center[0]);
-            diameter = (float) Math.round(Math.sqrt(a * a + b * b)) * 2;
-        }else {diameter = null;}
+            diameter[0] = (float) Math.round(Math.sqrt(a * a + b * b)) * 2;
+        }else {diameter[0] = null;}
+
     }
 
     public BufferedImage renderOnImage(BufferedImage image){
 
-        if (center[0] == null || center[1] == null || diameter == null){exists = false;}else{exists = true;}
+        if (center[0] == null || center[1] == null || diameter[0] == null){exists = false;}else{exists = true;}
         if (exists) {
             Graphics2D g2d = image.createGraphics();
             g2d.setPaint(renderColor);
 
             //g2d.setStroke(new BasicStroke(1));
 
-            g2d.drawOval( Math.round(center[0]) - Math.round((diameter / 2)), Math.round(center[1]) - Math.round((diameter / 2)), Math.round(diameter), Math.round(diameter));
+            g2d.drawOval( Math.round(center[0]) - Math.round((diameter[0] / 2)), Math.round(center[1]) - Math.round((diameter[0] / 2)), Math.round(diameter[0]), Math.round(diameter[0]));
             g2d.dispose();
         }
         return image;

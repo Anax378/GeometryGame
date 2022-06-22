@@ -15,8 +15,7 @@ public class CircleXLineSegmentCrossection implements Serializable {
     public Float[] p1;
     public Float[] p2;
     public Float[] centre;
-    public Float circleDiameter;
-    public Float[] circleDiameterPointer;
+    public Float[] circleDiameter;
 
     public float renderDiameter;
 
@@ -30,16 +29,14 @@ public class CircleXLineSegmentCrossection implements Serializable {
         this.p1 = p1;
         this.p2 = p2;
         this.centre = centre;
-        this.circleDiameter = circleDiameter[0];
-        this.circleDiameterPointer = circleDiameter;
+        this.circleDiameter = circleDiameter;
 
         this.renderColor = renderColor;
         this.renderDiameter = renderDiameter;
     }
     public void update(){
-        circleDiameter = circleDiameterPointer[0];
 
-        if(p1[0] == null | p1[1] == null | p2[0] == null | p2[1] == null | circleDiameter == null | centre[0] == null | centre[1] == null){exists = false;}else{exists = true;}
+        if(p1[0] == null | p1[1] == null | p2[0] == null | p2[1] == null | circleDiameter[0] == null | centre[0] == null | centre[1] == null){exists = false;}else{exists = true;}
         if (exists){
             float x1 = p1[0] - centre[0];
             float x2 = p2[0] - centre[0];
@@ -53,7 +50,7 @@ public class CircleXLineSegmentCrossection implements Serializable {
 
 
 
-            float discriminant = ((circleDiameter/2f)*(circleDiameter/2f) * (dr*dr)) - (d*d);
+            float discriminant = ((circleDiameter[0]/2f)*(circleDiameter[0]/2f) * (dr*dr)) - (d*d);
 
             if(discriminant < 0f){exists = false; exists1 = false; exists2 = false; position1[0] = null; position1[1] = null; position2[0] = null; position2[1] = null;}
             if (discriminant >= 0f){

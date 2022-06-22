@@ -53,7 +53,7 @@ public class Main {
         lineSegments.add(new LineSegment(points.get(3).position, points.get(4).position, Color.BLACK));
         midPoints.add(new MidPoint(player.position, points.get(0).position, Color.RED, 10));
         circles.add(new Circle(midPoints.get(0).position, points.get(1).position, Color.RED));
-        diameterCircles.add(new DiameterCircle(player.position, 50, Color.BLACK));
+        diameterCircles.add(new DiameterCircle(player.position, new Float[]{50f}, Color.BLACK));
         lines.add(new Line(player.position, points.get(2).position, Color.BLACK, new int []{w.width, w.height}));
         lines.add(new Line(points.get(0).position, points.get(1).position, Color.BLACK, new int []{w.width, w.height}));
         lines.add(new Line(midPoints.get(0).position, points.get(1).position, Color.BLACK, new int []{w.width, w.height}));
@@ -69,7 +69,7 @@ public class Main {
         points.add(new Point(blocks.get(1).p1, new Color(200, 200, 200), 10));
         points.add(new Point(blocks.get(1).p2, new Color(100, 100, 100), 10));
 
-        diameterCircles.add(new DiameterCircle(points.get(6).position, 40, Color.GREEN));
+        diameterCircles.add(new DiameterCircle(points.get(6).position, new Float[]{40f}, Color.GREEN));
 
         circleXLineCrossections.add(new CircleXLineCrossection(midPoints.get(0).position, player.position , player.position, diameterCircles.get(0).diameter,10, Color.GREEN));
 
@@ -92,7 +92,7 @@ public class Main {
             @Override
             public boolean reachedObjective() {
                 if(diameterCircles.get(1).exists) {
-                    return isInCircle(new float[]{player.position[0], player.position[1]}, new float[]{diameterCircles.get(1).center[0], diameterCircles.get(1).center[1]}, diameterCircles.get(1).diameter);
+                    return isInCircle(new float[]{player.position[0], player.position[1]}, new float[]{diameterCircles.get(1).center[0], diameterCircles.get(1).center[1]}, diameterCircles.get(1).diameter[0]);
                 }
                 return false;
             }

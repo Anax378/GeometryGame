@@ -7,11 +7,11 @@ import java.io.Serializable;
 public class DiameterCircle implements Serializable {
 
     public Float[] center;
-    public float diameter;
+    public Float[] diameter;
     public Color renderColor;
     public boolean exists;
 
-    public DiameterCircle(Float[] center,float diameter, Color renderColor){
+    public DiameterCircle(Float[] center,Float diameter[], Color renderColor){
 
         this.center = center;
         this.diameter = diameter;
@@ -25,7 +25,7 @@ public class DiameterCircle implements Serializable {
         if (exists) {
             Graphics2D g2d = image.createGraphics();
             g2d.setPaint(renderColor);
-            g2d.drawOval(Math.round(center[0])  - Math.round((diameter / 2)), Math.round(center[1]) - Math.round((diameter / 2)), Math.round(diameter), Math.round(diameter));
+            g2d.drawOval(Math.round(center[0])  - Math.round((diameter[0] / 2)), Math.round(center[1]) - Math.round((diameter[0] / 2)), Math.round(diameter[0]), Math.round(diameter[0]));
             g2d.dispose();
         }
 

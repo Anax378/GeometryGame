@@ -31,22 +31,24 @@ public class CircleXCircleCrossections {
     }
 
     public void update(){
-        if(diameter1[0] == null | diameter1[1] == null | diameter2[0] == null | diameter2[1] == null | centre1[0] == null | centre1[1] == null | centre2[0] == null | centre2[1] == null){exists = false;}else{exists = true;}
+        if(diameter1[0] == null | diameter2[0] == null | centre1[0] == null | centre1[1] == null | centre2[0] == null | centre2[1] == null){exists = false;}else{exists = true;}
         if(exists){
-            float d = (float) Math.sqrt((Math.abs(centre1[0] - centre2[0])*Math.abs(centre1[0] - centre2[0]))+(Math.abs(centre1[1] - centre2[1])*Math.abs(centre1[1] - centre2[1])));
-
-            if(d > diameter1[0] + diameter2[0]){exists = false; position1[0] = null; position1[1] = null; position2[0] = null; position2[1] = null;}
+            float da = centre1[0] - centre2[0];
+            float db = centre1[1] - centre2[1];
+            float d = (float) Math.sqrt((da*da)+(db*db));
+            if(d > (diameter1[0]/2f + diameter2[0]/2f)){exists = false; position1[0] = null; position1[1] = null; position2[0] = null; position2[1] = null;}
             else{
-                float a = (diameter1[0]*diameter1[0] - diameter2[0]*diameter2[0] + d*d)/2*d;
-                float h = (float) Math.sqrt(diameter1[0]*diameter1[0]-a*a);
+                float a = ((diameter1[0]/2f)*(diameter1[0]/2f) - (diameter2[0]/2f)*(diameter2[0]/2f) + d*d) / (d*2f);
+                float h = (float) Math.sqrt(((diameter1[0]/2f)*(diameter1[0]/2f))-a*a);
 
                 float[] p2 = new float[]{centre1[0]+a*(centre2[0]-centre1[0])/d, centre1[1]+a*(centre2[1]-centre1[1])/d};
 
                 position1[0] = p2[0]+h*(centre2[1]-centre1[1])/d;
-                position1[1] = p2[1]+h*(centre2[0]-centre1[0])/d;
+                position1[1] = (p2[1]-h*(centre2[0]-centre1[0])/d);
 
-                position1[0] = p2[0]-h*(centre2[1]-centre1[1])/d;
-                position2[1] = p2[1]-h*(centre2[0]-centre1[0])/d;
+                position2[0] = p2[0]-h*(centre2[1]-centre1[1])/d;
+                position2[1] = (p2[1]+h*(centre2[0]-centre1[0])/d);
+
 
                 exists = true;
             }
@@ -60,13 +62,11 @@ public class CircleXCircleCrossections {
             Graphics2D g2d = image.createGraphics();
             g2d.setPaint(renderColor);
             Ellipse2D.Double circle1 = new Ellipse2D.Double(position1[0] - (renderDiameter / 2f), position1[1] - (renderDiameter / 2f), renderDiameter, renderDiameter);
-            g2d.fill(circle1);
             Ellipse2D.Double circle2 = new Ellipse2D.Double(position2[0] - (renderDiameter / 2f), position2[1] - (renderDiameter / 2f), renderDiameter, renderDiameter);
+            g2d.fill(circle1);
             g2d.fill(circle2);
-            g2d.dispose();
 
         }
-
         return image;
     }
 }

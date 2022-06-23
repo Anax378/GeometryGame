@@ -93,13 +93,12 @@ public class Player implements Serializable {
         lastPhysicalPosition = new Float[]{physicsPosition[0], physicsPosition[1]};
 
 
-/*
         java.awt.Point mousePosition = Game.Main.w.frame.getMousePosition();
         if (mousePosition != null) {
 
             mousePosition.y = mousePosition.y - 36;
-            int a = Math.abs(mousePosition.y - position[1]);
-            int b = Math.abs(mousePosition.x - position[0]);
+            float a = Math.abs(mousePosition.y - position[1]);
+            float b = Math.abs(mousePosition.x - position[0]);
 
             boolean inHitbox = Math.sqrt(a * a + b * b) < diameter;
 
@@ -109,11 +108,10 @@ public class Player implements Serializable {
 
             if (mouseInHitbox & Game.Main.w.mouseDown) {
 
-                position[0] = mousePosition.x;
-                position[1] = mousePosition.y;
+                position[0] = (float) mousePosition.x;
+                position[1] = (float) mousePosition.y;
             }
         }
-*/
 
 
     }

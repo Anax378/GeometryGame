@@ -24,7 +24,8 @@ public class Level implements Serializable {
     public List<Block> blocks;
     public List<CircleXLineCrossection> circleXLineCrossections;
     public List<CircleXLineSegmentCrossection> circleXLineSegmentCrossections;
-    public List<CircleXCircleCrossections> circleXCircleCrossections = new ArrayList<>();
+    public List<CircleXCircleCrossections> circleXCircleCrossections;
+    public List<LineParallel> lineParallels;
 
     public int width;
     public int height;
@@ -44,6 +45,7 @@ public class Level implements Serializable {
                  List<CircleXLineCrossection> circleXLineCrossections,
                  List<CircleXLineSegmentCrossection> circleXLineSegmentCrossections,
                  List<CircleXCircleCrossections> circleXCircleCrossections,
+                 List<LineParallel> lineParallels,
                  Player player
                  ){
 
@@ -59,6 +61,7 @@ public class Level implements Serializable {
         this.circleXLineCrossections = circleXLineCrossections;
         this.circleXLineSegmentCrossections = circleXLineSegmentCrossections;
         this.circleXCircleCrossections = circleXCircleCrossections;
+        this.lineParallels = lineParallels;
 
         this.player = player;
         this.blocks = blocks;
@@ -87,6 +90,7 @@ public class Level implements Serializable {
         for(int i = 0;i < circles.size(); i++){frame = circles.get(i).renderOnImage(frame);if(!circles.get(i).exists){objectsFailedtorender++;}}
         for(int i = 0;i < diameterCircles.size(); i++){frame = diameterCircles.get(i).renderOnImage(frame);if(!diameterCircles.get(i).exists){objectsFailedtorender++;}}
         for(int i = 0;i < lines.size(); i++){frame = lines.get(i).renderOnImage(frame);if(!lines.get(i).exists){objectsFailedtorender++;}}
+        for(int i = 0;i < lineParallels.size(); i++){frame = lineParallels.get(i).renderOnImage(frame);if(!lineParallels.get(i).exists){objectsFailedtorender++;}}
         for(int i = 0;i < lineSegments.size(); i++){frame = lineSegments.get(i).renderOnImage(frame);if(!lineSegments.get(i).exists){objectsFailedtorender++;}}
         for(int i = 0;i < lineXLineCrossections.size(); i++){frame = lineXLineCrossections.get(i).renderOnImage(frame);if(!lineXLineCrossections.get(i).exists){objectsFailedtorender++;}}
         for(int i = 0;i < lineXLineSegmentCrossections.size(); i++){frame = lineXLineSegmentCrossections.get(i).renderOnImage(frame);if(!lineXLineSegmentCrossections.get(i).exists){objectsFailedtorender++;}}
@@ -121,6 +125,7 @@ public class Level implements Serializable {
         for (int i = 0; i < midPoints.size(); i++) {midPoints.get(i).update();}
         for (int i = 0; i < circles.size(); i++) {circles.get(i).update();}
         for (int i = 0; i < lines.size(); i++) {lines.get(i).update();}
+        for (int i = 0; i < lineParallels.size(); i++) {lineParallels.get(i).update();}
         for (int i = 0; i < lineXLineCrossections.size(); i++) {lineXLineCrossections.get(i).update();}
         for (int i = 0; i < lineXLineSegmentCrossections.size(); i++) {lineXLineSegmentCrossections.get(i).update();}
         for (int i = 0; i < lineSegmentXLineSegmentCrossections.size(); i++) {lineSegmentXLineSegmentCrossections.get(i).update();}

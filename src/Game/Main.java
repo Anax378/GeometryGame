@@ -31,6 +31,7 @@ public class Main {
     public static List<CircleXLineCrossection> circleXLineCrossections= new ArrayList<>();
     public static List<CircleXLineSegmentCrossection> circleXLineSegmentCrossections = new ArrayList<>();
     public static List<CircleXCircleCrossections> circleXCircleCrossections = new ArrayList<>();
+    public static List<LineParallel> lineParallels = new ArrayList<>();
 
     public static Player player;
     public static int ticksPerSecond = tps;
@@ -49,10 +50,10 @@ public class Main {
         points.add(new Point(new Float[]{250f, 200f}, Color.MAGENTA, 10));//new Integer[]{300, 200}     //2
         points.add(new Point(new Float[]{100f, 400f}, Color.BLACK, 10));                                //3
         points.add(new Point(new Float[]{400f, 400f}, Color.GRAY, 10));                                 //4
-        points.add(new Point(new Float[]{0f, 0f}, Color.GRAY, 10));                                 //5
+        points.add(new Point(new Float[]{0f, 0f}, Color.GRAY, 10));                                     //5
 
-        lineSegments.add(new LineSegment(player.position, points.get(0).position, Color.BLACK));
-        lineSegments.add(new LineSegment(points.get(3).position, points.get(4).position, Color.BLACK));
+        lineSegments.add(new LineSegment(player.position, points.get(0).position, Color.BLACK));                //0
+        lineSegments.add(new LineSegment(points.get(3).position, points.get(4).position, Color.BLACK));         //1
 
         midPoints.add(new MidPoint(player.position, points.get(0).position, Color.RED, 10));
 
@@ -83,7 +84,7 @@ public class Main {
 
         circleXLineSegmentCrossections.add(new CircleXLineSegmentCrossection(points.get(3).position, points.get(4).position, midPoints.get(0).position, circles.get(0).diameter, 10, Color.CYAN));
 
-
+        lineParallels.add(new LineParallel(points.get(0).position, player.position, points.get(2).position, Color.GREEN, new int[]{w.width, w.height}));
 
         Level level1 = new Level(
                 points,
@@ -99,6 +100,7 @@ public class Main {
                 circleXLineCrossections,
                 circleXLineSegmentCrossections,
                 circleXCircleCrossections,
+                lineParallels,
                 player){
             @Override
             public boolean reachedObjective() {

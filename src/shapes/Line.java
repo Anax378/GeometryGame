@@ -12,7 +12,7 @@ public class Line implements Serializable {
     public Float[] p2;
     public boolean exists;
     public Color renderColor;
-    int resolution[];
+    int[] resolution;
 
     public Line(Float[] dp1, Float[] dp2, Color renderColor, int[] resolution){
         this.dp1 = dp1;

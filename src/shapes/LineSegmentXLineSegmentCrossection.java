@@ -15,7 +15,7 @@ public class LineSegmentXLineSegmentCrossection {
 
     public boolean exists;
 
-    Float[] position;
+    public Float[] position;
 
     public LineSegmentXLineSegmentCrossection(Float[] p1, Float[] p2, Float[] p3, Float[] p4, Color renderColor, int renderRadius){
         this.p1 = p1;

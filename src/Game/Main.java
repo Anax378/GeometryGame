@@ -32,10 +32,13 @@ public class Main {
     public static List<CircleXLineSegmentCrossection> circleXLineSegmentCrossections = new ArrayList<>();
     public static List<CircleXCircleCrossections> circleXCircleCrossections = new ArrayList<>();
     public static List<LineParallel> lineParallels = new ArrayList<>();
+    public static List<LinePerpendicular> linePerpendiculars = new ArrayList<>();
 
     public static Player player;
     public static int ticksPerSecond = tps;
     public static int ticksPerSecondC = 0;
+
+    public static Point testingPoint;
 
 
     public static void main(String[] args){
@@ -86,6 +89,11 @@ public class Main {
 
         lineParallels.add(new LineParallel(points.get(0).position, player.position, points.get(2).position, Color.GREEN, new int[]{w.width, w.height}));
 
+        linePerpendiculars.add(new LinePerpendicular(points.get(3).position, points.get(4).position, midPoints.get(0).position, Color.BLUE, new int[]{w.width, w.height}));
+
+        testingPoint = new Point(new Float[]{0f, 0f}, Color.GREEN, 20);
+        points.add(testingPoint);
+
         Level level1 = new Level(
                 points,
                 lineSegments,
@@ -101,6 +109,7 @@ public class Main {
                 circleXLineSegmentCrossections,
                 circleXCircleCrossections,
                 lineParallels,
+                linePerpendiculars,
                 player){
             @Override
             public boolean reachedObjective() {

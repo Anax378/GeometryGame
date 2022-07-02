@@ -1,5 +1,7 @@
 package shapes;
 
+import Game.Main;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -8,10 +10,10 @@ public class LinePerpendicular {
     public Float[] lp2;
 
     public Float[] p1;
-    public Float[] p2;
+    public Float[] p2 = new Float[]{null, null};
 
-    public Float[] renderP1;
-    public Float[] renderP2;
+    public Float[] renderP1 = new Float[]{null, null};
+    public Float[] renderP2 = new Float[]{null, null};
 
     public int[] resolution;
     public Color renderColor;
@@ -29,23 +31,19 @@ public class LinePerpendicular {
     public void update(){
         if(lp1[0] == null | lp1[1] == null | lp2[0] == null | lp2[1] == null | p1[0] == null | p1[1] == null){exists = false;}else{exists = true;}
         if (exists){
-            Float[] mp = new Float[] {p1[0] + lp1[0] /2, p1[1] + lp1[1] /2};
-            float diameter = (float) Math.sqrt((p1[0]-lp1[0]*p1[0]-lp1[0])-(p1[1]-lp1[1]*p1[1]-lp1[1]));
+            float angleInRadians = (float) Math.toRadians(90);
 
-            float x1 = lp1[0] - mp[0];
-            float y1 = lp1[1] - mp[1];
-            float x2 = lp2[0] - mp[0];
-            float y2 = lp2[1] - mp[1];
+            float vX = lp2[0] - lp1[0];
+            float vY = lp2[1] - lp1[1];
 
-            float dx = x2 - x1;
-            float dy = y2 - y1;
+            Float[] vrlp2 = new Float[]{(float) (vX*Math.cos(angleInRadians) - vY*Math.sin(angleInRadians)), (float) (vY*Math.cos(angleInRadians)+ vX*Math.sin(angleInRadians))};
 
-            float dr = (float) Math.sqrt((dx*dx)+(dy*dy));
+            Float[] rlp2 = new Float[]{vrlp2[0] + lp1[0], vrlp2[1] + lp1[1]};
 
-            float D = x1 * y2 - x2 - y1;
+            Float[] vector = new Float[]{p1[0] - rlp2[0], p1[1] - rlp2[1]};
 
-            p2[0] = (float) ((D * dy + Math.signum(dy) * dx * Math.sqrt((diameter/2 * diameter/2) * dr*dr - D*D ))/(dr*dr)) + mp[0];
-            p2[1] = (float) ((-D * dx + Math.abs(dy) * Math.sqrt((diameter/2 * diameter/2) * dr*dr - D*D))/(dr*dr)) + mp[1];
+            p2[0] = lp1[0] + vector[0];
+            p2[1] = lp1[1] + vector[1];
 
         }
 

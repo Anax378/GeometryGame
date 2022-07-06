@@ -3,6 +3,7 @@ package Game;
 import levelParts.Block;
 import shapes.*;
 import shapes.Point;
+import shapes.Polygon;
 
 import java.awt.*;
 import java.io.*;
@@ -33,6 +34,7 @@ public class Main {
     public static List<CircleXCircleCrossections> circleXCircleCrossections = new ArrayList<>();
     public static List<LineParallel> lineParallels = new ArrayList<>();
     public static List<LinePerpendicular> linePerpendiculars = new ArrayList<>();
+    public static List<Polygon> polygons = new ArrayList<>();
 
     public static Player player;
     public static int ticksPerSecond = tps;
@@ -94,6 +96,8 @@ public class Main {
         testingPoint = new Point(new Float[]{0f, 0f}, Color.GREEN, 20);
         points.add(testingPoint);
 
+        polygons.add(new Polygon(new Float[][]{player.position, circleXLineSegmentCrossections.get(0).position1, midPoints.get(0).position, circleXLineSegmentCrossections.get(0).position2}, Color.GREEN));
+
         Level level1 = new Level(
                 points,
                 lineSegments,
@@ -110,6 +114,7 @@ public class Main {
                 circleXCircleCrossections,
                 lineParallels,
                 linePerpendiculars,
+                polygons,
                 player){
             @Override
             public boolean reachedObjective() {

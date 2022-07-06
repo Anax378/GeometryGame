@@ -13,11 +13,11 @@ public class Polygon {
 
     public boolean exists;
 
-    public void Polygon(Float[][] verts, Color renderColor){
+    public Polygon(Float[][] verts, Color renderColor){
         this.verts = verts;
         this.renderColor = renderColor;
 
-        backgroundRenderColor = new Color(renderColor.getRed(), renderColor.getGreen(), renderColor.getBlue(), 100);
+        backgroundRenderColor = new Color(renderColor.getRed(), renderColor.getGreen(), renderColor.getBlue(), 10);
 
         Xs = new int[verts.length];
         Ys = new int[verts.length];
@@ -40,9 +40,9 @@ public class Polygon {
         if(exists){
           Graphics2D g2d = image.createGraphics();
           g2d.setPaint(renderColor);
-          g2d.drawPolyline(Xs, Ys, verts.length);
-          g2d.setPaint(backgroundRenderColor);
           g2d.drawPolygon(Xs, Ys, verts.length);
+          g2d.setPaint(backgroundRenderColor);
+          g2d.fillPolygon(Xs, Ys, verts.length);
         }
         return image;
     }

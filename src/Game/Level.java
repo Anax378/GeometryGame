@@ -3,6 +3,7 @@ package Game;
 import levelParts.Block;
 import shapes.*;
 import shapes.Point;
+import shapes.Polygon;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -27,6 +28,7 @@ public class Level implements Serializable {
     public List<CircleXCircleCrossections> circleXCircleCrossections;
     public List<LineParallel> lineParallels;
     public List<LinePerpendicular> linePerpendiculars;
+    public List<Polygon> polygons;
 
     public int width;
     public int height;
@@ -48,6 +50,7 @@ public class Level implements Serializable {
                  List<CircleXCircleCrossections> circleXCircleCrossections,
                  List<LineParallel> lineParallels,
                  List<LinePerpendicular> linePerpendiculars,
+                 List<Polygon> polygons,
                  Player player
                  ){
 
@@ -65,6 +68,7 @@ public class Level implements Serializable {
         this.circleXCircleCrossections = circleXCircleCrossections;
         this.lineParallels = lineParallels;
         this.linePerpendiculars = linePerpendiculars;
+        this.polygons = polygons;
 
         this.player = player;
         this.blocks = blocks;
@@ -104,6 +108,7 @@ public class Level implements Serializable {
         for(int i = 0;i < midPoints.size(); i++){frame = midPoints.get(i).renderOnImage(frame);if(!midPoints.get(i).exists){objectsFailedtorender++;}}
         for(int i = 0;i < circleXCircleCrossections.size(); i++){frame = circleXCircleCrossections.get(i).renderOnImage(frame);if(!circleXCircleCrossections.get(i).exists){objectsFailedtorender++;}}
         for(int i = 0;i < points.size(); i++){frame = points.get(i).renderOnImage(frame);if(!points.get(i).exists){objectsFailedtorender++;}}
+        for(int i = 0;i < polygons.size(); i++){frame = polygons.get(i).renderOnImage(frame);if(!polygons.get(i).exists){objectsFailedtorender++;}}
         player.renderOnImage(frame);
 
         if (objectsFailedtorender != 0){
@@ -137,5 +142,6 @@ public class Level implements Serializable {
         for (int i = 0; i < circleXLineCrossections.size(); i++) {circleXLineCrossections.get(i).update();}
         for (int i = 0; i < circleXLineSegmentCrossections.size(); i++) {circleXLineSegmentCrossections.get(i).update();}
         for (int i = 0; i < circleXCircleCrossections.size(); i++) {circleXCircleCrossections.get(i).update();}
+        for (int i = 0; i < polygons.size(); i++) {polygons.get(i).update();}
     }
 }

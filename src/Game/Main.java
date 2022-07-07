@@ -97,6 +97,7 @@ public class Main {
         points.add(testingPoint);
 
         polygons.add(new Polygon(new Float[][]{player.position, circleXLineSegmentCrossections.get(0).position1, midPoints.get(0).position, circleXLineSegmentCrossections.get(0).position2}, Color.GREEN));
+        polygons.add(new Polygon(new Float[][]{points.get(3).position, points.get(4).position, midPoints.get(0).position}, Color.RED));
 
         Level level1 = new Level(
                 points,
@@ -150,6 +151,8 @@ public class Main {
         long startTime = System.currentTimeMillis();
 
         while(true) {       //  frame loop
+
+            if(polygons.get(1).isInRectangle(player.position[0], player.position[1])){player.renderColor = Color.GREEN;}else{player.renderColor = Color.RED;}
 
             //while(w.mouseDown){;}
 

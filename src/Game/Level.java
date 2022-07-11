@@ -33,6 +33,8 @@ public class Level implements Serializable {
     public int width;
     public int height;
 
+    public int[] off = new int[]{0, 0};
+
     public Player player;
 
     public Level(List<Point> points,
@@ -83,43 +85,49 @@ public class Level implements Serializable {
     public boolean reachedObjective(){return false;}
 
     public BufferedImage getFrame(){
-        BufferedImage frame = new BufferedImage(Main.w.width, Main.w.height, BufferedImage.TYPE_INT_RGB);
 
         width = Main.w.width;
         height = Main.w.height;
 
-        Graphics2D g = frame.createGraphics();
-        g.setPaint(new Color(255, 255, 255));
-        g.fillRect(0, 0, width, height);
+        off[0] = Math.round((width/2f) - player.position[0]);
+        off[1] = Math.round((height/2f) - player.position[1]) + 150;
+
+        BufferedImage field = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+
+        Graphics2D fig = field.createGraphics();
+        fig.setPaint(new Color(255, 255, 255));
+        fig.fillRect(0, 0, width, height);
 
         int objectsFailedtorender = 0;
-        for(int i = 0;i < blocks.size(); i++){frame = blocks.get(i).renderOnImage(frame);if(!blocks.get(i).exists){objectsFailedtorender++;}}
-        for(int i = 0;i < circles.size(); i++){frame = circles.get(i).renderOnImage(frame);if(!circles.get(i).exists){objectsFailedtorender++;}}
-        for(int i = 0;i < diameterCircles.size(); i++){frame = diameterCircles.get(i).renderOnImage(frame);if(!diameterCircles.get(i).exists){objectsFailedtorender++;}}
-        for(int i = 0;i < lines.size(); i++){frame = lines.get(i).renderOnImage(frame);if(!lines.get(i).exists){objectsFailedtorender++;}}
-        for(int i = 0;i < lineParallels.size(); i++){frame = lineParallels.get(i).renderOnImage(frame);if(!lineParallels.get(i).exists){objectsFailedtorender++;}}
-        for(int i = 0;i < linePerpendiculars.size(); i++){frame = linePerpendiculars.get(i).renderOnImage(frame);if(!linePerpendiculars.get(i).exists){objectsFailedtorender++;}}
-        for(int i = 0;i < lineSegments.size(); i++){frame = lineSegments.get(i).renderOnImage(frame);if(!lineSegments.get(i).exists){objectsFailedtorender++;}}
-        for(int i = 0;i < lineXLineCrossections.size(); i++){frame = lineXLineCrossections.get(i).renderOnImage(frame);if(!lineXLineCrossections.get(i).exists){objectsFailedtorender++;}}
-        for(int i = 0;i < lineXLineSegmentCrossections.size(); i++){frame = lineXLineSegmentCrossections.get(i).renderOnImage(frame);if(!lineXLineSegmentCrossections.get(i).exists){objectsFailedtorender++;}}
-        for(int i = 0;i < lineSegmentXLineSegmentCrossections.size(); i++){frame = lineSegmentXLineSegmentCrossections.get(i).renderOnImage(frame);if(!lineSegmentXLineSegmentCrossections.get(i).exists){objectsFailedtorender++;}}
-        for(int i = 0;i < circleXLineCrossections.size(); i++){frame = circleXLineCrossections.get(i).renderOnImage(frame);if(!circleXLineCrossections.get(i).exists | (!circleXLineCrossections.get(i).exists1 & !circleXLineCrossections.get(i).exists2)){objectsFailedtorender++;}}
-        for(int i = 0;i < circleXLineSegmentCrossections.size(); i++){frame = circleXLineSegmentCrossections.get(i).renderOnImage(frame);if(!circleXLineSegmentCrossections.get(i).exists | (!circleXLineSegmentCrossections.get(i).exists1 & !circleXLineSegmentCrossections.get(i).exists2)){objectsFailedtorender++;}}
-        for(int i = 0;i < midPoints.size(); i++){frame = midPoints.get(i).renderOnImage(frame);if(!midPoints.get(i).exists){objectsFailedtorender++;}}
-        for(int i = 0;i < circleXCircleCrossections.size(); i++){frame = circleXCircleCrossections.get(i).renderOnImage(frame);if(!circleXCircleCrossections.get(i).exists){objectsFailedtorender++;}}
-        for(int i = 0;i < points.size(); i++){frame = points.get(i).renderOnImage(frame);if(!points.get(i).exists){objectsFailedtorender++;}}
-        for(int i = 0;i < polygons.size(); i++){frame = polygons.get(i).renderOnImage(frame);if(!polygons.get(i).exists){objectsFailedtorender++;}}
-        player.renderOnImage(frame);
+        for(int i = 0;i < blocks.size(); i++){field = blocks.get(i).renderOnImage(field);if(!blocks.get(i).exists){objectsFailedtorender++;}}
+        for(int i = 0;i < circles.size(); i++){field = circles.get(i).renderOnImage(field);if(!circles.get(i).exists){objectsFailedtorender++;}}
+        for(int i = 0;i < diameterCircles.size(); i++){field = diameterCircles.get(i).renderOnImage(field);if(!diameterCircles.get(i).exists){objectsFailedtorender++;}}
+        for(int i = 0;i < lines.size(); i++){field = lines.get(i).renderOnImage(field);if(!lines.get(i).exists){objectsFailedtorender++;}}
+        for(int i = 0;i < lineParallels.size(); i++){field = lineParallels.get(i).renderOnImage(field);if(!lineParallels.get(i).exists){objectsFailedtorender++;}}
+        for(int i = 0;i < linePerpendiculars.size(); i++){field = linePerpendiculars.get(i).renderOnImage(field);if(!linePerpendiculars.get(i).exists){objectsFailedtorender++;}}
+        for(int i = 0;i < lineSegments.size(); i++){field = lineSegments.get(i).renderOnImage(field);if(!lineSegments.get(i).exists){objectsFailedtorender++;}}
+        for(int i = 0;i < lineXLineCrossections.size(); i++){field = lineXLineCrossections.get(i).renderOnImage(field);if(!lineXLineCrossections.get(i).exists){objectsFailedtorender++;}}
+        for(int i = 0;i < lineXLineSegmentCrossections.size(); i++){field = lineXLineSegmentCrossections.get(i).renderOnImage(field);if(!lineXLineSegmentCrossections.get(i).exists){objectsFailedtorender++;}}
+        for(int i = 0;i < lineSegmentXLineSegmentCrossections.size(); i++){field = lineSegmentXLineSegmentCrossections.get(i).renderOnImage(field);if(!lineSegmentXLineSegmentCrossections.get(i).exists){objectsFailedtorender++;}}
+        for(int i = 0;i < circleXLineCrossections.size(); i++){field = circleXLineCrossections.get(i).renderOnImage(field);if(!circleXLineCrossections.get(i).exists | (!circleXLineCrossections.get(i).exists1 & !circleXLineCrossections.get(i).exists2)){objectsFailedtorender++;}}
+        for(int i = 0;i < circleXLineSegmentCrossections.size(); i++){field = circleXLineSegmentCrossections.get(i).renderOnImage(field);if(!circleXLineSegmentCrossections.get(i).exists | (!circleXLineSegmentCrossections.get(i).exists1 & !circleXLineSegmentCrossections.get(i).exists2)){objectsFailedtorender++;}}
+        for(int i = 0;i < midPoints.size(); i++){field = midPoints.get(i).renderOnImage(field);if(!midPoints.get(i).exists){objectsFailedtorender++;}}
+        for(int i = 0;i < circleXCircleCrossections.size(); i++){field = circleXCircleCrossections.get(i).renderOnImage(field);if(!circleXCircleCrossections.get(i).exists){objectsFailedtorender++;}}
+        for(int i = 0;i < points.size(); i++){field = points.get(i).renderOnImage(field);if(!points.get(i).exists){objectsFailedtorender++;}}
+        for(int i = 0;i < polygons.size(); i++){field = polygons.get(i).renderOnImage(field);if(!polygons.get(i).exists){objectsFailedtorender++;}}
+        player.renderOnImage(field);
 
         if (objectsFailedtorender != 0){
-            g.setPaint(Color.RED);
-            g.setFont(new Font("Plain", 0, 20));
-            g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-            g.drawString(String.valueOf(objectsFailedtorender) + "!", 20, 20);
-            g.dispose();
+            fig.setPaint(Color.RED);
+            fig.setFont(new Font("Plain", 0, 20));
+            fig.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+            fig.drawString(String.valueOf(objectsFailedtorender) + "!", 20, 20);
+            fig.dispose();
         }
 
-        return frame;
+        fig.dispose();
+
+        return field;
 
     }
 

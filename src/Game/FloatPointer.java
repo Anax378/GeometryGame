@@ -1,1 +1,0 @@
-package Game;public class FloatPointer {Float x;FloatPointer(Float x) {this.x = x;}}

@@ -1,5 +1,7 @@
 package shapes;
 
+import Game.Main;
+
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
@@ -61,7 +63,7 @@ public class LineXLineCrossection {
         if(exists) {
             Graphics2D g2d = image.createGraphics();
             g2d.setPaint(renderColor);
-            Ellipse2D.Double circle = new Ellipse2D.Double(position[0] - (renderRadius / 2), position[1] - (renderRadius / 2), renderRadius, renderRadius);
+            Ellipse2D.Double circle = new Ellipse2D.Double((position[0] + Main.currentLevel.off[0]) - (renderRadius / 2f), (position[1] + Main.currentLevel.off[1]) - (renderRadius / 2f), renderRadius, renderRadius);
             g2d.fill(circle);
         }
 

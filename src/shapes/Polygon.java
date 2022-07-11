@@ -10,6 +10,10 @@ public class Polygon {
     public Float[][] verts;
     public int[] Xs;
     public int[] Ys;
+
+    public int[] rXs;
+    public int[] rYs;
+
     public Color backgroundRenderColor;
     public Color renderColor;
 
@@ -23,6 +27,9 @@ public class Polygon {
 
         Xs = new int[verts.length];
         Ys = new int[verts.length];
+
+        rXs = new int[verts.length];
+        rYs = new int[verts.length];
 
     }
     public void update(){
@@ -40,11 +47,18 @@ public class Polygon {
 
     public BufferedImage renderOnImage(BufferedImage image){
         if(exists){
-          Graphics2D g2d = image.createGraphics();
-          g2d.setPaint(renderColor);
-          g2d.drawPolygon(Xs, Ys, verts.length);
-          g2d.setPaint(backgroundRenderColor);
-          g2d.fillPolygon(Xs, Ys, verts.length);
+            for(int i = 0; i < verts.length; i++){
+
+                rXs[i] = Xs[i] + Main.currentLevel.off[0];
+                rYs[i] = Ys[i] + Main.currentLevel.off[1];
+            }
+
+
+            Graphics2D g2d = image.createGraphics();
+            g2d.setPaint(renderColor);
+            g2d.drawPolygon(rXs, rYs, verts.length);
+            g2d.setPaint(backgroundRenderColor);
+            g2d.fillPolygon(rXs, rYs, verts.length);
         }
         return image;
     }

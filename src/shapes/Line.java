@@ -1,5 +1,7 @@
 package shapes;
 
+import Game.Main;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
@@ -17,7 +19,7 @@ public class Line implements Serializable {
     public Line(Float[] dp1, Float[] dp2, Color renderColor, int[] resolution){
         this.dp1 = dp1;
         this.dp2 = dp2;
-        this.resolution = resolution;
+        this.resolution = new int[]{resolution[0]*1000000, resolution[1]*1000000};
         this.renderColor = renderColor;
         this.p1 = new Float[]{null, null};
         this.p2 = new Float[]{null, null};
@@ -77,7 +79,7 @@ public class Line implements Serializable {
         if(exists) {
             Graphics2D g2d = image.createGraphics();
             g2d.setPaint(renderColor);
-            g2d.drawLine(Math.round(p1[0]), Math.round(p1[1]), Math.round(p2[0]), Math.round(p2[1]));
+            g2d.drawLine(Math.round(p1[0] + Main.currentLevel.off[0]), Math.round(p1[1] + Main.currentLevel.off[1]), Math.round(p2[0] + Main.currentLevel.off[0]), Math.round(p2[1] + Main.currentLevel.off[1]));
             g2d.dispose();
         }
 

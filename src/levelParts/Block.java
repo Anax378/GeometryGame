@@ -1,5 +1,7 @@
 package levelParts;
 
+import Game.Main;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -23,7 +25,7 @@ public class Block {
         if(exists) {
             Graphics2D g2d = image.createGraphics();
             g2d.setPaint(renderColor);
-            g2d.fillRect(Math.round(p1[0]), Math.round(p1[1]), Math.round(p2[0] - p1[0]), Math.round(p2[1] - p1[1]));
+            g2d.fillRect(Math.round(p1[0] + Main.currentLevel.off[0]), Math.round(p1[1] + Main.currentLevel.off[1]), Math.round((p2[0] + Main.currentLevel.off[0]) - (p1[0] + Main.currentLevel.off[0])), Math.round((p2[1] + Main.currentLevel.off[1]) - (p1[1] + Main.currentLevel.off[1])));
             g2d.dispose();
         }
 

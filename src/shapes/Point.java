@@ -1,5 +1,7 @@
 package shapes;
 
+import Game.Main;
+
 import javax.swing.text.Position;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
@@ -24,7 +26,7 @@ public class Point implements Serializable {
         if(exists) {
             Graphics2D g2d = image.createGraphics();
             g2d.setPaint(renderColor);
-            Ellipse2D.Double circle = new Ellipse2D.Double(position[0] - (diameter / 2f), position[1] - (diameter / 2f), diameter, diameter);
+            Ellipse2D.Double circle = new Ellipse2D.Double((position[0] + Main.currentLevel.off[0]) - (diameter / 2f), (position[1] + Main.currentLevel.off[1]) - (diameter / 2f), diameter, diameter);
             g2d.fill(circle);
         }
 

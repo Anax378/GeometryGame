@@ -55,10 +55,12 @@ public class Player implements Serializable {
         physicsPosition[0] = physicsPosition[0]+velocity[0]*t;
         physicsPosition[1] = physicsPosition[1]+velocity[1]*t;
 
+/*
         if(physicsPosition[0] < (float) diameter/2f) {physicsPosition[0] = (float) diameter/2f; velocity[0] = 0f;}
         if(physicsPosition[0] > (float) Main.w.width - (float) diameter/2f){physicsPosition[0] = (float) Main.w.width - diameter/2f;velocity[0] = 0f;}
         if(physicsPosition[1] < (float) diameter/2f){physicsPosition[1] = (float) diameter/2f;velocity[1] = 0f;canJump = true;}
         if(physicsPosition[1] > (float) Main.w.height - (float) diameter/2f){physicsPosition[1] = (float) Main.w.height - diameter/2f;velocity[1] = 0f;canJump = true;}
+*/
 
 
 
@@ -94,6 +96,8 @@ public class Player implements Serializable {
 
 
         java.awt.Point mousePosition = Game.Main.w.frame.getMousePosition();
+
+
         if (mousePosition != null) {
 
             mousePosition.y = mousePosition.y - 36;
@@ -113,15 +117,15 @@ public class Player implements Serializable {
             }
         }
 
-
     }
 
     public BufferedImage renderOnImage(BufferedImage image){
         if (position[0] == null || position[1] == null){exists = false;}else{exists = true;}
+
         if(exists) {
             Graphics2D g2d = image.createGraphics();
             g2d.setPaint(renderColor);
-            Ellipse2D.Double circle = new Ellipse2D.Double(position[0] - (diameter / 2f), position[1] - (diameter / 2f), diameter, diameter);
+            Ellipse2D.Double circle = new Ellipse2D.Double((position[0] + Main.currentLevel.off[0]) - (diameter / 2f), (position[1] + Main.currentLevel.off[1]) - (diameter / 2f), diameter, diameter);
             g2d.fill(circle);
         }
         return image;

@@ -76,6 +76,7 @@ public class Main {
         blocks.add(new Block(new Float[]{182f, 545f}, new Float[]{322f, 574f}, new Color(200, 200, 200)));
         blocks.add(new Block(new Float[]{310f, 500f}, new Float[]{350f, 574f}, new Color(200, 200, 200)));
         blocks.add(new Block(new Float[]{379f, 489f}, new Float[]{461f, 510f}, new Color(200, 200, 200)));
+        blocks.add(new Block(new Float[]{0f, 595f}, new Float[]{600f, 630f}, new Color(100, 100, 100)));
 
         points.add(new Point(blocks.get(1).p1, new Color(200, 200, 200), 10));
         points.add(new Point(blocks.get(1).p2, new Color(100, 100, 100), 10));

@@ -133,12 +133,9 @@ public class Level implements Serializable {
         if(startAppearingFlag){start = System.currentTimeMillis();startAppearingFlag = false;}
         if(isAppearing){redOverlayAlpha = ((255d/1000d)*(System.currentTimeMillis() - start));}
 
-        System.out.println(redOverlayAlpha + "     " + System.currentTimeMillis());
-
         if(redOverlayAlpha > 250d){isAppearing = false; redOverlayAlpha = 0d;}
         if(isAppearing){
             fig = field.createGraphics();
-            System.out.println(Math.round(redOverlayAlpha));
             fig.setPaint(new Color(255, 0, 0, (int) Math.round(redOverlayAlpha)));
             fig.fillRect(0, 0, width, height);
         }

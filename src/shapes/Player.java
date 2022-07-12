@@ -26,6 +26,8 @@ public class Player implements Serializable {
     public boolean mouseInHitbox = false;
     public boolean exists;
     public boolean canJump = false;
+    public float friction = 0.9f;
+    public float moveForce = 500f;
 
 
     public Player(Float[] position, Color renderColor, int diameter){
@@ -49,11 +51,13 @@ public class Player implements Serializable {
 
             float t = 1f/ Main.tps;
 
-            velocity[0] = velocity[0] * 0.9f;
+            velocity[0] = velocity[0] * friction;
             velocity[1] = velocity[1] * 0.988f;
 
             velocity[0] = velocity[0] + acceleration[0]*t;
             velocity[1] = velocity[1] + acceleration[1]*t;
+
+            velocity[0] = velocity[0] - moveForce * -horizontalInput;
 
             physicsPosition[0] = physicsPosition[0]+velocity[0]*t;
             physicsPosition[1] = physicsPosition[1]+velocity[1]*t;
@@ -82,7 +86,8 @@ public class Player implements Serializable {
                 }
             }
 
-            velocity[0] = velocity[0] - 500f * -horizontalInput;
+            if(canJump){friction = 0.0f;moveForce = 500f;}else{friction = 0.4f;moveForce = 300f;}
+
             if(Main.w.isSpaceDown & canJump){velocity[1] = velocity[1] - 500f;Main.w.isSpaceDown = false;}
 
             float speedLimit = 500f;

@@ -13,7 +13,7 @@ public class DiameterCircle implements Serializable {
     public Color renderColor;
     public boolean exists;
 
-    public DiameterCircle(Float[] center,Float diameter[], Color renderColor){
+    public DiameterCircle(Float[] center,Float[] diameter, Color renderColor){
 
         this.center = center;
         this.diameter = diameter;

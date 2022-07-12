@@ -37,6 +37,11 @@ public class Level implements Serializable {
 
     public Player player;
 
+    public double redOverlayAlpha = 0;
+    public boolean isAppearing = false;
+    public boolean startAppearingFlag = false;
+    long start = 0;
+
     public Level(List<Point> points,
                  List<LineSegment> lineSegments,
                  List<MidPoint> midPoints,
@@ -88,9 +93,10 @@ public class Level implements Serializable {
 
         width = Main.w.width;
         height = Main.w.height;
-
-        off[0] = Math.round((width/2f) - player.position[0]);
-        off[1] = Math.round((height/2f) - player.position[1]) + 150;
+        if(player.position[0] == null | player.position[1] == null){;}else{
+            off[0] = Math.round((width/2f) - player.position[0]);
+            off[1] = Math.round((height/2f) - player.position[1]) + 150;
+        }
 
         BufferedImage field = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 
@@ -119,14 +125,24 @@ public class Level implements Serializable {
 
         if (objectsFailedtorender != 0){
             fig.setPaint(Color.RED);
-            fig.setFont(new Font("Plain", 0, 20));
+            fig.setFont(new Font("Plain", Font.PLAIN, 20));
             fig.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-            fig.drawString(String.valueOf(objectsFailedtorender) + "!", 20, 20);
+            fig.drawString(String.valueOf(objectsFailedtorender) + "!", 20 + off[0], 20 + off[1]);
             fig.dispose();
         }
+        if(startAppearingFlag){start = System.currentTimeMillis();startAppearingFlag = false;}
+        if(isAppearing){redOverlayAlpha = ((255d/1000d)*(System.currentTimeMillis() - start));}
 
+        System.out.println(redOverlayAlpha + "     " + System.currentTimeMillis());
+
+        if(redOverlayAlpha > 250d){isAppearing = false; redOverlayAlpha = 0d;}
+        if(isAppearing){
+            fig = field.createGraphics();
+            System.out.println(Math.round(redOverlayAlpha));
+            fig.setPaint(new Color(255, 0, 0, (int) Math.round(redOverlayAlpha)));
+            fig.fillRect(0, 0, width, height);
+        }
         fig.dispose();
-
         return field;
 
     }

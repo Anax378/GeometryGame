@@ -14,7 +14,7 @@ public class Main {
     public static Window w;
 
     public static Level currentLevel;
-    static int currentLevelID;
+    public static int currentLevelID;
 
     public static int tps = 100;
 
@@ -43,7 +43,7 @@ public class Main {
     public static Point testingPoint;
 
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws InterruptedException {
 
 
         w = new Window();
@@ -120,6 +120,7 @@ public class Main {
             @Override
             public boolean reachedObjective() {
                 if(diameterCircles.get(1).exists) {
+                    if(player.position[0] == null | player.position[1] == null | diameterCircles.get(1).center[0] == null | diameterCircles.get(1).center[1] == null | diameterCircles.get(1).diameter[0] == null){return false;}
                     return isInCircle(new float[]{player.position[0], player.position[1]}, new float[]{diameterCircles.get(1).center[0], diameterCircles.get(1).center[1]}, diameterCircles.get(1).diameter[0]);
                 }
                 return false;
@@ -152,7 +153,9 @@ public class Main {
 
         while(true) {       //  frame loop
 
+            if(player.position[0] == null | player.position[1] == null){;}else{
             if(polygons.get(1).isInRectangle(player.position[0], player.position[1])){player.renderColor = Color.GREEN;}else{player.renderColor = Color.RED;}
+            }
 
             //while(w.mouseDown){;}
 
@@ -178,8 +181,7 @@ public class Main {
             else {
 
                 if(w.isRDown){
-                    //levels.set(currentLevelID, (Level)serializeDataIn("level" + currentLevelID));
-                    currentLevel = levels.get(currentLevelID);
+                    restartLevel(currentLevelID);
                 }
 
                 currentLevel.update();
@@ -216,6 +218,11 @@ public class Main {
 
 
 
+    }
+
+    public static void restartLevel(int id){
+        //levels.set(id, (Level)serializeDataIn("level" + currentLevelID));
+        currentLevel = levels.get(id);
     }
 
     public static void serializeDataOut(Object ish, String fileName)throws IOException {

@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
+import java.util.concurrent.TimeUnit;
 
 public class Player implements Serializable {
 
@@ -37,91 +38,99 @@ public class Player implements Serializable {
 
     }
 
-    public void update(){
-        horizontalInput = 0;
-        canJump = false;
+    public void update() throws InterruptedException {
+        if(position[0] == null | position[1] == null){exists = false;}else{exists = true;}
+        if(exists){
+            horizontalInput = 0;
+            canJump = false;
 
-        if(Main.w.isDDown){horizontalInput++;}
-        if(Main.w.isADown){horizontalInput--;}
+            if(Main.w.isDDown){horizontalInput++;}
+            if(Main.w.isADown){horizontalInput--;}
 
-        float t = 1f/ Main.tps;
+            float t = 1f/ Main.tps;
 
-        velocity[0] = velocity[0] * 0.9f;
-        velocity[1] = velocity[1] * 0.988f;
+            velocity[0] = velocity[0] * 0.9f;
+            velocity[1] = velocity[1] * 0.988f;
 
-        velocity[0] = velocity[0] + acceleration[0]*t;
-        velocity[1] = velocity[1] + acceleration[1]*t;
+            velocity[0] = velocity[0] + acceleration[0]*t;
+            velocity[1] = velocity[1] + acceleration[1]*t;
 
-        physicsPosition[0] = physicsPosition[0]+velocity[0]*t;
-        physicsPosition[1] = physicsPosition[1]+velocity[1]*t;
+            physicsPosition[0] = physicsPosition[0]+velocity[0]*t;
+            physicsPosition[1] = physicsPosition[1]+velocity[1]*t;
 
-/*
-        if(physicsPosition[0] < (float) diameter/2f) {physicsPosition[0] = (float) diameter/2f; velocity[0] = 0f;}
-        if(physicsPosition[0] > (float) Main.w.width - (float) diameter/2f){physicsPosition[0] = (float) Main.w.width - diameter/2f;velocity[0] = 0f;}
-        if(physicsPosition[1] < (float) diameter/2f){physicsPosition[1] = (float) diameter/2f;velocity[1] = 0f;canJump = true;}
-        if(physicsPosition[1] > (float) Main.w.height - (float) diameter/2f){physicsPosition[1] = (float) Main.w.height - diameter/2f;velocity[1] = 0f;canJump = true;}
-*/
-
-
-
-        for(int i = 0; i < Main.currentLevel.blocks.size(); i++){
-            boolean[] result = isInRectangle(new float[] {physicsPosition[0], physicsPosition[1]}, new float[]{Main.currentLevel.blocks.get(i).p1[0], Main.currentLevel.blocks.get(i).p1[1]}, new float[]{Main.currentLevel.blocks.get(i).p2[0], Main.currentLevel.blocks.get(i).p2[1]}, lastPhysicalPosition[1]);
-            if(result[0]){
-                //physicsPosition = new Float[]{lastPhysicalPosition[0], lastPhysicalPosition[1]};
-                if(!result[1] && !result[2]){physicsPosition = new Float[]{physicsPosition[0], Main.currentLevel.blocks.get(i).p2[1]};}
-                if(!result[1] && result[2]){physicsPosition = new Float[]{physicsPosition[0], Main.currentLevel.blocks.get(i).p1[1]};canJump = true;}
-                if(result[1] && !result[2]){physicsPosition = new Float[]{Main.currentLevel.blocks.get(i).p2[0], physicsPosition[1]};}
-                if(result[1] && result[2]){physicsPosition = new Float[]{Main.currentLevel.blocks.get(i).p1[0], physicsPosition[1]};}
-
-                if(result[1]){velocity[0] = 0f;}
-                if(!result[1]){velocity[1] = 0f;}
-
-            }
-        }
-
-        velocity[0] = velocity[0] - 500f * -horizontalInput;
-        if(Main.w.isSpaceDown & canJump){velocity[1] = velocity[1] - 500f;Main.w.isSpaceDown = false;}
-
-        float speedLimit = 500f;
-
-        if(velocity[0] > speedLimit){velocity[0] = speedLimit;}
-        if(velocity[0] < -speedLimit){velocity[0] = -speedLimit;}
+    /*
+            if(physicsPosition[0] < (float) diameter/2f) {physicsPosition[0] = (float) diameter/2f; velocity[0] = 0f;}
+            if(physicsPosition[0] > (float) Main.w.width - (float) diameter/2f){physicsPosition[0] = (float) Main.w.width - diameter/2f;velocity[0] = 0f;}
+            if(physicsPosition[1] < (float) diameter/2f){physicsPosition[1] = (float) diameter/2f;velocity[1] = 0f;canJump = true;}
+            if(physicsPosition[1] > (float) Main.w.height - (float) diameter/2f){physicsPosition[1] = (float) Main.w.height - diameter/2f;velocity[1] = 0f;canJump = true;}
+    */
 
 
-        position[0] = physicsPosition[0];
-        position[1] = physicsPosition[1];
 
-        lastClickedCount = Main.w.clickCount;
-        lastPhysicalPosition = new Float[]{physicsPosition[0], physicsPosition[1]};
+            for(int i = 0; i < Main.currentLevel.blocks.size(); i++){
+                boolean[] result = isInRectangle(new float[] {physicsPosition[0], physicsPosition[1]}, new float[]{Main.currentLevel.blocks.get(i).p1[0], Main.currentLevel.blocks.get(i).p1[1]}, new float[]{Main.currentLevel.blocks.get(i).p2[0], Main.currentLevel.blocks.get(i).p2[1]}, lastPhysicalPosition[1]);
+                if(result[0]){
+                    //physicsPosition = new Float[]{lastPhysicalPosition[0], lastPhysicalPosition[1]};
+                    if(!result[1] && !result[2]){physicsPosition = new Float[]{physicsPosition[0], Main.currentLevel.blocks.get(i).p2[1]};}
+                    if(!result[1] && result[2]){physicsPosition = new Float[]{physicsPosition[0], Main.currentLevel.blocks.get(i).p1[1]};canJump = true;}
+                    if(result[1] && !result[2]){physicsPosition = new Float[]{Main.currentLevel.blocks.get(i).p2[0], physicsPosition[1]};}
+                    if(result[1] && result[2]){physicsPosition = new Float[]{Main.currentLevel.blocks.get(i).p1[0], physicsPosition[1]};}
 
+                    if(result[1]){velocity[0] = 0f;}
+                    if(!result[1]){velocity[1] = 0f;}
 
-        java.awt.Point mousePosition = Game.Main.w.frame.getMousePosition();
-
-
-        if (mousePosition != null) {
-
-            mousePosition.y = mousePosition.y - 36;
-            float a = Math.abs(mousePosition.y - position[1]);
-            float b = Math.abs(mousePosition.x - position[0]);
-
-            boolean inHitbox = Math.sqrt(a * a + b * b) < diameter;
-
-            if (!Game.Main.w.mouseDown) {
-                mouseInHitbox = inHitbox;
+                }
             }
 
-            if (mouseInHitbox & Game.Main.w.mouseDown) {
+            velocity[0] = velocity[0] - 500f * -horizontalInput;
+            if(Main.w.isSpaceDown & canJump){velocity[1] = velocity[1] - 500f;Main.w.isSpaceDown = false;}
 
-                position[0] = (float) mousePosition.x;
-                position[1] = (float) mousePosition.y;
+            float speedLimit = 500f;
+
+            if(velocity[0] > speedLimit){velocity[0] = speedLimit;}
+            if(velocity[0] < -speedLimit){velocity[0] = -speedLimit;}
+
+
+            position[0] = physicsPosition[0];
+            position[1] = physicsPosition[1];
+
+            lastClickedCount = Main.w.clickCount;
+            lastPhysicalPosition = new Float[]{physicsPosition[0], physicsPosition[1]};
+
+
+            java.awt.Point mousePosition = Game.Main.w.frame.getMousePosition();
+
+
+            if (mousePosition != null) {
+
+                mousePosition.y = mousePosition.y - 36 + Main.currentLevel.off[1];
+                mousePosition.x = mousePosition.x + Main.currentLevel.off[0];
+                float a = Math.abs(mousePosition.y - position[1]);
+                float b = Math.abs(mousePosition.x - position[0]);
+
+                boolean inHitbox = Math.sqrt(a * a + b * b) < diameter;
+
+                if (!Game.Main.w.mouseDown) {
+                    mouseInHitbox = inHitbox;
+                }
+
+                if (mouseInHitbox & Game.Main.w.mouseDown) {
+
+                    position[0] = (float) mousePosition.x;
+                    position[1] = (float) mousePosition.y;
+                }
             }
+
+            if(position[1] > 1000){
+                die();
+            }
+
         }
 
     }
 
     public BufferedImage renderOnImage(BufferedImage image){
         if (position[0] == null || position[1] == null){exists = false;}else{exists = true;}
-
         if(exists) {
             Graphics2D g2d = image.createGraphics();
             g2d.setPaint(renderColor);
@@ -198,6 +207,17 @@ public class Player implements Serializable {
 
     }
 
+    public void die() throws InterruptedException {
+        position[0] = null;
+        position[1] = null;
+        exists = false;
+        Main.currentLevel.isAppearing = true;
+        Main.currentLevel.startAppearingFlag = true;
+        Main.restartLevel(Main.currentLevelID);
+
+    }
+
 }
+
 
 

@@ -1,6 +1,7 @@
 package Game;
 
 import levelParts.Block;
+import levelParts.Orb;
 import shapes.*;
 import shapes.Point;
 import shapes.Polygon;
@@ -28,13 +29,14 @@ public class Main {
     public static List<LineXLineSegmentCrossection> lineXLineSegmentCrossections = new ArrayList<>();
     public static List<LineSegmentXLineSegmentCrossection> lineSegmentXLineSegmentCrossections = new ArrayList<>();
     public static List<Level> levels = new ArrayList<>();
-    public static List<Block> blocks = new ArrayList<>();
     public static List<CircleXLineCrossection> circleXLineCrossections= new ArrayList<>();
     public static List<CircleXLineSegmentCrossection> circleXLineSegmentCrossections = new ArrayList<>();
     public static List<CircleXCircleCrossections> circleXCircleCrossections = new ArrayList<>();
     public static List<LineParallel> lineParallels = new ArrayList<>();
     public static List<LinePerpendicular> linePerpendiculars = new ArrayList<>();
     public static List<Polygon> polygons = new ArrayList<>();
+    public static List<Block> blocks = new ArrayList<>();
+    public static List<Orb> orbs = new ArrayList<>();
 
     public static Player player;
     public static int ticksPerSecond = tps;
@@ -100,6 +102,8 @@ public class Main {
         polygons.add(new Polygon(new Float[][]{player.position, circleXLineSegmentCrossections.get(0).position1, midPoints.get(0).position, circleXLineSegmentCrossections.get(0).position2}, Color.GREEN));
         polygons.add(new Polygon(new Float[][]{points.get(3).position, points.get(4).position, midPoints.get(0).position}, Color.RED));
 
+        orbs.add(new Orb(new Float[]{240f, 500f}, Color.cyan, 20));
+
         Level level1 = new Level(
                 points,
                 lineSegments,
@@ -110,13 +114,14 @@ public class Main {
                 lineXLineCrossections,
                 lineXLineSegmentCrossections,
                 lineSegmentXLineSegmentCrossections,
-                blocks,
                 circleXLineCrossections,
                 circleXLineSegmentCrossections,
                 circleXCircleCrossections,
                 lineParallels,
                 linePerpendiculars,
                 polygons,
+                blocks,
+                orbs,
                 player){
             @Override
             public boolean reachedObjective() {

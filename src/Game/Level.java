@@ -1,6 +1,6 @@
 package Game;
 
-import levelParts.Block;
+import levelParts.*;
 import shapes.*;
 import shapes.Point;
 import shapes.Polygon;
@@ -28,6 +28,7 @@ public class Level implements Serializable {
     public List<CircleXCircleCrossections> circleXCircleCrossections;
     public List<LineParallel> lineParallels;
     public List<LinePerpendicular> linePerpendiculars;
+    public List<Orb> orbs;
     public List<Polygon> polygons;
 
     public int width;
@@ -51,13 +52,14 @@ public class Level implements Serializable {
                  List<LineXLineCrossection> lineXLineCrossections,
                  List<LineXLineSegmentCrossection> lineXLineSegmentCrossections,
                  List<LineSegmentXLineSegmentCrossection> lineSegmentXLineSegmentCrossections,
-                 List<Block> blocks,
                  List<CircleXLineCrossection> circleXLineCrossections,
                  List<CircleXLineSegmentCrossection> circleXLineSegmentCrossections,
                  List<CircleXCircleCrossections> circleXCircleCrossections,
                  List<LineParallel> lineParallels,
                  List<LinePerpendicular> linePerpendiculars,
                  List<Polygon> polygons,
+                 List<Block> blocks,
+                 List<Orb> orbs,
                  Player player
                  ){
 
@@ -79,6 +81,7 @@ public class Level implements Serializable {
 
         this.player = player;
         this.blocks = blocks;
+        this.orbs = orbs;
 
         width = Main.w.width;
         height = Main.w.height;
@@ -121,6 +124,7 @@ public class Level implements Serializable {
         for(int i = 0;i < circleXCircleCrossections.size(); i++){field = circleXCircleCrossections.get(i).renderOnImage(field);if(!circleXCircleCrossections.get(i).exists){objectsFailedtorender++;}}
         for(int i = 0;i < points.size(); i++){field = points.get(i).renderOnImage(field);if(!points.get(i).exists){objectsFailedtorender++;}}
         for(int i = 0;i < polygons.size(); i++){field = polygons.get(i).renderOnImage(field);if(!polygons.get(i).exists){objectsFailedtorender++;}}
+        for(int i = 0;i < orbs.size(); i++){field = orbs.get(i).renderOnImage(field);if(!orbs.get(i).exists){objectsFailedtorender++;}}
         player.renderOnImage(field);
 
         if (objectsFailedtorender != 0){

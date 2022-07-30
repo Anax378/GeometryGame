@@ -86,6 +86,10 @@ public class Player implements Serializable {
                 }
             }
 
+            for(int i = 0; i < Main.currentLevel.orbs.size(); i++){
+                if(Main.currentLevel.orbs.get(i).isInCircle(position)){canJump = true;}
+            }
+
             if(canJump){friction = 0.0f;moveForce = 500f;}else{friction = 0.4f;moveForce = 300f;}
 
             if(Main.w.isSpaceDown & canJump){velocity[1] = velocity[1] - 500f;Main.w.isSpaceDown = false;}

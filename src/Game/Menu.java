@@ -57,8 +57,11 @@ public class Menu {
         g2d.setFont(new Font("TimesRoman", Font.PLAIN, 30));
         g2d.drawString(String.valueOf(selectedLevel), 280, 250);
 
-        g2d.fillRect(LBC[0], LBC[1], LBWH[0], LBWH[1]); //left button
-        g2d.fillRect(RBC[0], RBC[1], RBWH[0], RBWH[1]); //right button
+        g2d.fillPolygon(new int[]{LBC[0], LBC[0]+LBWH[0], LBC[0]+LBWH[0]}, new int[]{LBC[1] + (LBWH[1]/2), LBC[1], LBC[1]+LBWH[1]}, 3);
+
+        g2d.fillPolygon(new int[]{RBC[0], RBC[0], RBC[0]+RBWH[0]}, new int[]{RBC[1], RBC[1]+RBWH[1], RBC[1]+(RBWH[1]/2)}, 3);
+
+        // g2d.fillRect(RBC[0], RBC[1], RBWH[0], RBWH[1]); //right button
 
         g2d.fillRect(SBC[0], SBC[1], SBWH[0], SBWH[1]);//select button
 

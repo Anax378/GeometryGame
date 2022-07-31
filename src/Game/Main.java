@@ -102,7 +102,7 @@ public class Main {
         polygons.add(new Polygon(new Float[][]{player.position, circleXLineSegmentCrossections.get(0).position1, midPoints.get(0).position, circleXLineSegmentCrossections.get(0).position2}, Color.GREEN));
         polygons.add(new Polygon(new Float[][]{points.get(3).position, points.get(4).position, midPoints.get(0).position}, Color.RED));
 
-        orbs.add(new Orb(new Float[]{240f, 500f}, Color.cyan, 20));
+        orbs.add(new Orb(new Float[]{240f, 510f}, Color.cyan, 35));
 
         Level level1 = new Level(
                 points,

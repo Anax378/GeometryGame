@@ -6,7 +6,6 @@ import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
-import java.util.concurrent.TimeUnit;
 
 public class Player implements Serializable {
 
@@ -109,11 +108,10 @@ public class Player implements Serializable {
 
             java.awt.Point mousePosition = Game.Main.w.frame.getMousePosition();
 
-
             if (mousePosition != null) {
 
-                mousePosition.y = mousePosition.y - 36 + Main.currentLevel.off[1];
-                mousePosition.x = mousePosition.x + Main.currentLevel.off[0];
+                mousePosition.y = mousePosition.y - 36 - Main.currentLevel.off[1];
+                mousePosition.x = mousePosition.x - Main.currentLevel.off[0];
                 float a = Math.abs(mousePosition.y - position[1]);
                 float b = Math.abs(mousePosition.x - position[0]);
 
@@ -124,13 +122,12 @@ public class Player implements Serializable {
                 }
 
                 if (mouseInHitbox & Game.Main.w.mouseDown) {
-
-                    position[0] = (float) mousePosition.x;
-                    position[1] = (float) mousePosition.y;
+                    position[0] = (float) mousePosition.x + (Main.currentLevel.off[0]);
+                    position[1] = (float) mousePosition.y + (Main.currentLevel.off[1] + 36);
                 }
             }
 
-            if(position[1] > 1000){
+            if(physicsPosition[1] > Main.deathAltitude){
                 die();
             }
 

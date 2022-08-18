@@ -29,6 +29,7 @@ public class Level implements Serializable {
     public List<LineParallel> lineParallels;
     public List<LinePerpendicular> linePerpendiculars;
     public List<Orb> orbs;
+    public List<Mover> movers;
     public List<Polygon> polygons;
 
     public int width;
@@ -60,6 +61,7 @@ public class Level implements Serializable {
                  List<Polygon> polygons,
                  List<Block> blocks,
                  List<Orb> orbs,
+                 List<Mover> movers,
                  Player player
                  ){
 
@@ -82,6 +84,7 @@ public class Level implements Serializable {
         this.player = player;
         this.blocks = blocks;
         this.orbs = orbs;
+        this.movers = movers;
 
         width = Main.w.width;
         height = Main.w.height;
@@ -125,6 +128,7 @@ public class Level implements Serializable {
         for(int i = 0;i < points.size(); i++){field = points.get(i).renderOnImage(field);if(!points.get(i).exists){objectsFailedtorender++;}}
         for(int i = 0;i < polygons.size(); i++){field = polygons.get(i).renderOnImage(field);if(!polygons.get(i).exists){objectsFailedtorender++;}}
         for(int i = 0;i < orbs.size(); i++){field = orbs.get(i).renderOnImage(field);if(!orbs.get(i).exists){objectsFailedtorender++;}}
+        for(int i = 0;i < movers.size(); i++){field = movers.get(i).renderOnImage(field);if(!movers.get(i).exists){objectsFailedtorender++;}}
         player.renderOnImage(field);
 
         if (objectsFailedtorender != 0){
@@ -168,5 +172,6 @@ public class Level implements Serializable {
         for (int i = 0; i < circleXLineSegmentCrossections.size(); i++) {circleXLineSegmentCrossections.get(i).update();}
         for (int i = 0; i < circleXCircleCrossections.size(); i++) {circleXCircleCrossections.get(i).update();}
         for (int i = 0; i < polygons.size(); i++) {polygons.get(i).update();}
+        for (int i = 0; i < movers.size(); i++) {movers.get(i).update();}
     }
 }

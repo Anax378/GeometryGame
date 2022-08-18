@@ -1,12 +1,14 @@
 package Game;
 
 import levelParts.Block;
+import levelParts.Mover;
 import levelParts.Orb;
 import shapes.*;
 import shapes.Point;
 import shapes.Polygon;
 
 import java.awt.*;
+import java.awt.event.WindowEvent;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,12 +39,16 @@ public class Main {
     public static List<Polygon> polygons = new ArrayList<>();
     public static List<Block> blocks = new ArrayList<>();
     public static List<Orb> orbs = new ArrayList<>();
+    public static List<Mover> movers = new ArrayList<>();
 
     public static Player player;
     public static int ticksPerSecond = tps;
     public static int ticksPerSecondC = 0;
 
+    public static float deathAltitude = 1000;
+
     public static Point testingPoint;
+    public static boolean isInMenu = true;
 
 
     public static void main(String[] args) throws InterruptedException {
@@ -57,7 +63,9 @@ public class Main {
         points.add(new Point(new Float[]{250f, 200f}, Color.MAGENTA, 10));//new Integer[]{300, 200}     //2
         points.add(new Point(new Float[]{100f, 400f}, Color.BLACK, 10));                                //3
         points.add(new Point(new Float[]{400f, 400f}, Color.GRAY, 10));                                 //4
-        points.add(new Point(new Float[]{0f, 0f}, Color.GRAY, 10));                                     //5
+        points.add(new Point(new Float[]{0f, 0f}, Color.GRAY, 10));//5
+
+        movers.add(new Mover(new Float[]{240f, 510f}, new Color(0, 87, 255, 255), 10));
 
         lineSegments.add(new LineSegment(player.position, points.get(0).position, Color.BLACK));                //0
         lineSegments.add(new LineSegment(points.get(3).position, points.get(4).position, Color.BLACK));         //1
@@ -102,7 +110,7 @@ public class Main {
         polygons.add(new Polygon(new Float[][]{player.position, circleXLineSegmentCrossections.get(0).position1, midPoints.get(0).position, circleXLineSegmentCrossections.get(0).position2}, Color.GREEN));
         polygons.add(new Polygon(new Float[][]{points.get(3).position, points.get(4).position, midPoints.get(0).position}, Color.RED));
 
-        orbs.add(new Orb(new Float[]{240f, 510f}, Color.cyan, 35));
+        orbs.add(new Orb(movers.get(0).position, Color.cyan, 35));
 
         Level level1 = new Level(
                 points,
@@ -122,6 +130,7 @@ public class Main {
                 polygons,
                 blocks,
                 orbs,
+                movers,
                 player){
             @Override
             public boolean reachedObjective() {
@@ -152,7 +161,6 @@ public class Main {
         int fps = 0;
         long start = System.currentTimeMillis();
         boolean won = false;
-        boolean isInMenu = true;
         Menu menu = new Menu(levels.size());
 
         long startTime = System.currentTimeMillis();

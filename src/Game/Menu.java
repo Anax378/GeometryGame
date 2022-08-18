@@ -2,10 +2,15 @@ package Game;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
 
 public class Menu {
 
     public int levelCount;
+    public boolean[] completedLevels;
     int selectedLevel = 1;
 
     int[] LBC = new int[]{255, 230};
@@ -19,8 +24,26 @@ public class Menu {
 
     public boolean levelChosen = false;
 
-    public Menu(int levelCount){
+    public Menu(int levelCount) throws IOException {
         this.levelCount = levelCount;
+
+        File progressFile = new File("progress.txt");
+        if(progressFile.createNewFile()){
+            FileWriter fileWriter = new FileWriter("progress.txt");
+            fileWriter.write("0");
+            fileWriter.close();
+        }
+        else{
+            Scanner scanner = new Scanner(progressFile);
+            String progressStringNumber = scanner.nextLine();
+            int progressIntNumber = Integer.parseInt(progressStringNumber);
+            String binString = Integer.toBinaryString(progressIntNumber);
+            completedLevels = new boolean[binString.length()];
+            for(int i = 0; i < binString.length(); i++){
+                if(binString.charAt(i) == '1'){completedLevels[i] = true;}else{completedLevels[i] = false;}
+            }
+        }
+
     }
 
     int lastClickedCount = 0;
@@ -57,15 +80,28 @@ public class Menu {
         g2d.setFont(new Font("TimesRoman", Font.PLAIN, 30));
         g2d.drawString(String.valueOf(selectedLevel), 280, 250);
 
-        g2d.fillPolygon(new int[]{LBC[0], LBC[0]+LBWH[0], LBC[0]+LBWH[0]}, new int[]{LBC[1] + (LBWH[1]/2), LBC[1], LBC[1]+LBWH[1]}, 3);
+        if(completedLevels[selectedLevel - 1]){g2d.setPaint(Color.green);}
 
+        g2d.fillPolygon(new int[]{LBC[0], LBC[0]+LBWH[0], LBC[0]+LBWH[0]}, new int[]{LBC[1] + (LBWH[1]/2), LBC[1], LBC[1]+LBWH[1]}, 3);
         g2d.fillPolygon(new int[]{RBC[0], RBC[0], RBC[0]+RBWH[0]}, new int[]{RBC[1], RBC[1]+RBWH[1], RBC[1]+(RBWH[1]/2)}, 3);
 
-        // g2d.fillRect(RBC[0], RBC[1], RBWH[0], RBWH[1]); //right button
+        g2d.setPaint(Color.black);
 
         g2d.fillRect(SBC[0], SBC[1], SBWH[0], SBWH[1]);//select button
 
         return image;
+    }
+    public void markLevelAsCompleted(int id) throws IOException {
+        if(id >= completedLevels.length){return;}
+        completedLevels[id] = true;
+        String binString = "";
+        for(int i = 0; i < completedLevels.length; i++){
+            if(completedLevels[i]){binString = binString + "1";}else{binString = binString + "0";}
+        }
+        FileWriter fileWriter = new FileWriter("progress.txt");
+        fileWriter.write(String.valueOf(Integer.parseInt(binString, 2)));
+        fileWriter.close();
+
     }
 
 }

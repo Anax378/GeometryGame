@@ -51,7 +51,7 @@ public class Main {
     public static boolean isInMenu = true;
 
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException, IOException {
 
 
         w = new Window();
@@ -210,11 +210,7 @@ public class Main {
                 }
 
                 if(currentLevel.reachedObjective()){
-                    if(currentLevelID + 1 < levels.size()){currentLevel = levels.get(currentLevelID + 1); currentLevelID++;
-                    }else{
-                        //isInMenu = true;
-                    }
-                    //levels.set(currentLevelID, (Level)serializeDataIn("level" + currentLevelID));
+                    menu.markLevelAsCompleted(currentLevelID);
                 }
 
 

@@ -8,8 +8,8 @@ import shapes.Point;
 import shapes.Polygon;
 
 import java.awt.*;
-import java.awt.event.WindowEvent;
 import java.io.*;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,17 +47,24 @@ public class Main {
 
     public static float deathAltitude = 1000;
 
-    public static Point testingPoint;
     public static boolean isInMenu = true;
 
+    public static boolean isTimeToRestart = false;
 
-    public static void main(String[] args) throws InterruptedException, IOException {
+
+    public static void main(String[] args) throws InterruptedException, IOException, ClassNotFoundException, URISyntaxException {
 
 
         w = new Window();
 
-        player = new Player(new Float[]{200f, 500f}, new Color(49, 157, 235), 10);
+        Color blockColor = new Color(100 ,100, 100);
+        player = new Player(new Float[]{61.03695f, 414.02752f}, new Color(49, 157, 235), 10);
+        blocks.add(new Block(new Float[]{31.25028f, 432.78209f}, new Float[]{465.91503f, 464.77518f}, blockColor));
+        diameterCircles.add(new DiameterCircle(new Float[]{420.68342f, 374.31196f}, new Float[]{50f}, Color.green));
+        blocks.add(new Block(new Float[]{240.98355f, 394.86f},new Float[]{269.21425f, 453.3827f} , blockColor));
 
+
+/*
         points.add(new Point(new Float[]{150f, 100f}, Color.YELLOW, 10)); //new Integer[]{150, 100}     //0
         points.add(new Point(new Float[]{300f, 200f}, Color.ORANGE, 10));//new Integer[]{300, 200}      //1
         points.add(new Point(new Float[]{250f, 200f}, Color.MAGENTA, 10));//new Integer[]{300, 200}     //2
@@ -111,6 +118,7 @@ public class Main {
         polygons.add(new Polygon(new Float[][]{points.get(3).position, points.get(4).position, midPoints.get(0).position}, Color.RED));
 
         orbs.add(new Orb(movers.get(0).position, Color.cyan, 35));
+*/
 
         Level level1 = new Level(
                 points,
@@ -134,26 +142,19 @@ public class Main {
                 player){
             @Override
             public boolean reachedObjective() {
-                if(diameterCircles.get(1).exists) {
-                    if(player.position[0] == null | player.position[1] == null | diameterCircles.get(1).center[0] == null | diameterCircles.get(1).center[1] == null | diameterCircles.get(1).diameter[0] == null){return false;}
-                    return isInCircle(new float[]{player.position[0], player.position[1]}, new float[]{diameterCircles.get(1).center[0], diameterCircles.get(1).center[1]}, diameterCircles.get(1).diameter[0]);
+                if(diameterCircles.get(0).exists) {
+                    if(player.position[0] == null | player.position[1] == null | diameterCircles.get(0).center[0] == null | diameterCircles.get(0).center[1] == null | diameterCircles.get(0).diameter[0] == null){return false;}
+                    return isInCircle(new float[]{player.position[0], player.position[1]}, new float[]{diameterCircles.get(0).center[0], diameterCircles.get(0).center[1]}, diameterCircles.get(0).diameter[0]/2);
                 }
                 return false;
             }
         };
 
+        //levels.add((Level)serializeDataIn("src/level0"));
+
         levels.add(level1);
 
         //serializeDataOut(level1, "level0");
-
-        //levels.add((Level) serializeDataIn("level0"));
-        //levels.add((Level) serializeDataIn("level1"));
-        //levels.add((Level) serializeDataIn("level2"));
-        //levels.add((Level) serializeDataIn("level3"));
-        //levels.add((Level) serializeDataIn("level4"));
-        //levels.add((Level) serializeDataIn("level4"));
-
-
         currentLevel = levels.get(0);
         currentLevelID = 0;
 
@@ -167,13 +168,14 @@ public class Main {
 
         while(true) {       //  frame loop
 
-            if(player.position[0] == null | player.position[1] == null){;}else{
-            if(polygons.get(1).isInRectangle(player.position[0], player.position[1])){player.renderColor = Color.GREEN;}else{player.renderColor = Color.RED;}
-            }
-
             //while(w.mouseDown){;}
 
             fps++;
+
+            if(isTimeToRestart){
+                restartLevel(currentLevelID);
+                isTimeToRestart = false;
+            }
 
             if(w.isEscDown){isInMenu = true;}
 
@@ -211,6 +213,11 @@ public class Main {
 
                 if(currentLevel.reachedObjective()){
                     menu.markLevelAsCompleted(currentLevelID);
+                    restartLevel(currentLevelID);
+                    if(currentLevelID == levels.size() - 1){isInMenu = true;}else{
+                        currentLevel = levels.get(currentLevelID + 1);
+                        currentLevelID++;
+                    }
                 }
 
 
@@ -231,24 +238,7 @@ public class Main {
     }
 
     public static void restartLevel(int id){
-        //levels.set(id, (Level)serializeDataIn("level" + currentLevelID));
-        currentLevel = levels.get(id);
+        levels.get(id).restart();
     }
-
-    public static void serializeDataOut(Object ish, String fileName)throws IOException {
-        FileOutputStream fos = new FileOutputStream(fileName);
-        ObjectOutputStream oos = new ObjectOutputStream(fos);
-        oos.writeObject(ish);
-        oos.close();
-    }
-
-    public static Object serializeDataIn(String fileName) throws IOException, ClassNotFoundException {
-        FileInputStream fin = new FileInputStream(fileName);
-        ObjectInputStream ois = new ObjectInputStream(fin);
-        Object iHandler = ois.readObject();
-        ois.close();
-        return iHandler;
-    }
-
 
 }

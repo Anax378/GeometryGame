@@ -4,8 +4,9 @@ import Game.Main;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
-public class LinePerpendicular {
+public class LinePerpendicular implements Serializable {
     public Float[] lp1;
     public Float[] lp2;
 

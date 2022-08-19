@@ -5,8 +5,9 @@ import Game.Main;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
-public class CircleXCircleCrossections {
+public class CircleXCircleCrossections implements Serializable {
     public Float[] centre1;
     public Float[] centre2;
 

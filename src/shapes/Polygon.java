@@ -4,8 +4,9 @@ import Game.Main;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
-public class Polygon {
+public class Polygon implements Serializable {
 
     public Float[][] verts;
     public int[] Xs;

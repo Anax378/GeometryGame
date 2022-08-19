@@ -8,7 +8,6 @@ import shapes.Polygon;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Level implements Serializable {
@@ -43,6 +42,9 @@ public class Level implements Serializable {
     public boolean isAppearing = false;
     public boolean startAppearingFlag = false;
     long start = 0;
+
+    float[] initialPlayerPosition = new float[2];
+    float[][] initialMoverPositions;
 
     public Level(List<Point> points,
                  List<LineSegment> lineSegments,
@@ -88,6 +90,14 @@ public class Level implements Serializable {
 
         width = Main.w.width;
         height = Main.w.height;
+
+        initialPlayerPosition[0] = player.position[0];
+        initialPlayerPosition[1] = player.position[1];
+        initialMoverPositions = new float[movers.size()][2];
+        for (int i = 0; i < this.movers.size();i++){
+            initialMoverPositions[i][0] = movers.get(i).position[0];
+            initialMoverPositions[i][1] = movers.get(i).position[1];
+        }
 
 
 
@@ -141,7 +151,7 @@ public class Level implements Serializable {
         if(startAppearingFlag){start = System.currentTimeMillis();startAppearingFlag = false;}
         if(isAppearing){redOverlayAlpha = ((255d/1000d)*(System.currentTimeMillis() - start));}
 
-        if(redOverlayAlpha > 250d){isAppearing = false; redOverlayAlpha = 0d;}
+        if(redOverlayAlpha > 250d){isAppearing = false; redOverlayAlpha = 0d;Main.isTimeToRestart = true;}
         if(isAppearing){
             fig = field.createGraphics();
             fig.setPaint(new Color(255, 0, 0, (int) Math.round(redOverlayAlpha)));
@@ -173,5 +183,17 @@ public class Level implements Serializable {
         for (int i = 0; i < circleXCircleCrossections.size(); i++) {circleXCircleCrossections.get(i).update();}
         for (int i = 0; i < polygons.size(); i++) {polygons.get(i).update();}
         for (int i = 0; i < movers.size(); i++) {movers.get(i).update();}
+    }
+    public void restart(){
+        player.physicsPosition[0] = initialPlayerPosition[0];
+        player.physicsPosition[1] = initialPlayerPosition[1];
+        player.position[0] = initialPlayerPosition[0];
+        player.position[1] = initialPlayerPosition[1];
+
+
+        for (int i = 0; i < movers.size(); i++){
+            movers.get(i).position[0] = initialMoverPositions[i][0];
+            movers.get(i).position[1] = initialMoverPositions[i][1];
+        }
     }
 }

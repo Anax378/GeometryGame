@@ -35,9 +35,7 @@ public class Menu {
         }
         else{
             Scanner scanner = new Scanner(progressFile);
-            String progressStringNumber = scanner.nextLine();
-            int progressIntNumber = Integer.parseInt(progressStringNumber);
-            String binString = Integer.toBinaryString(progressIntNumber);
+            String binString = scanner.nextLine();
             completedLevels = new boolean[binString.length()];
             for(int i = 0; i < binString.length(); i++){
                 if(binString.charAt(i) == '1'){completedLevels[i] = true;}else{completedLevels[i] = false;}
@@ -99,7 +97,7 @@ public class Menu {
             if(completedLevels[i]){binString = binString + "1";}else{binString = binString + "0";}
         }
         FileWriter fileWriter = new FileWriter("progress.txt");
-        fileWriter.write(String.valueOf(Integer.parseInt(binString, 2)));
+        fileWriter.write(binString);
         fileWriter.close();
 
     }

@@ -5,8 +5,9 @@ import Game.Main;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
-public class LineXLineSegmentCrossection {
+public class LineXLineSegmentCrossection implements Serializable {
     public Float[] p1;
     public Float[] p2;
     public Float[] p3;

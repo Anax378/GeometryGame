@@ -4,8 +4,9 @@ import Game.Main;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
-public class Block {
+public class Block implements Serializable {
     public Float[] p1;
     public Float[] p2;
 

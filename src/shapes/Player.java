@@ -219,7 +219,6 @@ public class Player implements Serializable {
         exists = false;
         Main.currentLevel.isAppearing = true;
         Main.currentLevel.startAppearingFlag = true;
-        Main.restartLevel(Main.currentLevelID);
 
     }
 

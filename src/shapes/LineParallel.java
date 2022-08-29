@@ -100,7 +100,7 @@ public class LineParallel implements Serializable {
         if(exists) {
             Graphics2D g2d = image.createGraphics();
             g2d.setPaint(renderColor);
-            g2d.drawLine(Math.round(renderP1[0] + Main.currentLevel.off[0]), Math.round(renderP1[1] + Main.currentLevel.off[1]), Math.round(renderP2[0] + Main.currentLevel.off[0]), Math.round(renderP2[1] + Main.currentLevel.off[1]));
+            g2d.drawLine(Math.round(Main.currentLevel.toRenderCoords(renderP1)[0]), Math.round(Main.currentLevel.toRenderCoords(renderP1)[1]), Math.round(Main.currentLevel.toRenderCoords(renderP2)[0]), Math.round(Main.currentLevel.toRenderCoords(renderP2)[1]));
             g2d.dispose();
         }
 

@@ -50,8 +50,10 @@ public class Polygon implements Serializable {
         if(exists){
             for(int i = 0; i < verts.length; i++){
 
-                rXs[i] = Xs[i] + Main.currentLevel.off[0];
-                rYs[i] = Ys[i] + Main.currentLevel.off[1];
+                Float[] tempVert = Main.currentLevel.toRenderCoords(new Float[]{(float) Xs[i],(float) Ys[i]});
+                rXs[i] = Math.round(tempVert[0]);
+                rYs[i] = Math.round(tempVert[1]);
+
             }
 
 

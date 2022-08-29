@@ -38,7 +38,7 @@ public class Circle implements Serializable {
         if (exists) {
             Graphics2D g2d = image.createGraphics();
             g2d.setPaint(renderColor);
-            g2d.drawOval( Math.round(center[0] + Main.currentLevel.off[0]) - Math.round((diameter[0] / 2)), Math.round(center[1] + Main.currentLevel.off[1]) - Math.round((diameter[0] / 2)), Math.round(diameter[0]), Math.round(diameter[0]));
+            g2d.drawOval( Math.round(Main.currentLevel.toRenderCoords(center)[0]) - Math.round((diameter[0] / 2)), Math.round(Main.currentLevel.toRenderCoords(center)[1]) - Math.round((diameter[0] / 2)), Math.round(diameter[0]), Math.round(diameter[0]));
             g2d.dispose();
         }
         return image;

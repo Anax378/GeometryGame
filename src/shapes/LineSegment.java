@@ -26,7 +26,7 @@ public class LineSegment implements Serializable {
         if(exists) {
             Graphics2D g2d = image.createGraphics();
             g2d.setPaint(renderColor);
-            g2d.drawLine(Math.round(p1[0] + Main.currentLevel.off[0]), Math.round(p1[1] + Main.currentLevel.off[1]), Math.round(p2[0] + Main.currentLevel.off[0]), Math.round(p2[1] + Main.currentLevel.off[1]));
+            g2d.drawLine(Math.round(Main.currentLevel.toRenderCoords(p1)[0]), Math.round(Main.currentLevel.toRenderCoords(p1)[1]), Math.round(Main.currentLevel.toRenderCoords(p2)[0]), Math.round(Main.currentLevel.toRenderCoords(p2)[1]));
             g2d.dispose();
         }
 

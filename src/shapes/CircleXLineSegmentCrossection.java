@@ -87,7 +87,7 @@ public class CircleXLineSegmentCrossection implements Serializable {
 
             Graphics2D g2d = image.createGraphics();
             g2d.setPaint(renderColor);
-            Ellipse2D.Double circle1 = new Ellipse2D.Double((position1[0] + Main.currentLevel.off[0]) - (renderDiameter / 2f), (position1[1] + Main.currentLevel.off[1]) - (renderDiameter / 2f), renderDiameter, renderDiameter);
+            Ellipse2D.Double circle1 = new Ellipse2D.Double((Main.currentLevel.toRenderCoords(position1)[0]) - (renderDiameter / 2f), (Main.currentLevel.toRenderCoords(position1)[1]) - (renderDiameter / 2f), renderDiameter, renderDiameter);
             g2d.fill(circle1);
             g2d.dispose();
         }
@@ -95,7 +95,7 @@ public class CircleXLineSegmentCrossection implements Serializable {
 
             Graphics2D g2d = image.createGraphics();
             g2d.setPaint(renderColor);
-            Ellipse2D.Double circle2 = new Ellipse2D.Double((position2[0] + Main.currentLevel.off[0]) - (renderDiameter / 2f), (position2[1] + Main.currentLevel.off[1]) - (renderDiameter / 2f), renderDiameter, renderDiameter);
+            Ellipse2D.Double circle2 = new Ellipse2D.Double((Main.currentLevel.toRenderCoords(position2)[0]) - (renderDiameter / 2f), (Main.currentLevel.toRenderCoords(position2)[1]) - (renderDiameter / 2f), renderDiameter, renderDiameter);
             g2d.fill(circle2);
             g2d.dispose();
 

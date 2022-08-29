@@ -173,5 +173,12 @@ public class Level implements Serializable {
 
 
 
-    };
+    }
+
+    public Float[] toRenderCoords(Float[] coords){
+
+        Float[] renderCoords = new Float[]{coords[0] + off[0], coords[1] + off[1]};
+        return renderCoords;
+
+    }
 }

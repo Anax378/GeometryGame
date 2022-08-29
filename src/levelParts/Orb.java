@@ -26,8 +26,8 @@ public class Orb implements Serializable {
         if(exists) {
             Graphics2D g2d = image.createGraphics();
             g2d.setPaint(renderColor);
-            Ellipse2D.Double circle = new Ellipse2D.Double((position[0] + Main.currentLevel.off[0]) - (diameter / 2f), (position[1] + Main.currentLevel.off[1]) - (diameter / 2f), diameter, diameter);
-            g2d.drawOval( Math.round(position[0] + Main.currentLevel.off[0]) - Math.round((diameter / 2f)), Math.round(position[1] + Main.currentLevel.off[1]) - Math.round((diameter / 2f)), Math.round(diameter), Math.round(diameter));
+            Ellipse2D.Double circle = new Ellipse2D.Double((Main.currentLevel.toRenderCoords(position)[0]) - (diameter / 2f), (Main.currentLevel.toRenderCoords(position)[1]) - (diameter / 2f), diameter, diameter);
+            g2d.drawOval( Math.round(Main.currentLevel.toRenderCoords(position)[0]) - Math.round((diameter / 2f)), Math.round(Main.currentLevel.toRenderCoords(position)[1]) - Math.round((diameter / 2f)), Math.round(diameter), Math.round(diameter));
 
             g2d.setPaint(new Color(renderColor.getRed(), renderColor.getGreen(), renderColor.getBlue(), 10));
             g2d.fill(circle);

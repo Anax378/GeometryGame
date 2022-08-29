@@ -7,7 +7,7 @@ import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
 
-public class CircleXCircleCrossections implements Serializable {
+public class CircleXCircleCrossection implements Serializable {
     public Float[] centre1;
     public Float[] centre2;
 
@@ -24,7 +24,7 @@ public class CircleXCircleCrossections implements Serializable {
 
 
 
-    public CircleXCircleCrossections(Float[] centre1, Float[] diameter1, Float[] centre2, Float[] diameter2, float renderDiameter, Color renderColor){
+    public CircleXCircleCrossection(Float[] centre1, Float[] diameter1, Float[] centre2, Float[] diameter2, float renderDiameter, Color renderColor){
         this.centre1 = centre1;
         this.centre2 = centre2;
         this.diameter1 = diameter1;

@@ -8,28 +8,29 @@ import shapes.Polygon;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Level implements Serializable {
 
-    public List<Point> points;
-    public List<LineSegment> lineSegments;
-    public List<MidPoint> midPoints;
-    public List<Circle> circles;
-    public List<DiameterCircle> diameterCircles;
-    public List<Line> lines;
-    public List<LineXLineCrossection> lineXLineCrossections;
-    public List<LineXLineSegmentCrossection> lineXLineSegmentCrossections;
-    public List<LineSegmentXLineSegmentCrossection> lineSegmentXLineSegmentCrossections;
-    public List<Block> blocks;
-    public List<CircleXLineCrossection> circleXLineCrossections;
-    public List<CircleXLineSegmentCrossection> circleXLineSegmentCrossections;
-    public List<CircleXCircleCrossections> circleXCircleCrossections;
-    public List<LineParallel> lineParallels;
-    public List<LinePerpendicular> linePerpendiculars;
-    public List<Orb> orbs;
-    public List<Mover> movers;
-    public List<Polygon> polygons;
+    public List<Point> points = new ArrayList<>();
+    public List<LineSegment> lineSegments = new ArrayList<>();;
+    public List<MidPoint> midPoints = new ArrayList<>();
+    public List<Circle> circles = new ArrayList<>();
+    public List<DiameterCircle> diameterCircles = new ArrayList<>();
+    public List<Line> lines = new ArrayList<>();
+    public List<LineXLineCrossection> lineXLineCrossections = new ArrayList<>();
+    public List<LineXLineSegmentCrossection> lineXLineSegmentCrossections = new ArrayList<>();
+    public List<LineSegmentXLineSegmentCrossection> lineSegmentXLineSegmentCrossections = new ArrayList<>();
+    public List<Block> blocks = new ArrayList<>();
+    public List<CircleXLineCrossection> circleXLineCrossections = new ArrayList<>();
+    public List<CircleXLineSegmentCrossection> circleXLineSegmentCrossections = new ArrayList<>();
+    public List<CircleXCircleCrossection> circleXCircleCrossections = new ArrayList<>();
+    public List<LineParallel> lineParallels = new ArrayList<>();
+    public List<LinePerpendicular> linePerpendiculars = new ArrayList<>();
+    public List<Orb> orbs = new ArrayList<>();
+    public List<Mover> movers = new ArrayList<>();
+    public List<Polygon> polygons = new ArrayList<>();
 
     public int width;
     public int height;
@@ -44,62 +45,16 @@ public class Level implements Serializable {
     long start = 0;
 
     float[] initialPlayerPosition = new float[2];
-    float[][] initialMoverPositions;
+    List<float[]>initialMoverPositions = new ArrayList<>();
 
-    public Level(List<Point> points,
-                 List<LineSegment> lineSegments,
-                 List<MidPoint> midPoints,
-                 List<Circle> circles,
-                 List<DiameterCircle> diameterCircles,
-                 List<Line> lines,
-                 List<LineXLineCrossection> lineXLineCrossections,
-                 List<LineXLineSegmentCrossection> lineXLineSegmentCrossections,
-                 List<LineSegmentXLineSegmentCrossection> lineSegmentXLineSegmentCrossections,
-                 List<CircleXLineCrossection> circleXLineCrossections,
-                 List<CircleXLineSegmentCrossection> circleXLineSegmentCrossections,
-                 List<CircleXCircleCrossections> circleXCircleCrossections,
-                 List<LineParallel> lineParallels,
-                 List<LinePerpendicular> linePerpendiculars,
-                 List<Polygon> polygons,
-                 List<Block> blocks,
-                 List<Orb> orbs,
-                 List<Mover> movers,
-                 Player player
-                 ){
-
-        this.points = points;
-        this.lineSegments = lineSegments;
-        this.midPoints = midPoints;
-        this.circles = circles;
-        this.diameterCircles = diameterCircles;
-        this.lines = lines;
-        this.lineXLineCrossections = lineXLineCrossections;
-        this.lineXLineSegmentCrossections = lineXLineSegmentCrossections;
-        this.lineSegmentXLineSegmentCrossections = lineSegmentXLineSegmentCrossections;
-        this.circleXLineCrossections = circleXLineCrossections;
-        this.circleXLineSegmentCrossections = circleXLineSegmentCrossections;
-        this.circleXCircleCrossections = circleXCircleCrossections;
-        this.lineParallels = lineParallels;
-        this.linePerpendiculars = linePerpendiculars;
-        this.polygons = polygons;
-
+    public Level(Player player){
         this.player = player;
-        this.blocks = blocks;
-        this.orbs = orbs;
-        this.movers = movers;
 
         width = Main.w.width;
         height = Main.w.height;
 
         initialPlayerPosition[0] = player.position[0];
         initialPlayerPosition[1] = player.position[1];
-        initialMoverPositions = new float[movers.size()][2];
-        for (int i = 0; i < this.movers.size();i++){
-            initialMoverPositions[i][0] = movers.get(i).position[0];
-            initialMoverPositions[i][1] = movers.get(i).position[1];
-        }
-
-
 
     }
 
@@ -192,8 +147,31 @@ public class Level implements Serializable {
 
 
         for (int i = 0; i < movers.size(); i++){
-            movers.get(i).position[0] = initialMoverPositions[i][0];
-            movers.get(i).position[1] = initialMoverPositions[i][1];
+            movers.get(i).position[0] = initialMoverPositions.get(i)[0];
+            movers.get(i).position[1] = initialMoverPositions.get(i)[1];
         }
     }
+
+    public void add(Object object){
+        if(object instanceof Point){points.add((Point) object);}
+        if(object instanceof LineSegment){lineSegments.add((LineSegment) object);}
+        if(object instanceof MidPoint){midPoints.add((MidPoint) object);}
+        if(object instanceof Circle){circles.add((Circle) object);}
+        if(object instanceof DiameterCircle){diameterCircles.add((DiameterCircle) object);}
+        if(object instanceof Line){lines.add((Line) object);}
+        if(object instanceof LineXLineCrossection){lineXLineCrossections.add((LineXLineCrossection) object);}
+        if(object instanceof LineXLineSegmentCrossection){lineXLineSegmentCrossections.add((LineXLineSegmentCrossection) object);}
+        if(object instanceof Block){blocks.add((Block) object);}
+        if(object instanceof CircleXLineCrossection){circleXLineCrossections.add((CircleXLineCrossection) object);}
+        if(object instanceof CircleXLineSegmentCrossection){circleXLineSegmentCrossections.add((CircleXLineSegmentCrossection) object);}
+        if(object instanceof CircleXCircleCrossection){circleXCircleCrossections.add((CircleXCircleCrossection) object);}
+        if(object instanceof LineParallel){lineParallels.add((LineParallel) object);}
+        if(object instanceof LinePerpendicular){linePerpendiculars.add((LinePerpendicular) object);}
+        if(object instanceof Orb){orbs.add((Orb) object);}
+        if(object instanceof Mover){movers.add((Mover) object);initialMoverPositions.add(new float[]{((Mover) object).position[0], ((Mover) object).position[1]});}
+        if(object instanceof Polygon){polygons.add((Polygon) object);}
+
+
+
+    };
 }

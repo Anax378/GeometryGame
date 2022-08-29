@@ -33,7 +33,7 @@ public class Main {
     public static List<Level> levels = new ArrayList<>();
     public static List<CircleXLineCrossection> circleXLineCrossections= new ArrayList<>();
     public static List<CircleXLineSegmentCrossection> circleXLineSegmentCrossections = new ArrayList<>();
-    public static List<CircleXCircleCrossections> circleXCircleCrossections = new ArrayList<>();
+    public static List<CircleXCircleCrossection> circleXCircleCrossections = new ArrayList<>();
     public static List<LineParallel> lineParallels = new ArrayList<>();
     public static List<LinePerpendicular> linePerpendiculars = new ArrayList<>();
     public static List<Polygon> polygons = new ArrayList<>();
@@ -58,10 +58,7 @@ public class Main {
         w = new Window();
 
         Color blockColor = new Color(100 ,100, 100);
-        player = new Player(new Float[]{61.03695f, 414.02752f}, new Color(49, 157, 235), 10);
-        blocks.add(new Block(new Float[]{31.25028f, 432.78209f}, new Float[]{465.91503f, 464.77518f}, blockColor));
-        diameterCircles.add(new DiameterCircle(new Float[]{420.68342f, 374.31196f}, new Float[]{50f}, Color.green));
-        blocks.add(new Block(new Float[]{240.98355f, 394.86f},new Float[]{269.21425f, 453.3827f} , blockColor));
+
 
 
 /*
@@ -101,7 +98,7 @@ public class Main {
         diameterCircles.add(new DiameterCircle(player.position, new Float[]{50f}, Color.BLACK));
         diameterCircles.add(new DiameterCircle(points.get(6).position, new Float[]{40f}, Color.GREEN));
 
-        circleXCircleCrossections.add(new CircleXCircleCrossections(diameterCircles.get(0).center, diameterCircles.get(0).diameter, diameterCircles.get(1).center, diameterCircles.get(1).diameter,10, Color.BLUE));
+        circleXCircleCrossections.add(new CircleXCircleCrossection(diameterCircles.get(0).center, diameterCircles.get(0).diameter, diameterCircles.get(1).center, diameterCircles.get(1).diameter,10, Color.BLUE));
 
         circleXLineCrossections.add(new CircleXLineCrossection(midPoints.get(0).position, player.position , player.position, diameterCircles.get(0).diameter,10, Color.GREEN));
 
@@ -120,26 +117,8 @@ public class Main {
         orbs.add(new Orb(movers.get(0).position, Color.cyan, 35));
 */
 
-        Level level1 = new Level(
-                points,
-                lineSegments,
-                midPoints,
-                circles,
-                diameterCircles,
-                lines,
-                lineXLineCrossections,
-                lineXLineSegmentCrossections,
-                lineSegmentXLineSegmentCrossections,
-                circleXLineCrossections,
-                circleXLineSegmentCrossections,
-                circleXCircleCrossections,
-                lineParallels,
-                linePerpendiculars,
-                polygons,
-                blocks,
-                orbs,
-                movers,
-                player){
+        player = new Player(new Float[]{61.03695f, 414.02752f}, new Color(49, 157, 235), 10);
+        Level level1 = new Level(player){
             @Override
             public boolean reachedObjective() {
                 if(diameterCircles.get(0).exists) {
@@ -149,6 +128,10 @@ public class Main {
                 return false;
             }
         };
+
+        level1.add(new Block(new Float[]{31.25028f, 432.78209f}, new Float[]{465.91503f, 464.77518f}, blockColor));
+        level1.add(new DiameterCircle(new Float[]{420.68342f, 374.31196f}, new Float[]{50f}, Color.green));
+        level1.add(new Block(new Float[]{240.98355f, 394.86f},new Float[]{269.21425f, 453.3827f} , blockColor));
 
         //levels.add((Level)serializeDataIn("src/level0"));
 

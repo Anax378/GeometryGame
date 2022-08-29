@@ -41,7 +41,6 @@ public class Main {
     public static List<Orb> orbs = new ArrayList<>();
     public static List<Mover> movers = new ArrayList<>();
 
-    public static Player player;
     public static int ticksPerSecond = tps;
     public static int ticksPerSecondC = 0;
 
@@ -58,6 +57,10 @@ public class Main {
         w = new Window();
 
         Color blockColor = new Color(100 ,100, 100);
+        Color playerColor = new Color(49, 157, 235);
+        Color orbColor = new Color(93, 241, 241);
+
+        int[] resolution = new int[]{w.width, w.height};
 
 
 
@@ -117,13 +120,13 @@ public class Main {
         orbs.add(new Orb(movers.get(0).position, Color.cyan, 35));
 */
 
-        player = new Player(new Float[]{61.03695f, 414.02752f}, new Color(49, 157, 235), 10);
+        Player player = new Player(new Float[]{61.03695f, 414.02752f}, playerColor, 10);
         Level level1 = new Level(player){
             @Override
             public boolean reachedObjective() {
                 if(diameterCircles.get(0).exists) {
                     if(player.position[0] == null | player.position[1] == null | diameterCircles.get(0).center[0] == null | diameterCircles.get(0).center[1] == null | diameterCircles.get(0).diameter[0] == null){return false;}
-                    return isInCircle(new float[]{player.position[0], player.position[1]}, new float[]{diameterCircles.get(0).center[0], diameterCircles.get(0).center[1]}, diameterCircles.get(0).diameter[0]/2);
+                    return isInCircle(new float[]{player.position[0], player.position[1]}, new float[]{diameterCircles.get(0).center[0], diameterCircles.get(0).center[1]}, diameterCircles.get(0).diameter[0]/2f);
                 }
                 return false;
             }
@@ -133,9 +136,52 @@ public class Main {
         level1.add(new DiameterCircle(new Float[]{420.68342f, 374.31196f}, new Float[]{50f}, Color.green));
         level1.add(new Block(new Float[]{240.98355f, 394.86f},new Float[]{269.21425f, 453.3827f} , blockColor));
 
-        //levels.add((Level)serializeDataIn("src/level0"));
+        Player player2 = new Player(new Float[]{137.21954f, 402.09832f}, playerColor, 10);
+
+        Level level2 = new Level(player2){
+            @Override
+            public boolean reachedObjective() {
+                if(diameterCircles.get(1).exists) {
+                    if(player.position[0] == null | player.position[1] == null | diameterCircles.get(1).center[0] == null | diameterCircles.get(1).center[1] == null | diameterCircles.get(1).diameter[0] == null){return false;}
+                    return isInCircle(new float[]{player.position[0], player.position[1]}, new float[]{diameterCircles.get(1).center[0], diameterCircles.get(1).center[1]}, diameterCircles.get(1).diameter[0]/2f);
+                }
+                return false;
+            }
+        };
+
+
+
+        level2.add(new Block(new Float[]{23.83587f, 456.67625f}, new Float[]{472.4451f, 481.82251f}, blockColor));
+        level2.add(new Point(new Float[]{325.23594f, 259.00052f}, Color.BLACK, 10)); //I
+        level2.add(new Line(level2.player.position, level2.points.get(0).position, Color.BLACK, resolution));//q
+        level2.add(new LinePerpendicular(level2.lines.get(0).dp1,level2.lines.get(0).dp2, level2.points.get(0).position, Color.BLACK, resolution));//r
+        level2.add(new Point(new Float[]{335.50304f, 160.82131f}, Color.BLACK, 10));//J
+        level2.add(new LinePerpendicular(level2.linePerpendiculars.get(0).p1, level2.linePerpendiculars.get(0).p2, level2.points.get(1).position, Color.BLACK, resolution));//s
+        level2.add(new DiameterCircle(level2.points.get(1).position, new Float[]{400f}, Color.BLACK));//c
+        level2.add(new CircleXLineCrossection(level2.linePerpendiculars.get(1).p1,level2.linePerpendiculars.get(1).p2, level2.diameterCircles.get(0).center, level2.diameterCircles.get(0).diameter,10 ,Color.BLACK));//K, L
+        level2.add(new DiameterCircle(level2.circleXLineCrossections.get(0).position1, new Float[]{130f}, Color.GREEN));//d
+
+        level2.add(new Block(new Float[]{200f, 300f}, new Float[]{250f, 450f}, blockColor));
+        level2.add(new Block(new Float[]{120f, 420f}, new Float[]{220f, 440f}, blockColor));
+        level2.add(new Block(new Float[]{240f, 420f}, new Float[]{340f, 440f}, blockColor));
+
+        level2.add(new Orb(new Float[]{180f, 380f}, orbColor, 40));
+        level2.add(new Orb(new Float[]{180f, 360f}, orbColor, 40));
+        level2.add(new Orb(new Float[]{180f, 340f}, orbColor, 40));
+        level2.add(new Orb(new Float[]{180f, 320f}, orbColor, 40));
+        level2.add(new Orb(new Float[]{270f, 320f}, orbColor, 40));
+        level2.add(new Orb(new Float[]{270f, 340f}, orbColor, 40));
+        level2.add(new Orb(new Float[]{270f, 360f}, orbColor, 40));
+        level2.add(new Orb(new Float[]{270F, 380f}, orbColor, 40));
+        level2.add(new Orb(new Float[]{160f, 280f}, orbColor, 40));
+
+
+
+
+
 
         levels.add(level1);
+        levels.add(level2);
 
         //serializeDataOut(level1, "level0");
         currentLevel = levels.get(0);
@@ -163,7 +209,7 @@ public class Main {
             if(w.isEscDown){isInMenu = true;}
 
             if(isInMenu){
-                player.mouseInHitbox = false;
+                currentLevel.player.mouseInHitbox = false;
 
                 menu.update();
                 w.setImage(menu.getFrame());
@@ -190,7 +236,7 @@ public class Main {
 
                 if(System.currentTimeMillis() - startTime >= 1000/tps){
                     ticksPerSecondC++;
-                    player.update();
+                    currentLevel.player.update();
                     startTime = System.currentTimeMillis();
                 }
 

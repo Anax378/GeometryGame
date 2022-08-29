@@ -14,7 +14,7 @@ import java.util.List;
 public class Level implements Serializable {
 
     public List<Point> points = new ArrayList<>();
-    public List<LineSegment> lineSegments = new ArrayList<>();;
+    public List<LineSegment> lineSegments = new ArrayList<>();
     public List<MidPoint> midPoints = new ArrayList<>();
     public List<Circle> circles = new ArrayList<>();
     public List<DiameterCircle> diameterCircles = new ArrayList<>();
@@ -75,32 +75,32 @@ public class Level implements Serializable {
         fig.setPaint(new Color(255, 255, 255));
         fig.fillRect(0, 0, width, height);
 
-        int objectsFailedtorender = 0;
-        for(int i = 0;i < blocks.size(); i++){field = blocks.get(i).renderOnImage(field);if(!blocks.get(i).exists){objectsFailedtorender++;}}
-        for(int i = 0;i < circles.size(); i++){field = circles.get(i).renderOnImage(field);if(!circles.get(i).exists){objectsFailedtorender++;}}
-        for(int i = 0;i < diameterCircles.size(); i++){field = diameterCircles.get(i).renderOnImage(field);if(!diameterCircles.get(i).exists){objectsFailedtorender++;}}
-        for(int i = 0;i < lines.size(); i++){field = lines.get(i).renderOnImage(field);if(!lines.get(i).exists){objectsFailedtorender++;}}
-        for(int i = 0;i < lineParallels.size(); i++){field = lineParallels.get(i).renderOnImage(field);if(!lineParallels.get(i).exists){objectsFailedtorender++;}}
-        for(int i = 0;i < linePerpendiculars.size(); i++){field = linePerpendiculars.get(i).renderOnImage(field);if(!linePerpendiculars.get(i).exists){objectsFailedtorender++;}}
-        for(int i = 0;i < lineSegments.size(); i++){field = lineSegments.get(i).renderOnImage(field);if(!lineSegments.get(i).exists){objectsFailedtorender++;}}
-        for(int i = 0;i < lineXLineCrossections.size(); i++){field = lineXLineCrossections.get(i).renderOnImage(field);if(!lineXLineCrossections.get(i).exists){objectsFailedtorender++;}}
-        for(int i = 0;i < lineXLineSegmentCrossections.size(); i++){field = lineXLineSegmentCrossections.get(i).renderOnImage(field);if(!lineXLineSegmentCrossections.get(i).exists){objectsFailedtorender++;}}
-        for(int i = 0;i < lineSegmentXLineSegmentCrossections.size(); i++){field = lineSegmentXLineSegmentCrossections.get(i).renderOnImage(field);if(!lineSegmentXLineSegmentCrossections.get(i).exists){objectsFailedtorender++;}}
-        for(int i = 0;i < circleXLineCrossections.size(); i++){field = circleXLineCrossections.get(i).renderOnImage(field);if(!circleXLineCrossections.get(i).exists | (!circleXLineCrossections.get(i).exists1 & !circleXLineCrossections.get(i).exists2)){objectsFailedtorender++;}}
-        for(int i = 0;i < circleXLineSegmentCrossections.size(); i++){field = circleXLineSegmentCrossections.get(i).renderOnImage(field);if(!circleXLineSegmentCrossections.get(i).exists | (!circleXLineSegmentCrossections.get(i).exists1 & !circleXLineSegmentCrossections.get(i).exists2)){objectsFailedtorender++;}}
-        for(int i = 0;i < midPoints.size(); i++){field = midPoints.get(i).renderOnImage(field);if(!midPoints.get(i).exists){objectsFailedtorender++;}}
-        for(int i = 0;i < circleXCircleCrossections.size(); i++){field = circleXCircleCrossections.get(i).renderOnImage(field);if(!circleXCircleCrossections.get(i).exists){objectsFailedtorender++;}}
-        for(int i = 0;i < points.size(); i++){field = points.get(i).renderOnImage(field);if(!points.get(i).exists){objectsFailedtorender++;}}
-        for(int i = 0;i < polygons.size(); i++){field = polygons.get(i).renderOnImage(field);if(!polygons.get(i).exists){objectsFailedtorender++;}}
-        for(int i = 0;i < orbs.size(); i++){field = orbs.get(i).renderOnImage(field);if(!orbs.get(i).exists){objectsFailedtorender++;}}
-        for(int i = 0;i < movers.size(); i++){field = movers.get(i).renderOnImage(field);if(!movers.get(i).exists){objectsFailedtorender++;}}
+        int objectsFailedToRender = 0;
+        for(int i = 0;i < blocks.size(); i++){field = blocks.get(i).renderOnImage(field);if(!blocks.get(i).exists){objectsFailedToRender++;}}
+        for(int i = 0;i < circles.size(); i++){field = circles.get(i).renderOnImage(field);if(!circles.get(i).exists){objectsFailedToRender++;}}
+        for(int i = 0;i < diameterCircles.size(); i++){field = diameterCircles.get(i).renderOnImage(field);if(!diameterCircles.get(i).exists){objectsFailedToRender++;}}
+        for(int i = 0;i < lines.size(); i++){field = lines.get(i).renderOnImage(field);if(!lines.get(i).exists){objectsFailedToRender++;}}
+        for(int i = 0;i < lineParallels.size(); i++){field = lineParallels.get(i).renderOnImage(field);if(!lineParallels.get(i).exists){objectsFailedToRender++;}}
+        for(int i = 0;i < linePerpendiculars.size(); i++){field = linePerpendiculars.get(i).renderOnImage(field);if(!linePerpendiculars.get(i).exists){objectsFailedToRender++;}}
+        for(int i = 0;i < lineSegments.size(); i++){field = lineSegments.get(i).renderOnImage(field);if(!lineSegments.get(i).exists){objectsFailedToRender++;}}
+        for(int i = 0;i < lineXLineCrossections.size(); i++){field = lineXLineCrossections.get(i).renderOnImage(field);if(!lineXLineCrossections.get(i).exists){objectsFailedToRender++;}}
+        for(int i = 0;i < lineXLineSegmentCrossections.size(); i++){field = lineXLineSegmentCrossections.get(i).renderOnImage(field);if(!lineXLineSegmentCrossections.get(i).exists){objectsFailedToRender++;}}
+        for(int i = 0;i < lineSegmentXLineSegmentCrossections.size(); i++){field = lineSegmentXLineSegmentCrossections.get(i).renderOnImage(field);if(!lineSegmentXLineSegmentCrossections.get(i).exists){objectsFailedToRender++;}}
+        for(int i = 0;i < circleXLineCrossections.size(); i++){field = circleXLineCrossections.get(i).renderOnImage(field);if(!circleXLineCrossections.get(i).exists | (!circleXLineCrossections.get(i).exists1 & !circleXLineCrossections.get(i).exists2)){objectsFailedToRender++;}}
+        for(int i = 0;i < circleXLineSegmentCrossections.size(); i++){field = circleXLineSegmentCrossections.get(i).renderOnImage(field);if(!circleXLineSegmentCrossections.get(i).exists | (!circleXLineSegmentCrossections.get(i).exists1 & !circleXLineSegmentCrossections.get(i).exists2)){objectsFailedToRender++;}}
+        for(int i = 0;i < midPoints.size(); i++){field = midPoints.get(i).renderOnImage(field);if(!midPoints.get(i).exists){objectsFailedToRender++;}}
+        for(int i = 0;i < circleXCircleCrossections.size(); i++){field = circleXCircleCrossections.get(i).renderOnImage(field);if(!circleXCircleCrossections.get(i).exists){objectsFailedToRender++;}}
+        for(int i = 0;i < points.size(); i++){field = points.get(i).renderOnImage(field);if(!points.get(i).exists){objectsFailedToRender++;}}
+        for(int i = 0;i < polygons.size(); i++){field = polygons.get(i).renderOnImage(field);if(!polygons.get(i).exists){objectsFailedToRender++;}}
+        for(int i = 0;i < orbs.size(); i++){field = orbs.get(i).renderOnImage(field);if(!orbs.get(i).exists){objectsFailedToRender++;}}
+        for(int i = 0;i < movers.size(); i++){field = movers.get(i).renderOnImage(field);if(!movers.get(i).exists){objectsFailedToRender++;}}
         player.renderOnImage(field);
 
-        if (objectsFailedtorender != 0){
+        if (objectsFailedToRender != 0){
             fig.setPaint(Color.RED);
             fig.setFont(new Font("Plain", Font.PLAIN, 20));
             fig.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-            fig.drawString(String.valueOf(objectsFailedtorender) + "!", 20 + off[0], 20 + off[1]);
+            fig.drawString(String.valueOf(objectsFailedToRender) + "!", 20 + off[0], 20 + off[1]);
             fig.dispose();
         }
         if(startAppearingFlag){start = System.currentTimeMillis();startAppearingFlag = false;}
@@ -117,11 +117,11 @@ public class Level implements Serializable {
 
     }
 
-    public static boolean isInCircle(float[] position,float[] center, float diameter){
+    public static boolean isInCircle(float[] position,float[] center, float radius){
         float a = Math.abs(position[0] - center[0]);
         float b = Math.abs(position[1] - center[1]);
-        double distance = Math.sqrt(a*a + b*b);
-        return distance < diameter;
+        float distance = (float) Math.sqrt(a*a + b*b);
+        return distance < radius;
     }
 
     public void update() {

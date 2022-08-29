@@ -26,7 +26,7 @@ public class Point implements Serializable {
         if(exists) {
             Graphics2D g2d = image.createGraphics();
             g2d.setPaint(renderColor);
-            Ellipse2D.Double circle = new Ellipse2D.Double((Main.currentLevel.toRenderCoords(position)[0]) - (diameter / 2f), (Main.currentLevel.toRenderCoords(position)[1]) - (diameter / 2f), diameter, diameter);
+            Ellipse2D.Double circle = new Ellipse2D.Double((Main.currentLevel.toRenderCoords(position)[0]) - (Main.currentLevel.toRenderLength((float) diameter) / 2f), (Main.currentLevel.toRenderCoords(position)[1]) - (Main.currentLevel.toRenderLength((float) diameter) / 2f), Main.currentLevel.toRenderLength((float) diameter), Main.currentLevel.toRenderLength((float) diameter));
             g2d.fill(circle);
         }
 

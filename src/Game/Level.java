@@ -178,7 +178,21 @@ public class Level implements Serializable {
     public Float[] toRenderCoords(Float[] coords){
 
         Float[] renderCoords = new Float[]{coords[0] + off[0], coords[1] + off[1]};
+
+        renderCoords[0] = renderCoords[0] - (width/2f);
+        renderCoords[1] = renderCoords[1] - (height/2f);
+
+        renderCoords[0] = renderCoords[0] * Main.zoomModifier;
+        renderCoords[1] = renderCoords[1] * Main.zoomModifier;
+
+        renderCoords[0] = renderCoords[0] + (width/2f);
+        renderCoords[1] = renderCoords[1] + (height/2f);
+
         return renderCoords;
 
     }
+    public Float toRenderLength(Float length){
+        return length * Main.zoomModifier;
+    }
+
 }

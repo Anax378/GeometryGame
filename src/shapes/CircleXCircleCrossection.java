@@ -64,8 +64,8 @@ public class CircleXCircleCrossection implements Serializable {
         if (exists){
             Graphics2D g2d = image.createGraphics();
             g2d.setPaint(renderColor);
-            Ellipse2D.Double circle1 = new Ellipse2D.Double((Main.currentLevel.toRenderCoords(position1)[0]) - (renderDiameter / 2f), (Main.currentLevel.toRenderCoords(position1)[1]) - (renderDiameter / 2f), renderDiameter, renderDiameter);
-            Ellipse2D.Double circle2 = new Ellipse2D.Double((Main.currentLevel.toRenderCoords(position2)[0]) - (renderDiameter / 2f), (Main.currentLevel.toRenderCoords(position2)[1]) - (renderDiameter / 2f), renderDiameter, renderDiameter);
+            Ellipse2D.Double circle1 = new Ellipse2D.Double((Main.currentLevel.toRenderCoords(position1)[0]) - (Main.currentLevel.toRenderLength((float) renderDiameter) / 2f), (Main.currentLevel.toRenderCoords(position1)[1]) - (Main.currentLevel.toRenderLength((float) Main.currentLevel.toRenderLength((float) renderDiameter)) / 2f), Main.currentLevel.toRenderLength((float) renderDiameter), Main.currentLevel.toRenderLength((float) renderDiameter));
+            Ellipse2D.Double circle2 = new Ellipse2D.Double((Main.currentLevel.toRenderCoords(position2)[0]) - (Main.currentLevel.toRenderLength((float) renderDiameter) / 2f), (Main.currentLevel.toRenderCoords(position2)[1]) - (Main.currentLevel.toRenderLength((float) Main.currentLevel.toRenderLength((float) renderDiameter)) / 2f), Main.currentLevel.toRenderLength((float) renderDiameter), Main.currentLevel.toRenderLength((float) renderDiameter));
             g2d.fill(circle1);
             g2d.fill(circle2);
 

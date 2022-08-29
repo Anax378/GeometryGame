@@ -49,7 +49,7 @@ public class Main {
     public static boolean isInMenu = true;
 
     public static boolean isTimeToRestart = false;
-    public static int zoomModifier = 1;
+    public static float zoomModifier = 1.5f;
 
 
     public static void main(String[] args) throws InterruptedException, IOException, ClassNotFoundException, URISyntaxException {

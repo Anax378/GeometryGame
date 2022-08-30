@@ -3,6 +3,7 @@ package Game;
 import levelParts.Block;
 import levelParts.Mover;
 import levelParts.Orb;
+import levelParts.Player;
 import shapes.*;
 import shapes.Point;
 import shapes.Polygon;

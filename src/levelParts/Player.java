@@ -1,4 +1,4 @@
-package shapes;
+package levelParts;
 
 import Game.Main;
 

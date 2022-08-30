@@ -184,22 +184,15 @@ public class Main {
         level2.add(new Orb(new Float[]{270F, 380f}, orbColor, 40));
         level2.add(new Orb(new Float[]{160f, 280f}, orbColor, 40));
 
-
-
-
-
-
         levels.add(level1);
         levels.add(level2);
 
-        //serializeDataOut(level1, "level0");
         currentLevel = levels.get(0);
         currentLevelID = 0;
 
 
         int fps = 0;
         long start = System.currentTimeMillis();
-        boolean won = false;
         Menu menu = new Menu(levels.size());
 
         long startTime = System.currentTimeMillis();
@@ -284,6 +277,14 @@ public class Main {
         }
 
 
+
+    }
+
+    public static float getDistance(Float[] x, Float[] y){
+        float a = x[0] - y[0];
+        float b = x[1] - y[1];
+
+        return (float) Math.sqrt(a*a + b*b);
 
     }
 

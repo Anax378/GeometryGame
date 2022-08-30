@@ -52,11 +52,60 @@ public class CircleXLineCrossection implements Serializable {
             if(discriminant < 0f){exists = false; exists1 = false; exists2 = false; position1[0] = null; position1[1] = null; position2[0] = null; position2[1] = null;}
             if (discriminant >= 0f){
 
-                position1[0] = centre[0] + (float)( (d*dy + sgn(dy)*dx*Math.sqrt(discriminant))/(dr*dr));
-                position1[1] = centre[1] +  (float)( (-d*dx + Math.abs(dy)*Math.sqrt(discriminant))/(dr*dr));
+                Float[] buffer1 = new Float[]{0f,0f};
+                Float[] buffer2 = new Float[]{0f,0f};
 
-                position2[0] = centre[0] + (float)( (d*dy - sgn(dy)*dx*Math.sqrt(discriminant))/(dr*dr));
-                position2[1] = centre[1] +  (float)( (-d*dx - Math.abs(dy)*Math.sqrt(discriminant))/(dr*dr));
+                buffer1[0] = centre[0] + (float)( (d*dy + sgn(dy)*dx*Math.sqrt(discriminant))/(dr*dr));
+                buffer1[1] = centre[1] +  (float)( (-d*dx + Math.abs(dy)*Math.sqrt(discriminant))/(dr*dr));
+
+                buffer2[0] = centre[0] + (float)( (d*dy - sgn(dy)*dx*Math.sqrt(discriminant))/(dr*dr));
+                buffer2[1] = centre[1] +  (float)( (-d*dx - Math.abs(dy)*Math.sqrt(discriminant))/(dr*dr));
+
+                float angleInRadians = (float) Math.toRadians(90);
+
+                float vX = p2[0] - p1[0];
+                float vY = p2[1] - p1[1];
+
+                Float[] vrlp2 = new Float[]{(float) (vX*Math.cos(angleInRadians) - vY*Math.sin(angleInRadians)), (float) (vY*Math.cos(angleInRadians)+ vX*Math.sin(angleInRadians))};
+
+                Float[] rlp2 = new Float[]{vrlp2[0] + p1[0], vrlp2[1] + p1[1]};
+
+                Float[] vector = new Float[]{p1[0] - rlp2[0], p1[1] - rlp2[1]};
+
+
+
+                Float[] a = centre;
+                Float[] b = new Float[]{null, null};
+                Float[] c = buffer1;
+
+                b[0] = p1[0] + vector[0];
+                b[1] = p1[1] + vector[1];
+
+                boolean is1Left = ((b[0] - a[0])*(c[1] - a[1]) - (b[1] - a[1])*(c[0] - a[0])) > 0;
+
+                if(!is1Left){
+                    //switch
+                    position1[0] = buffer2[0];
+                    position1[1] = buffer2[1];
+
+                    position2[0] = buffer1[0];
+                    position2[1] = buffer1[1];
+
+                }else{
+                    //do not switch
+
+                    position1[0] = buffer1[0];
+                    position1[1] = buffer1[1];
+
+                    position2[0] = buffer2[0];
+                    position2[1] = buffer2[1];
+
+                }
+
+
+
+
+
 
                 exists1 = true;
                 exists2 = true;

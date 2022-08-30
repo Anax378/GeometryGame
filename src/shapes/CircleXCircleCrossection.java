@@ -46,6 +46,35 @@ public class CircleXCircleCrossection implements Serializable {
 
                 float[] p2 = new float[]{centre1[0]+a*(centre2[0]-centre1[0])/d, centre1[1]+a*(centre2[1]-centre1[1])/d};
 
+                Float[] buffer1 = new Float[]{0f,0f};
+                Float[] buffer2 = new Float[]{0f,0f};
+
+                Float[] a85 = centre1;
+                Float[] b = centre2;
+                Float[] c = buffer1;
+
+                boolean is1Left = ((b[0] - a85[0])*(c[1] - a85[1]) - (b[1] - a85[1])*(c[0] - a85[0])) > 0;
+
+                if(!is1Left){
+                    //switch
+                    position1[0] = buffer2[0];
+                    position1[1] = buffer2[1];
+
+                    position2[0] = buffer1[0];
+                    position2[1] = buffer1[1];
+
+                }else{
+                    //do not switch
+
+                    position1[0] = buffer1[0];
+                    position1[1] = buffer1[1];
+
+                    position2[0] = buffer2[0];
+                    position2[1] = buffer2[1];
+
+                }
+
+
                 position1[0] = p2[0]+h*(centre2[1]-centre1[1])/d;
                 position1[1] = (p2[1]-h*(centre2[0]-centre1[0])/d);
 

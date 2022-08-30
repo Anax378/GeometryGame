@@ -67,11 +67,58 @@ public class CircleXLineSegmentCrossection implements Serializable {
                 Float[] virtualPosition1 = new Float[] {null, null};
                 Float[] virtualPosition2 = new Float[] {null, null};
 
-                virtualPosition1[0] = centre[0] + (float)((d*dy + sgn(dy)*dx*Math.sqrt(discriminant))/(dr*dr));
-                virtualPosition1[1] = centre[1] + (float)((-d*dx + Math.abs(dy)*Math.sqrt(discriminant))/(dr*dr));
 
-                virtualPosition2[0] = centre[0] + (float)( (d*dy - sgn(dy)*dx*Math.sqrt(discriminant))/(dr*dr));
-                virtualPosition2[1] = centre[1] + (float)( (-d*dx - Math.abs(dy)*Math.sqrt(discriminant))/(dr*dr));
+
+                Float[] buffer1 = new Float[]{0f,0f};
+                Float[] buffer2 = new Float[]{0f,0f};
+
+                buffer1[0] = centre[0] + (float)((d*dy + sgn(dy)*dx*Math.sqrt(discriminant))/(dr*dr));
+                buffer1[1] = centre[1] + (float)((-d*dx + Math.abs(dy)*Math.sqrt(discriminant))/(dr*dr));
+
+                buffer2[0] = centre[0] + (float)( (d*dy - sgn(dy)*dx*Math.sqrt(discriminant))/(dr*dr));
+                buffer2[1] = centre[1] + (float)( (-d*dx - Math.abs(dy)*Math.sqrt(discriminant))/(dr*dr));
+
+                float angleInRadians = (float) Math.toRadians(90);
+
+                float vX = p2[0] - p1[0];
+                float vY = p2[1] - p1[1];
+
+                Float[] vrlp2 = new Float[]{(float) (vX*Math.cos(angleInRadians) - vY*Math.sin(angleInRadians)), (float) (vY*Math.cos(angleInRadians)+ vX*Math.sin(angleInRadians))};
+
+                Float[] rlp2 = new Float[]{vrlp2[0] + p1[0], vrlp2[1] + p1[1]};
+
+                Float[] vector = new Float[]{p1[0] - rlp2[0], p1[1] - rlp2[1]};
+
+
+
+                Float[] a = centre;
+                Float[] b = new Float[]{null, null};
+                Float[] c = buffer1;
+
+                b[0] = p1[0] + vector[0];
+                b[1] = p1[1] + vector[1];
+
+                boolean is1Left = ((b[0] - a[0])*(c[1] - a[1]) - (b[1] - a[1])*(c[0] - a[0])) > 0;
+
+                if(!is1Left){
+                    //switch
+                    virtualPosition1[0] = buffer2[0];
+                    virtualPosition1[1] = buffer2[1];
+
+                    position2[0] = buffer1[0];
+                    position2[1] = buffer1[1];
+
+                }else{
+                    //do not switch
+
+                    virtualPosition1[0] = buffer1[0];
+                    virtualPosition1[1] = buffer1[1];
+
+                    virtualPosition1[0] = buffer2[0];
+                    virtualPosition1[1] = buffer2[1];
+
+                }
+
 
                 if(cornerXMinus-0.1f <= virtualPosition1[0] & virtualPosition1[0] <= cornerXPlus+0.1f & cornerYMinus-0.1f <= virtualPosition1[1] & virtualPosition1[1] <= cornerYPlus+0.1f ){position1[0] = virtualPosition1[0];position1[1] = virtualPosition1[1];exists1 = true;}else{position1[0] = null; position1[1] = null;exists1 = false;}
                 if(cornerXMinus-0.1f <= virtualPosition2[0] & virtualPosition2[0] <= cornerXPlus+0.1f & cornerYMinus-0.1f <= virtualPosition2[1] & virtualPosition2[1] <= cornerYPlus+0.1f ){position2[0] = virtualPosition2[0];position2[1] = virtualPosition2[1];exists2 = true;}else{position2[0] = null; position2[1] = null;exists2 = false;}

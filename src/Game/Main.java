@@ -162,7 +162,7 @@ public class Main {
         level2.add(new LinePerpendicular(level2.linePerpendiculars.get(0).p1, level2.linePerpendiculars.get(0).p2, level2.points.get(1).position, Color.BLACK, resolution));//s
         level2.add(new DiameterCircle(level2.points.get(1).position, new Float[]{400f}, Color.BLACK));//c
         level2.add(new CircleXLineCrossection(level2.linePerpendiculars.get(1).p1,level2.linePerpendiculars.get(1).p2, level2.diameterCircles.get(0).center, level2.diameterCircles.get(0).diameter,10 ,Color.BLACK));//K, L
-        level2.add(new DiameterCircle(level2.circleXLineCrossections.get(0).position1, new Float[]{0f}, Color.GREEN));//d
+        level2.add(new DiameterCircle(level2.circleXLineCrossections.get(0).position1, new Float[]{60f}, Color.GREEN));//d
 
         level2.add(new Block(new Float[]{200f, 300f}, new Float[]{250f, 450f}, blockColor));
         level2.add(new Block(new Float[]{120f, 420f}, new Float[]{220f, 440f}, blockColor));

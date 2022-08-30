@@ -57,8 +57,8 @@ public class LinePerpendicular implements Serializable {
                 float x3 = p1[0];
                 float x4 = p2[0];
 
-                float y1 = 0;
-                float y2 = 0;
+                float y1 = -1000000;
+                float y2 = -1000000;
                 float y3 = p1[1];
                 float y4 = p2[1];
 

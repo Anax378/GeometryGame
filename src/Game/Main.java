@@ -156,13 +156,13 @@ public class Main {
 
         level2.add(new Block(new Float[]{23.83587f, 456.67625f}, new Float[]{472.4451f, 481.82251f}, blockColor));
         level2.add(new Point(new Float[]{325.23594f, 259.00052f}, Color.BLACK, 10)); //I
-        level2.add(new Line(level2.player.position, level2.points.get(0).position, Color.BLACK, resolution));//q
+        level2.add(new Line(level2.player.position, level2.points.get(0).position, Color.RED, resolution));//q
         level2.add(new LinePerpendicular(level2.lines.get(0).dp1,level2.lines.get(0).dp2, level2.points.get(0).position, Color.BLACK, resolution));//r
         level2.add(new Point(new Float[]{335.50304f, 160.82131f}, Color.BLACK, 10));//J
         level2.add(new LinePerpendicular(level2.linePerpendiculars.get(0).p1, level2.linePerpendiculars.get(0).p2, level2.points.get(1).position, Color.BLACK, resolution));//s
         level2.add(new DiameterCircle(level2.points.get(1).position, new Float[]{400f}, Color.BLACK));//c
         level2.add(new CircleXLineCrossection(level2.linePerpendiculars.get(1).p1,level2.linePerpendiculars.get(1).p2, level2.diameterCircles.get(0).center, level2.diameterCircles.get(0).diameter,10 ,Color.BLACK));//K, L
-        level2.add(new DiameterCircle(level2.circleXLineCrossections.get(0).position1, new Float[]{130f}, Color.GREEN));//d
+        level2.add(new DiameterCircle(level2.circleXLineCrossections.get(0).position1, new Float[]{0f}, Color.GREEN));//d
 
         level2.add(new Block(new Float[]{200f, 300f}, new Float[]{250f, 450f}, blockColor));
         level2.add(new Block(new Float[]{120f, 420f}, new Float[]{220f, 440f}, blockColor));
@@ -177,6 +177,12 @@ public class Main {
         level2.add(new Orb(new Float[]{270f, 360f}, orbColor, 40));
         level2.add(new Orb(new Float[]{270F, 380f}, orbColor, 40));
         level2.add(new Orb(new Float[]{160f, 280f}, orbColor, 40));
+
+        Point testPoint1 = new Point(new Float[]{0f, 0f}, Color.blue, 15);
+        Point testPoint2 = new Point(new Float[]{0f, 0f}, Color.blue, 15);
+
+        level2.add(testPoint1);
+        level2.add(testPoint2);
 
 
 

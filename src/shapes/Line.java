@@ -34,8 +34,8 @@ public class Line implements Serializable {
                 float x3 = dp1[0];
                 float x4 = dp2[0];
 
-                float y1 = 0;
-                float y2 = 0;
+                float y1 = -1000000;
+                float y2 = -1000000;
                 float y3 = dp1[1];
                 float y4 = dp2[1];
 

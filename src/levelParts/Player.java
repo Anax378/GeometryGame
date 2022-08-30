@@ -27,6 +27,8 @@ public class Player implements Serializable {
     public boolean canJump = false;
     public float friction = 0.9f;
     public float moveForce = 500f;
+    public float groundMoveForce = 500f;
+    public float airMoveForce = 0.6f * groundMoveForce;
 
 
     public Player(Float[] position, Color renderColor, int diameter){
@@ -56,24 +58,14 @@ public class Player implements Serializable {
             velocity[0] = velocity[0] + acceleration[0]*t;
             velocity[1] = velocity[1] + acceleration[1]*t;
 
-            velocity[0] = velocity[0] - moveForce * -horizontalInput;
+            velocity[0] = velocity[0] - (moveForce * -horizontalInput);
 
             physicsPosition[0] = physicsPosition[0]+velocity[0]*t;
             physicsPosition[1] = physicsPosition[1]+velocity[1]*t;
 
-    /*
-            if(physicsPosition[0] < (float) diameter/2f) {physicsPosition[0] = (float) diameter/2f; velocity[0] = 0f;}
-            if(physicsPosition[0] > (float) Main.w.width - (float) diameter/2f){physicsPosition[0] = (float) Main.w.width - diameter/2f;velocity[0] = 0f;}
-            if(physicsPosition[1] < (float) diameter/2f){physicsPosition[1] = (float) diameter/2f;velocity[1] = 0f;canJump = true;}
-            if(physicsPosition[1] > (float) Main.w.height - (float) diameter/2f){physicsPosition[1] = (float) Main.w.height - diameter/2f;velocity[1] = 0f;canJump = true;}
-    */
-
-
-
             for(int i = 0; i < Main.currentLevel.blocks.size(); i++){
                 boolean[] result = isInRectangle(new float[] {physicsPosition[0], physicsPosition[1]}, new float[]{Main.currentLevel.blocks.get(i).p1[0], Main.currentLevel.blocks.get(i).p1[1]}, new float[]{Main.currentLevel.blocks.get(i).p2[0], Main.currentLevel.blocks.get(i).p2[1]}, lastPhysicalPosition[1]);
                 if(result[0]){
-                    //physicsPosition = new Float[]{lastPhysicalPosition[0], lastPhysicalPosition[1]};
                     if(!result[1] && !result[2]){physicsPosition = new Float[]{physicsPosition[0], Main.currentLevel.blocks.get(i).p2[1]};}
                     if(!result[1] && result[2]){physicsPosition = new Float[]{physicsPosition[0], Main.currentLevel.blocks.get(i).p1[1]};canJump = true;}
                     if(result[1] && !result[2]){physicsPosition = new Float[]{Main.currentLevel.blocks.get(i).p2[0], physicsPosition[1]};}
@@ -89,7 +81,7 @@ public class Player implements Serializable {
                 if(Main.currentLevel.orbs.get(i).isInCircle(position)){canJump = true;}
             }
 
-            if(canJump){friction = 0.0f;moveForce = 500f;}else{friction = 0.4f;moveForce = 300f;}
+            if(canJump){friction = 0.0f;moveForce = groundMoveForce;}else{friction = 0.4f;moveForce = airMoveForce;}
 
             if(Main.w.isSpaceDown & canJump){velocity[1] = velocity[1] - 500f;Main.w.isSpaceDown = false;}
 

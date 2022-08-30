@@ -51,7 +51,7 @@ public class Main {
 
     public static boolean isTimeToRestart = false;
 
-    public static float zoomModifier = 2f;
+    public static float zoomModifier = 1.5f;
     public static float scrollSensitivity = -0.02f;
 
 

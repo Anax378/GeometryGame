@@ -27,7 +27,7 @@ public class Orb implements Serializable {
             Graphics2D g2d = image.createGraphics();
             g2d.setPaint(renderColor);
             Ellipse2D.Double circle = new Ellipse2D.Double((Main.currentLevel.toRenderCoords(position)[0]) - (Main.currentLevel.toRenderLength((float) diameter) / 2f), (Main.currentLevel.toRenderCoords(position)[1]) - (Main.currentLevel.toRenderLength((float) diameter) / 2f), Main.currentLevel.toRenderLength((float) diameter), Main.currentLevel.toRenderLength((float) diameter));
-            g2d.drawOval( Math.round(Main.currentLevel.toRenderCoords(position)[0]) - Math.round((diameter / 2f)), Math.round(Main.currentLevel.toRenderCoords(position)[1]) - Math.round((Main.currentLevel.toRenderLength((float) diameter) / 2f)), Math.round(Main.currentLevel.toRenderLength((float) diameter)), Math.round(Main.currentLevel.toRenderLength((float) diameter)));
+            g2d.drawOval( Math.round(Main.currentLevel.toRenderCoords(position)[0]) - Math.round((Main.currentLevel.toRenderLength((float) diameter) / 2f)), Math.round(Main.currentLevel.toRenderCoords(position)[1]) - Math.round((Main.currentLevel.toRenderLength((float) diameter) / 2f)), Math.round(Main.currentLevel.toRenderLength((float) diameter)), Math.round(Main.currentLevel.toRenderLength((float) diameter)));
 
             g2d.setPaint(new Color(renderColor.getRed(), renderColor.getGreen(), renderColor.getBlue(), 10));
             g2d.fill(circle);

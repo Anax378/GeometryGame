@@ -69,8 +69,6 @@ public class Window {
             public void mouseReleased(MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON1) {
                     mouseDown = false;
-
-                    System.out.println("here 321");
                 }
             }
 
@@ -79,7 +77,10 @@ public class Window {
         frame.addMouseWheelListener(new MouseWheelListener() {
             @Override
             public void mouseWheelMoved(MouseWheelEvent e) {
-                Main.zoomModifier += (e.getUnitsToScroll() * Main.scrollSensitivity);
+                if(Main.zoomModifier + e.getUnitsToScroll() * Main.scrollSensitivity > 0.42 && Main.zoomModifier + e.getUnitsToScroll() * Main.scrollSensitivity < 3){
+                Main.zoomModifier += (e.getUnitsToScroll() * Main.scrollSensitivity);}
+                System.out.println(Main.zoomModifier);
+
             }
         });
 

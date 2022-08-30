@@ -50,7 +50,7 @@ public class Main {
 
     public static boolean isTimeToRestart = false;
 
-    public static float zoomModifier = 1.5f;
+    public static float zoomModifier = 2f;
     public static float scrollSensitivity = -0.02f;
 
 
@@ -177,12 +177,6 @@ public class Main {
         level2.add(new Orb(new Float[]{270f, 360f}, orbColor, 40));
         level2.add(new Orb(new Float[]{270F, 380f}, orbColor, 40));
         level2.add(new Orb(new Float[]{160f, 280f}, orbColor, 40));
-
-        Point testPoint1 = new Point(new Float[]{0f, 0f}, Color.blue, 15);
-        Point testPoint2 = new Point(new Float[]{0f, 0f}, Color.blue, 15);
-
-        level2.add(testPoint1);
-        level2.add(testPoint2);
 
 
 

@@ -26,7 +26,7 @@ public class LineParallel implements Serializable {
         this.lp1 = lp1;
         this.lp2 = lp2;
         this.dp = dp;
-        this.resolution = new int[]{resolution[0]*1000000, resolution[1]*1000000};
+        this.resolution = new int[]{resolution[0]*100, resolution[1]*100};
         this.renderColor = renderColor;
         this.renderP1 = new Float[]{null, null};
         this.renderP2 = new Float[]{null, null};
@@ -53,8 +53,8 @@ public class LineParallel implements Serializable {
                 float x3 = p1[0];
                 float x4 = p2[0];
 
-                float y1 = -1000000;
-                float y2 = -1000000;
+                float y1 = -10000;
+                float y2 = -10000;
                 float y3 = p1[1];
                 float y4 = p2[1];
 

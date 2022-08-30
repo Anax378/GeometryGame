@@ -19,7 +19,7 @@ public class Line implements Serializable {
     public Line(Float[] dp1, Float[] dp2, Color renderColor, int[] resolution){
         this.dp1 = dp1;
         this.dp2 = dp2;
-        this.resolution = new int[]{resolution[0]*1000000, resolution[1]*1000000};
+        this.resolution = new int[]{resolution[0]*100, resolution[1]*100};
         this.renderColor = renderColor;
         this.p1 = new Float[]{null, null};
         this.p2 = new Float[]{null, null};
@@ -34,8 +34,8 @@ public class Line implements Serializable {
                 float x3 = dp1[0];
                 float x4 = dp2[0];
 
-                float y1 = -1000000;
-                float y2 = -1000000;
+                float y1 = -10000;
+                float y2 = -10000;
                 float y3 = dp1[1];
                 float y4 = dp2[1];
 
@@ -77,6 +77,7 @@ public class Line implements Serializable {
     public BufferedImage renderOnImage(BufferedImage image){
         if (p1[0] == null || p1[1] == null|| p2[0] == null || p2[1] == null){exists = false;}else{exists = true;}
         if(exists) {
+
             Graphics2D g2d = image.createGraphics();
             g2d.setPaint(renderColor);
             g2d.drawLine(Math.round(Main.currentLevel.toRenderCoords(p1)[0]), Math.round(Main.currentLevel.toRenderCoords(p1)[1]), Math.round(Main.currentLevel.toRenderCoords(p2)[0]), Math.round(Main.currentLevel.toRenderCoords(p2)[1]));

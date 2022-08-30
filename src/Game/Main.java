@@ -157,7 +157,7 @@ public class Main {
 
         level2.add(new Block(new Float[]{23.83587f, 456.67625f}, new Float[]{472.4451f, 481.82251f}, blockColor));
         level2.add(new Point(new Float[]{325.23594f, 259.00052f}, Color.BLACK, 10)); //I
-        level2.add(new Line(level2.player.position, level2.points.get(0).position, Color.RED, resolution));//q
+        level2.add(new Line(level2.player.position, level2.points.get(0).position, Color.BLACK, resolution));//q
         level2.add(new LinePerpendicular(level2.lines.get(0).dp1,level2.lines.get(0).dp2, level2.points.get(0).position, Color.BLACK, resolution));//r
         level2.add(new Point(new Float[]{335.50304f, 160.82131f}, Color.BLACK, 10));//J
         level2.add(new LinePerpendicular(level2.linePerpendiculars.get(0).p1, level2.linePerpendiculars.get(0).p2, level2.points.get(1).position, Color.BLACK, resolution));//s

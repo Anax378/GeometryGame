@@ -209,8 +209,8 @@ public class Player implements Serializable {
         position[0] = null;
         position[1] = null;
         exists = false;
-        Main.currentLevel.isAppearing = true;
-        Main.currentLevel.startAppearingFlag = true;
+        Main.currentLevel.isRedAppearing = true;
+        Main.currentLevel.startRedAppearing = true;
 
     }
 

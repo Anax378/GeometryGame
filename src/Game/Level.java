@@ -40,9 +40,16 @@ public class Level implements Serializable {
     public Player player;
 
     public double redOverlayAlpha = 0;
-    public boolean isAppearing = false;
-    public boolean startAppearingFlag = false;
-    long start = 0;
+    public boolean isRedAppearing = false;
+    public boolean startRedAppearing = false;
+
+    long redStart = 0;
+    long greenStart = 0;
+
+    public double greenOverlayAlpha = 0;
+    public boolean isGreenDisappearing = false;
+    public boolean startGreenDisappearing = false;
+
 
     float[] initialPlayerPosition = new float[2];
     List<float[]>initialMoverPositions = new ArrayList<>();
@@ -103,15 +110,41 @@ public class Level implements Serializable {
             fig.drawString(String.valueOf(objectsFailedToRender) + "!", 20 + off[0], 20 + off[1]);
             fig.dispose();
         }
-        if(startAppearingFlag){start = System.currentTimeMillis();startAppearingFlag = false;}
-        if(isAppearing){redOverlayAlpha = ((255d/1000d)*(System.currentTimeMillis() - start));}
+        if(startRedAppearing){
+            redStart = System.currentTimeMillis();
+            startRedAppearing = false;}
+        if(isRedAppearing){redOverlayAlpha = ((255d/1000d)*(System.currentTimeMillis() - redStart));}
 
-        if(redOverlayAlpha > 250d){isAppearing = false; redOverlayAlpha = 0d;Main.isTimeToRestart = true;}
-        if(isAppearing){
+        if(redOverlayAlpha > 250d){
+            isRedAppearing = false; redOverlayAlpha = 0d;Main.isTimeToRestart = true;}
+        if(isRedAppearing){
             fig = field.createGraphics();
             fig.setPaint(new Color(255, 0, 0, (int) Math.round(redOverlayAlpha)));
             fig.fillRect(0, 0, width, height);
         }
+        if(startGreenDisappearing){
+            greenStart = System.currentTimeMillis();
+            greenOverlayAlpha = 255;
+            startGreenDisappearing = false;
+            isGreenDisappearing = true;
+        }
+        if(isGreenDisappearing){
+            greenOverlayAlpha = 255f - ((255d/1000d)*(System.currentTimeMillis() - greenStart));
+        }
+        if(greenOverlayAlpha < 0){
+            isGreenDisappearing = false;
+            startGreenDisappearing = false;
+            greenOverlayAlpha = 0;
+            Main.isTimeToRestart = true;
+            Main.isTimeToNext = true;
+        }
+        if(isGreenDisappearing){
+            fig = field.createGraphics();
+            fig.setPaint(new Color(0, 255, 0, (int) Math.round(greenOverlayAlpha)));
+            fig.fillRect(0, 0, width, height);
+        }
+
+
         fig.dispose();
         return field;
 

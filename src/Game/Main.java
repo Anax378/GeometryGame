@@ -50,6 +50,11 @@ public class Main {
     public static boolean isInMenu = true;
 
     public static boolean isTimeToRestart = false;
+    public static boolean isTimeToNext = false;
+    public static boolean allowGreening = true;
+    public static boolean interlock = false;
+
+    public static boolean reachedObjective = false;
 
     public static float zoomModifier = 1.5f;
     public static float scrollSensitivity = -0.02f;
@@ -205,10 +210,7 @@ public class Main {
 
             fps++;
 
-            if(isTimeToRestart){
-                restartLevel(currentLevelID);
-                isTimeToRestart = false;
-            }
+
 
             if(w.isEscDown){isInMenu = true;}
 
@@ -243,14 +245,29 @@ public class Main {
                     currentLevel.player.update();
                     startTime = System.currentTimeMillis();
                 }
+                reachedObjective = currentLevel.reachedObjective();
 
-                if(currentLevel.reachedObjective()){
+                if(reachedObjective || interlock){
+                    interlock = true;
                     menu.markLevelAsCompleted(currentLevelID);
-                    restartLevel(currentLevelID);
+                    if(allowGreening){currentLevel.startGreenDisappearing = true;allowGreening = false;}
+                    if(isTimeToNext){
                     if(currentLevelID == levels.size() - 1){isInMenu = true;}else{
                         currentLevel = levels.get(currentLevelID + 1);
+                        menu.selectedLevel++;
                         currentLevelID++;
+
                     }
+                        allowGreening = true;
+                        interlock = false;
+                    }
+                    isTimeToNext = false;
+                }
+
+                if(isTimeToRestart){
+                    reachedObjective = false;
+                    restartLevel(currentLevelID);
+                    isTimeToRestart = false;
                 }
 
 

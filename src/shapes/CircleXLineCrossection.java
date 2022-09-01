@@ -18,18 +18,20 @@ public class CircleXLineCrossection implements Serializable {
 
     public float renderDiameter;
 
-    public Color renderColor;
+    public Color renderColor1;
+    public Color renderColor2;
 
     public boolean exists1;
     public boolean exists2;
     public boolean exists;
 
-    public CircleXLineCrossection (Float[] p1, Float[] p2, Float[] centre, Float circleDiameter[], float renderDiameter, Color renderColor){
+    public CircleXLineCrossection (Float[] p1, Float[] p2, Float[] centre, Float circleDiameter[], float renderDiameter, Color renderColor1, Color renderColor2){
         this.p1 = p1;
         this.p2 = p2;
         this.centre = centre;
         this.circleDiameter = circleDiameter;
-        this.renderColor = renderColor;
+        this.renderColor1 = renderColor1;
+        this.renderColor2 = renderColor2;
         this.renderDiameter = renderDiameter;
     }
     public void update(){
@@ -118,14 +120,14 @@ public class CircleXLineCrossection implements Serializable {
         if (p1[0] == null | p1[1] == null | p2[0] == null | p2[1] == null){exists = false;}
         if(exists1 & exists) {
             Graphics2D g2d = image.createGraphics();
-            g2d.setPaint(renderColor);
+            g2d.setPaint(renderColor1);
             Ellipse2D.Double circle1 = new Ellipse2D.Double((Main.currentLevel.toRenderCoords(position1)[0]) - (Main.currentLevel.toRenderLength((float) renderDiameter) / 2f), (Main.currentLevel.toRenderCoords(position1)[1]) - (Main.currentLevel.toRenderLength((float) renderDiameter) / 2f), Main.currentLevel.toRenderLength((float) renderDiameter), Main.currentLevel.toRenderLength((float) renderDiameter));
             g2d.fill(circle1);
             g2d.dispose();
         }
         if(exists2 & exists){
             Graphics2D g2d = image.createGraphics();
-            g2d.setPaint(renderColor);
+            g2d.setPaint(renderColor2);
             Ellipse2D.Double circle2 = new Ellipse2D.Double((Main.currentLevel.toRenderCoords(position2)[0]) - (Main.currentLevel.toRenderLength((float) renderDiameter) / 2f), (Main.currentLevel.toRenderCoords(position2)[1]) - (Main.currentLevel.toRenderLength((float) renderDiameter) / 2f), Main.currentLevel.toRenderLength((float) renderDiameter), Main.currentLevel.toRenderLength((float) renderDiameter));
             g2d.fill(circle2);
             g2d.dispose();

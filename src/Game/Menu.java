@@ -30,7 +30,7 @@ public class Menu {
         File progressFile = new File("progress.txt");
         if(progressFile.createNewFile()){
             FileWriter fileWriter = new FileWriter("progress.txt");
-            fileWriter.write("0".repeat(levelCount));
+            fileWriter.write("0");
             fileWriter.close();
         }
         else{

@@ -66,7 +66,8 @@ public class Main {
         w = new Window();
 
         Color blockColor = new Color(100 ,100, 100);
-        Color playerColor = new Color(49, 157, 235);
+        Color characterColor = new Color(49, 157, 235);
+        Color controllerColor = Color.red;
         Color orbColor = new Color(93, 241, 241);
 
         int[] resolution = new int[]{w.width, w.height};
@@ -129,7 +130,7 @@ public class Main {
         orbs.add(new Orb(movers.get(0).position, Color.cyan, 35));
 */
 
-        Player player = new Player(new Float[]{61.03695f, 414.02752f}, playerColor, 10);
+        Player player = new Player(new Float[]{61.03695f, 414.02752f}, characterColor, 10);
         Level level1 = new Level(player){
             @Override
             public boolean reachedObjective() {
@@ -145,7 +146,7 @@ public class Main {
         level1.add(new DiameterCircle(new Float[]{420.68342f, 374.31196f}, new Float[]{50f}, Color.green));
         level1.add(new Block(new Float[]{240.98355f, 394.86f},new Float[]{269.21425f, 453.3827f} , blockColor));
 
-        Player player2 = new Player(new Float[]{137.21954f, 402.09832f}, playerColor, 10);
+        Player player2 = new Player(new Float[]{137.21954f, 402.09832f}, characterColor, 10);
 
         Level level2 = new Level(player2){
             @Override
@@ -167,13 +168,11 @@ public class Main {
         level2.add(new Point(new Float[]{335.50304f, 160.82131f}, Color.BLACK, 10));//J
         level2.add(new LinePerpendicular(level2.linePerpendiculars.get(0).p1, level2.linePerpendiculars.get(0).p2, level2.points.get(1).position, Color.BLACK, resolution));//s
         level2.add(new DiameterCircle(level2.points.get(1).position, new Float[]{400f}, Color.BLACK));//c
-        level2.add(new CircleXLineCrossection(level2.linePerpendiculars.get(1).p1,level2.linePerpendiculars.get(1).p2, level2.diameterCircles.get(0).center, level2.diameterCircles.get(0).diameter,10 ,Color.BLACK));//K, L
+        level2.add(new CircleXLineCrossection(level2.linePerpendiculars.get(1).p1,level2.linePerpendiculars.get(1).p2, level2.diameterCircles.get(0).center, level2.diameterCircles.get(0).diameter,10 ,Color.BLACK,Color.BLACK));//K, L
         level2.add(new DiameterCircle(level2.circleXLineCrossections.get(0).position1, new Float[]{60f}, Color.GREEN));//d
-
         level2.add(new Block(new Float[]{200f, 300f}, new Float[]{250f, 450f}, blockColor));
         level2.add(new Block(new Float[]{120f, 420f}, new Float[]{220f, 440f}, blockColor));
         level2.add(new Block(new Float[]{240f, 420f}, new Float[]{340f, 440f}, blockColor));
-
         level2.add(new Orb(new Float[]{180f, 380f}, orbColor, 40));
         level2.add(new Orb(new Float[]{180f, 360f}, orbColor, 40));
         level2.add(new Orb(new Float[]{180f, 340f}, orbColor, 40));
@@ -184,8 +183,36 @@ public class Main {
         level2.add(new Orb(new Float[]{270F, 380f}, orbColor, 40));
         level2.add(new Orb(new Float[]{160f, 280f}, orbColor, 40));
 
+        Player player3 = new Player(new Float[]{65.93962f, 444.57711f}, controllerColor, 10);
+        Level level3 = new Level(player3){
+            @Override
+            public boolean reachedObjective() {
+                if(diameterCircles.get(0).exists) {
+                    if(circleXLineCrossections.get(0).position2[0] == null | circleXLineCrossections.get(0).position2[1] == null | diameterCircles.get(0).center[0] == null | diameterCircles.get(0).center[1] == null | diameterCircles.get(0).diameter[0] == null){return false;}
+                    return isInCircle(new float[]{circleXLineCrossections.get(0).position2[0], circleXLineCrossections.get(0).position2[1]}, new float[]{diameterCircles.get(0).center[0], diameterCircles.get(0).center[1]}, diameterCircles.get(0).diameter[0]/2f);
+                }
+                return false;
+            }
+        };;
+
+        level3.add(new Block(new Float[]{40f, 460f}, new Float[]{460f, 480f}, blockColor));
+        level3.add(new Block(new Float[]{40f, 550f}, new Float[]{460f, 570f}, new Color(100 ,100, 100, 5)));
+        level3.add(new Block(new Float[]{120f, 440f}, new Float[]{180f, 450f}, blockColor));
+        level3.add(new Block(new Float[]{160f, 420f}, new Float[]{220f, 450f}, blockColor));
+        level3.add(new Block(new Float[]{210f, 400f}, new Float[]{270f, 430f}, blockColor));
+        level3.add(new Block(new Float[]{240f, 380f}, new Float[]{300f, 410f}, blockColor));
+        level3.add(new Point(new Float[]{348.61925f, 445.42555f}, Color.BLACK, 10));//N
+        level3.add(new Line(level3.player.position, level3.points.get(0).position,Color.BLACK ,resolution));//q
+        level3.add(new LinePerpendicular(level3.lines.get(0).dp1, level3.lines.get(0).dp2, level3.points.get(0).position, Color.BLACK, resolution));//r
+        level3.add(new Circle(level3.points.get(0).position, level3.player.position, Color.BLACK));//d
+        level3.add(new CircleXLineCrossection(level3.linePerpendiculars.get(0).p1, level3.linePerpendiculars.get(0).p2, level3.circles.get(0).center, level3.circles.get(0).diameter, 10, Color.BLACK, characterColor)); // O, P
+        level3.add(new DiameterCircle(new Float[]{408.80383f, 335.50203f}, new Float[]{70f}, Color.GREEN));
+
+
+
         levels.add(level1);
         levels.add(level2);
+        levels.add(level3);
 
         currentLevel = levels.get(0);
         currentLevelID = 0;

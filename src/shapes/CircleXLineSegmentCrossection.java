@@ -108,8 +108,8 @@ public class CircleXLineSegmentCrossection implements Serializable {
                     virtualPosition1[0] = buffer2[0];
                     virtualPosition1[1] = buffer2[1];
 
-                    position2[0] = buffer1[0];
-                    position2[1] = buffer1[1];
+                    virtualPosition2[0] = buffer1[0];
+                    virtualPosition2[1] = buffer1[1];
 
                 }else{
                     //do not switch
@@ -117,8 +117,8 @@ public class CircleXLineSegmentCrossection implements Serializable {
                     virtualPosition1[0] = buffer1[0];
                     virtualPosition1[1] = buffer1[1];
 
-                    virtualPosition1[0] = buffer2[0];
-                    virtualPosition1[1] = buffer2[1];
+                    virtualPosition2[0] = buffer2[0];
+                    virtualPosition2[1] = buffer2[1];
 
                 }
 

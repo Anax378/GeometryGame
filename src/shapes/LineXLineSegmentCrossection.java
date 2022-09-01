@@ -18,7 +18,7 @@ public class LineXLineSegmentCrossection implements Serializable {
 
     public boolean exists;
 
-    Float[] position;
+    public Float[] position;
 
     public LineXLineSegmentCrossection(Float[] p1, Float[] p2, Float[] p3, Float[] p4, Color renderColor, int renderRadius){
         this.p1 = p1;

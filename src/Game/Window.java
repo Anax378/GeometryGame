@@ -53,16 +53,6 @@ public class Window {
                     mouseDown = true;
                     clickCount++;
 
-                    Point mousePosition = frame.getMousePosition();
-/*
-                    mousePosition.y = mousePosition.y - 36;
-                    int a = Math.abs(mousePosition.y - Main.currentLevel.points.get(0).position[1]);
-                    int b = Math.abs(mousePosition.x - Main.currentLevel.points.get(0).position[0]);
-                    boolean isInHitbox = Math.sqrt(a * a + b * b) < Main.currentLevel.points.get(0).diameter;
-                    if(isInHitbox){mouseDownInHitbox = true;}
-*/
-
-
                 }
             }
 
@@ -79,7 +69,6 @@ public class Window {
             public void mouseWheelMoved(MouseWheelEvent e) {
                 if(Main.zoomModifier + e.getUnitsToScroll() * Main.scrollSensitivity > 0.42 && Main.zoomModifier + e.getUnitsToScroll() * Main.scrollSensitivity < 3){
                 Main.zoomModifier += (e.getUnitsToScroll() * Main.scrollSensitivity);}
-                System.out.println(Main.zoomModifier);
 
             }
         });

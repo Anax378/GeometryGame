@@ -107,7 +107,7 @@ public class Level implements Serializable {
             fig.setPaint(Color.RED);
             fig.setFont(new Font("Plain", Font.PLAIN, 20));
             fig.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-            fig.drawString(String.valueOf(objectsFailedToRender) + "!", 20 + off[0], 20 + off[1]);
+            fig.drawString(String.valueOf(objectsFailedToRender) + "!", 20, 20);
             fig.dispose();
         }
         if(startRedAppearing){
@@ -194,6 +194,7 @@ public class Level implements Serializable {
         if(object instanceof Line){lines.add((Line) object);}
         if(object instanceof LineXLineCrossection){lineXLineCrossections.add((LineXLineCrossection) object);}
         if(object instanceof LineXLineSegmentCrossection){lineXLineSegmentCrossections.add((LineXLineSegmentCrossection) object);}
+        if(object instanceof LineSegmentXLineSegmentCrossection){lineSegmentXLineSegmentCrossections.add((LineSegmentXLineSegmentCrossection) object);}
         if(object instanceof Block){blocks.add((Block) object);}
         if(object instanceof CircleXLineCrossection){circleXLineCrossections.add((CircleXLineCrossection) object);}
         if(object instanceof CircleXLineSegmentCrossection){circleXLineSegmentCrossections.add((CircleXLineSegmentCrossection) object);}
@@ -224,6 +225,27 @@ public class Level implements Serializable {
         return renderCoords;
 
     }
+    public Float[] toFieldCoords(Float[] coords){
+
+        Float[] fieldCoords = new Float[]{coords[0], coords[1]};
+
+        fieldCoords[0] = fieldCoords[0] - (width/2f);
+        fieldCoords[1] = fieldCoords[1] - ((height/2f) + 150);
+
+        fieldCoords[0] = fieldCoords[0] / Main.zoomModifier;
+        fieldCoords[1] = fieldCoords[1] / Main.zoomModifier;
+
+        fieldCoords[0] = fieldCoords[0] + (width/2f);
+        fieldCoords[1] = fieldCoords[1] + ((height/2f) - 150);
+
+        fieldCoords[0] = fieldCoords[0] - off[0];
+        fieldCoords[1] = fieldCoords[1] - off[1];
+
+        return fieldCoords;
+
+    }
+
+
     public Float toRenderLength(Float length){
         return length * Main.zoomModifier;
     }

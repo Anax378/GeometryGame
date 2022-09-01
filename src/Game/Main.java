@@ -69,6 +69,7 @@ public class Main {
         Color characterColor = new Color(49, 157, 235);
         Color controllerColor = Color.red;
         Color orbColor = new Color(93, 241, 241);
+        Color moverColor = new Color(238, 147, 147);
 
         int[] resolution = new int[]{w.width, w.height};
 
@@ -208,11 +209,74 @@ public class Main {
         level3.add(new CircleXLineCrossection(level3.linePerpendiculars.get(0).p1, level3.linePerpendiculars.get(0).p2, level3.circles.get(0).center, level3.circles.get(0).diameter, 10, Color.BLACK, characterColor)); // O, P
         level3.add(new DiameterCircle(new Float[]{408.80383f, 335.50203f}, new Float[]{70f}, Color.GREEN));
 
+        Player player4 = new Player(new Float[]{69.1485f, 445.67892f}, controllerColor, 10);
+        Level level4 = new Level(player4){
+            @Override
+            public boolean reachedObjective(){
+                Float[] chPos = lineXLineSegmentCrossections.get(0).position;
+                if(chPos[0] == null || chPos[1] == null || !polygons.get(0).exists){return false;}
+                return polygons.get(0).isInRectangle(chPos[0], chPos[1]);
 
+            }
+
+        };
+
+        level4.add(new Block(new Float[]{20f, 460f}, new Float[]{480f, 480f}, blockColor));
+        level4.add(new Point(new Float[]{226.29488f, 265.10408f}, Color.BLACK, 10));//J
+        level4.add(new MidPoint(level4.player.position, level4.points.get(0).position , Color.black, 10));//K
+        level4.add(new Point(new Float[]{286.33088f, 169.00168f}, Color.BLACK, 10));//L
+        level4.add(new LineSegment(level4.midPoints.get(0).position, level4.points.get(1).position, Color.BLACK));//n
+        level4.add(new DiameterCircle(new Float[]{134.49935f, 169.79609f}, new Float[]{54.64545938330542f*2}, Color.BLACK));//d
+        level4.add(new CircleXLineSegmentCrossection(level4.lineSegments.get(0).p1, level4.lineSegments.get(0).p2, level4.diameterCircles.get(0).center, level4.diameterCircles.get(0).diameter, 10, Color.BLACK, Color.BLACK));//O, N
+        level4.add(new Point(new Float[]{390.64716f, 444.16668f}, Color.BLACK, 10));
+        level4.add(new Point(new Float[]{438.28767f, 359.56371f}, Color.BLACK, 10));
+        level4.add(new LineSegment(new Float[]{390.64716f, 444.16668f}, new Float[]{438.28767f, 359.56371f}, Color.BLACK));//r
+        level4.add(new Line(level4.circleXLineSegmentCrossections.get(0).position1, level4.points.get(0).position, Color.BLACK, resolution));
+        level4.add(new LineParallel(level4.lines.get(0).dp1, level4.lines.get(0).dp2, level4.points.get(1).position, Color.BLACK, resolution));//q
+        level4.add(new LineXLineSegmentCrossection(level4.lineParallels.get(0).p1, level4.lineParallels.get(0).p2,level4.lineSegments.get(1).p1, level4.lineSegments.get(1).p2,  characterColor, 10));//Character
+        level4.add(new Polygon(new Float[][]{new Float[]{356.97025f, 402.27589f}, new Float[]{473.60736f, 434.31002f}, new Float[]{412.00325f, 347.24289f}, new Float[]{463.7507f, 303.70932f}, new Float[]{326.5789f, 313.56598f},}, Color.GREEN));
+        level4.add(new Block(new Float[]{130f, 430f}, new Float[]{200f, 440f}, blockColor));
+        level4.add(new Block(new Float[]{240f, 390f}, new Float[]{290f, 400f}, blockColor));
+        level4.add(new Block(new Float[]{280f, 370f}, new Float[]{310f, 400f}, blockColor));
+        level4.add(new Block(new Float[]{300f, 310f}, new Float[]{350f, 380f}, blockColor));
+        level4.add(new Block(new Float[]{10f, 280f}, new Float[]{290f, 290f}, blockColor));
+        level4.add(new Orb(new Float[]{224.23919f, 406.58717f}, orbColor, 15*2));
+        level4.add(new Orb(new Float[]{294.33704f, 335.89645f}, orbColor, 12*2));
+        level4.add(new Orb(new Float[]{46.14474f, 219.85156f}, orbColor, 43*2));
+
+        Player player5 = new Player(new Float[]{67.09871f, 428.67509f}, controllerColor, 10);
+        Level level5 = new Level(player5){
+            @Override
+            public boolean reachedObjective(){
+                Float[] chPos = lineXLineSegmentCrossections.get(0).position;
+                if(chPos[0] == null || chPos[1] == null || diameterCircles.get(2).center[0] == null || diameterCircles.get(2).center[1] == null || diameterCircles.get(2).diameter[0] == null){return false;}else{
+                    return isInCircle(new float[]{chPos[0], chPos[1]}, new float[]{diameterCircles.get(2).center[0], diameterCircles.get(2).center[1]}, diameterCircles.get(2).diameter[0]/2f);
+                }
+            }
+
+
+        };
+
+        level5.add(new Block(new Float[]{20f, 460f}, new Float[]{480f, 480f}, blockColor));
+        level5.add(new DiameterCircle(new Float[]{400f, 450f},new Float[]{80f}, Color.BLACK));
+        level5.add(new DiameterCircle(level5.player.position, new Float[]{47f*2f}, Color.BLACK));
+        level5.add(new CircleXCircleCrossection(level5.diameterCircles.get(0).center, level5.diameterCircles.get(0).diameter, level5.diameterCircles.get(1).center, level5.diameterCircles.get(1).diameter,10 ,Color.BLACK, Color.BLACK));
+        level5.add(new Line(level5.circleXCircleCrossections.get(0).position1, level5.circleXCircleCrossections.get(0).position2, Color.BLACK, resolution));
+        level5.add(new Point(new Float[]{64.80194f, 244.54569f},Color.BLACK, 10));
+        level5.add(new Point(new Float[]{445.79004f, 87.97524f},Color.BLACK, 10));
+        level5.add(new LineSegment(level5.points.get(0).position, level5.points.get(1).position, Color.BLACK));
+        level5.add(new LineXLineSegmentCrossection(level5.lines.get(0).dp1, level5.lines.get(0).dp2, level5.lineSegments.get(0).p1, level5.lineSegments.get(0).p2, characterColor, 10));
+        level5.add(new Mover(new Float[]{56.18224f, 168.49919f}, moverColor, 10));
+        level5.add(new Point(new Float[]{332.71138f, 59.27066f}, Color.BLACK, 10));
+        level5.add(new LineSegment(level5.movers.get(0).position, level5.points.get(2).position, Color.BLACK));
+        level5.add(new LineSegmentXLineSegmentCrossection(level5.lineSegments.get(0).p1, level5.lineSegments.get(0).p2, level5.lineSegments.get(1).p1, level5.lineSegments.get(1).p2, Color.BLACK, 10));
+        level5.add(new DiameterCircle(level5.lineSegmentXLineSegmentCrossections.get(0).position, new Float[]{40f}, Color.GREEN));
 
         levels.add(level1);
         levels.add(level2);
         levels.add(level3);
+        levels.add(level4);
+        levels.add(level5);
 
         currentLevel = levels.get(0);
         currentLevelID = 0;

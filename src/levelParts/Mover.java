@@ -30,15 +30,17 @@ public class Mover implements Serializable {
             mousePosition.y = mousePosition.y - 36;
             mousePosition.x = mousePosition.x - 5;
 
-            float a = ((mousePosition.x - Main.currentLevel.off[0]) - position[0]);
-            float b = ((mousePosition.y - Main.currentLevel.off[1]) - position[1]);
+            Float[] onScreenPos = Main.currentLevel.toRenderCoords(position);
+
+            float a = (mousePosition.x - onScreenPos[0]);
+            float b = (mousePosition.y - onScreenPos[1]);
 
             float dist = (float) Math.sqrt((a*a + b*b));
             if((dist <= diameter/2f) & Main.w.mouseDown){isHeld = true;}
             if(!Main.w.mouseDown){isHeld = false;}
-            if(isHeld){
-                position[0] = (float) mousePosition.x - Main.currentLevel.off[0];
-                position[1] = (float) mousePosition.y - Main.currentLevel.off[1];
+            if(isHeld) {
+                position[0] = Main.currentLevel.toFieldCoords(new Float[]{(float) mousePosition.x, (float) mousePosition.y})[0];
+                position[1] = Main.currentLevel.toFieldCoords(new Float[]{(float) mousePosition.x, (float) mousePosition.y})[1] + 300f;
             }
 
         }

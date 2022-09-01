@@ -33,7 +33,6 @@ public class LineXLineSegmentCrossection implements Serializable {
 
     public void update(){
 
-        System.out.println(p1[0] + " " + exists);
         if(p1[0] == null || p1[1] == null || p2[0] == null || p2[1] == null || p3[0] == null || p3[1] == null || p4[0] == null || p4[1] == null){exists = false;position[0] = null; position[1] = null;}else{exists = true;}
         if(exists) {
             float x1 = p1[0];

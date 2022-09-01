@@ -19,7 +19,7 @@ public class Menu {
     int[] RBC = new int[]{300, 230};
     int[] RBWH = new int[]{20, 20};
 
-    int[] SBC = new int[]{255, 255};
+    int[] SBC = new int[]{246, 255};
     int[] SBWH = new int[]{65, 30};
 
     public boolean levelChosen = false;
@@ -30,16 +30,14 @@ public class Menu {
         File progressFile = new File("progress.txt");
         if(progressFile.createNewFile()){
             FileWriter fileWriter = new FileWriter("progress.txt");
-            fileWriter.write("0");
+            fileWriter.write("0".repeat(100));
             fileWriter.close();
         }
-        else{
             Scanner scanner = new Scanner(progressFile);
             String binString = scanner.nextLine();
             completedLevels = new boolean[binString.length()];
             for(int i = 0; i < binString.length(); i++){
                 if(binString.charAt(i) == '1'){completedLevels[i] = true;}else{completedLevels[i] = false;}
-            }
         }
 
     }
@@ -85,7 +83,7 @@ public class Menu {
 
         g2d.setPaint(Color.black);
 
-        g2d.fillRect(SBC[0], SBC[1], SBWH[0], SBWH[1]);//select button
+        g2d.drawString("Select", SBC[0], SBC[1] + SBWH[1]);//select button
 
         return image;
     }

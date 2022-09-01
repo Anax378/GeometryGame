@@ -48,11 +48,11 @@ public class Menu {
 
     public void update(){
 
-        java.awt.Point p = Main.w.frame.getMousePosition();
+        java.awt.Point p = Main.w.label.getMousePosition();
         if(p != null) {
             if (Main.w.mouseDown & Main.w.clickCount != lastClickedCount) {
 
-                p.y = p.y - 36;
+                //p.y = p.y - 36;
 
                 if (p.x < LBC[0]+LBWH[0] & p.x > LBC[0] & p.y > LBC[1] & p.y < LBWH[1]+LBC[1]) {if(selectedLevel > 1){selectedLevel--;}}
                 if (p.x < RBC[0]+RBWH[0] & p.x > RBC[0] & p.y > RBC[1] & p.y < RBWH[1]+RBC[1]) {if(selectedLevel < levelCount){selectedLevel++;}}

@@ -38,10 +38,12 @@ public class Window {
         label = new JLabel(icon);
 
         panel.add(label);
+        panel.setBackground(Color.WHITE);
 
         frame.add(panel);
         frame.setSize(width + 12, height + 42);
         frame.setResizable(true);
+        frame.setBackground(new Color(255, 255, 255));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
 

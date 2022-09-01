@@ -69,8 +69,8 @@ public class Level implements Serializable {
 
     public BufferedImage getFrame(){
 
-        width = Main.w.width;
-        height = Main.w.height;
+        width = Main.w.frame.getWidth();
+        height = Main.w.frame.getHeight();
         if(player.position[0] == null | player.position[1] == null){;}else{
             off[0] = Math.round((width/2f) - player.position[0]);
             off[1] = Math.round((height/2f) - player.position[1]) + 150;

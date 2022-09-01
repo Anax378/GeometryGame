@@ -32,7 +32,9 @@ public class LineXLineSegmentCrossection implements Serializable {
     }
 
     public void update(){
-        if(p1[0] == null | p1[1] == null & p2[0] == null | p2[1] == null | p3[0] == null | p3[1] == null | p4[0] == null | p4[1] == null){exists = false;}else{exists = true;}
+
+        System.out.println(p1[0] + " " + exists);
+        if(p1[0] == null || p1[1] == null || p2[0] == null || p2[1] == null || p3[0] == null || p3[1] == null || p4[0] == null || p4[1] == null){exists = false;position[0] = null; position[1] = null;}else{exists = true;}
         if(exists) {
             float x1 = p1[0];
             float x2 = p2[0];
@@ -46,7 +48,7 @@ public class LineXLineSegmentCrossection implements Serializable {
 
             float d = (x1-x2)*(y3-y4)-(y1-y2)*(x3-x4);
 
-            if (d == 0){position[0] = null; position[1] = null;}else{
+            if (d == 0){position[0] = null; position[1] = null;exists = false;}else{
                 float x = ((x1*y2 - y1*x2)*(x3-x4)-(x1-x2)*(x3*y4-y3*x4))/d;
                 float y = ((x1*y2 - y1*x2)*(y3-y4)-(y1-y2)*(x3*y4-y3*x4))/d;
 
@@ -59,7 +61,7 @@ public class LineXLineSegmentCrossection implements Serializable {
                 if(p3[0] < p4[0]){cornerXPlus = p4[0];cornerXMinus = p3[0];}else{cornerXPlus = p3[0];cornerXMinus = p4[0];}
                 if(p3[1] < p4[1]){cornerYPlus = p4[1];cornerYMinus = p3[1];}else{cornerYPlus = p3[1];cornerYMinus = p4[1];}
 
-                if(cornerXMinus-0.1f <= x & x <= cornerXPlus+0.1f & cornerYMinus-0.1f <= y & y <= cornerYPlus+0.1f ){position[0] = x; position[1] = y;}else{position[0] = null; position[1] = null;}
+                if(cornerXMinus-0.1f <= x & x <= cornerXPlus+0.1f & cornerYMinus-0.1f <= y & y <= cornerYPlus+0.1f ){position[0] = x; position[1] = y;exists = true;}else{position[0] = null; position[1] = null;}
 
 
 
@@ -73,9 +75,8 @@ public class LineXLineSegmentCrossection implements Serializable {
 
     public BufferedImage renderOnImage(BufferedImage image){
 
-        if (position[0] == null || position[1] == null){exists = false;}else{exists = true;}
+        if (position[0] == null || position[1] == null){exists = false;}
         if(exists) {
-
             Graphics2D g2d = image.createGraphics();
             g2d.setPaint(renderColor);
             Ellipse2D.Double circle = new Ellipse2D.Double((Main.currentLevel.toRenderCoords(position)[0]) - (Main.currentLevel.toRenderLength((float) renderRadius) / 2f), (Main.currentLevel.toRenderCoords(position)[1]) - (Main.currentLevel.toRenderLength((float) renderRadius) / 2f), Main.currentLevel.toRenderLength((float) renderRadius), Main.currentLevel.toRenderLength((float) renderRadius));

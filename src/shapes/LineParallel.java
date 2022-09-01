@@ -33,7 +33,7 @@ public class LineParallel implements Serializable {
     }
 
     public void update(){
-        if(lp1[0] == null | lp1[1] == null | lp2[0] == null | lp2[1] == null | dp[0] == null | dp[1] == null){exists = false;}else{exists = true;}
+        if(lp1[0] == null || lp1[1] == null || lp2[0] == null || lp2[1] == null || dp[0] == null || dp[1] == null){exists = false;}else{exists = true;}
 
         if(exists){
             Float[] vector = new Float[]{dp[0] - lp1[0], dp[1] - lp1[1]};
@@ -44,7 +44,7 @@ public class LineParallel implements Serializable {
             p2[1] = dp[1];
         }
 
-        if (p1[0] == null | p1[1] == null | p2[0] == null | p2[1] == null){exists = false;}else{exists = true;}
+        if (p1[0] == null || p1[1] == null || p2[0] == null || p2[1] == null){}
         if(exists) {
 
             if (!(p1[0].equals(p2[0]) && p1[1].equals(p2[1]))) {
@@ -88,15 +88,16 @@ public class LineParallel implements Serializable {
 
 
                 }
+                exists = true;
             }else{
-                renderP1[0] = null; renderP1[1] = null; renderP2[0] = null; renderP2[1] = null;}
+                renderP1[0] = null; renderP1[1] = null; renderP2[0] = null; renderP2[1] = null;exists = false;}
         }
         else{
             renderP1[0] = null; renderP2[0] = null; renderP1[1] = null; renderP2[1] = null; exists = false;}
     }
 
     public BufferedImage renderOnImage(BufferedImage image){
-        if (renderP1[0] == null || renderP1[1] == null|| renderP2[0] == null || renderP2[1] == null){exists = false;}else{exists = true;}
+        if (renderP1[0] == null || renderP1[1] == null|| renderP2[0] == null || renderP2[1] == null){exists = false;}
         if(exists) {
             Graphics2D g2d = image.createGraphics();
             g2d.setPaint(renderColor);

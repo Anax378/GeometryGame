@@ -9,7 +9,7 @@ import java.io.Serializable;
 public class Block implements Serializable {
     public Float[] p1;
     public Float[] p2;
-
+    public float bounciness = 0;
     public Color renderColor;
     public boolean exists;
 

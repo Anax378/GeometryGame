@@ -71,8 +71,9 @@ public class Player implements Serializable {
                     if(result[1] && !result[2]){physicsPosition = new Float[]{Main.currentLevel.blocks.get(i).p2[0], physicsPosition[1]};}
                     if(result[1] && result[2]){physicsPosition = new Float[]{Main.currentLevel.blocks.get(i).p1[0], physicsPosition[1]};}
 
-                    if(result[1]){velocity[0] = 0f;}
-                    if(!result[1]){velocity[1] = 0f;}
+                    if(result[1]){velocity[0] = velocity[0] * -Main.currentLevel.blocks.get(i).bounciness;}
+                    if(!result[1]){velocity[1] = velocity[1] * -Main.currentLevel.blocks.get(i).bounciness;}
+
 
                 }
             }
